@@ -1,0 +1,47 @@
+
+<div class="masthead">
+  <ul class="nav nav-justified">
+
+    {% if page.menu == "home" %}
+    <li class="active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a href="/">Home</a>
+    </li>
+    
+    {% if page.menu == "blog" %}
+    <li class="active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a href="/blog/">Blog</a>
+    </li>
+    
+    {% if page.menu == "projects" %}
+    <li class="active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a href="/projects/">Projects</a>
+    </li>
+    
+    {% if page.menu == "biography" %}
+    <li class="active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a href="/biography/">Biography</a>
+    </li>
+    
+    {% if page.menu == "contact" %}
+    <li class="active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a href="/contact/">Contact</a>
+    </li>            
+  </ul>
+</div>
+
+

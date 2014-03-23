@@ -1,0 +1,13 @@
+
+<!-- Highlights -->
+<div class="row">
+    {% for post in site.posts limit:3 %}
+        <div class="col-lg-4">
+          <h2>{{ post.title }}</h2>
+           {{ post.excerpt }}
+          <p><a class="btn btn-primary" href="{{ post.url }}" role="button">View details &raquo;</a></p>
+        </div>
+
+    {% endfor %}
+</div>
+
