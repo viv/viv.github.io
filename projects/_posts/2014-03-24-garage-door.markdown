@@ -1,8 +1,8 @@
 ---
 layout: project
-title:  "Garage Door"
-date:   2014-03-24 22:48:09
+title:  "Raspberry Pi Doorbell"
+date:   2014-06-17 20:00:09
 categories: DIY
 ---
 
-I built a new garage door. I wish I had taken photos of the build!
+A Raspberry Pi powered doorbell.
