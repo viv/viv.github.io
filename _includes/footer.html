@@ -14,5 +14,51 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script>
+/**
+ * @fileoverview Sample showing capturing a KML file click
+ *   and displaying the contents in a side panel instead of
+ *   an InfoWindow
+ */
+
+var map;
+var src = 'http://share.gps.motionxlive.com/shr/x/kmz/9aff1793180c7a9e9655a958ae14667f';
+
+/**
+ * Initializes the map and calls the function that creates polylines.
+ */
+function initialize() {
+  map = new google.maps.Map(document.getElementById('map_canvas'), {
+    center: new google.maps.LatLng(52.023762, -3.377263),
+    zoom: 2,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+  loadKmlLayer(src, map);
+}
+
+/**
+ * Adds a KMLLayer based on the URL passed. Clicking on a marker
+ * results in the balloon content being loaded into the right-hand div.
+ * @param {string} src A URL for a KML file.
+ */
+function loadKmlLayer(src, map) {
+  var kmlLayer = new google.maps.KmlLayer(src, {
+    suppressInfoWindows: true,
+    preserveViewport: false,
+    map: map
+  });
+  google.maps.event.addListener(kmlLayer, 'click', function(event) {
+    var content = event.featureData.infoWindowHtml;
+    var testimonial = document.getElementById('capture');
+    testimonial.innerHTML = content;
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
   </body>
 </html>
