@@ -1,8 +1,0 @@
----
-layout: project
-title:  "Raspberry Pi Doorbell"
-date:   2014-03-21 22:48:09
-categories: Tech
----
-
-A Raspberry Pi powered doorbell.
