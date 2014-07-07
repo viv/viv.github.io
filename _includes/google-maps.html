@@ -7,7 +7,7 @@
    */
 
   var map;
-  var src = 'http://share.gps.motionxlive.com/shr/x/kmz/9aff1793180c7a9e9655a958ae14667f';
+  var src = '{{site.url}}/rides/data/ride-one.kmz';
 
   /**
    * Initializes the map and calls the function that creates polylines.
@@ -41,7 +41,7 @@
 
     google.maps.event.addListener(kmlLayer, 'click', function(event) {
       var content = event.featureData.infoWindowHtml;
-//      $("#description").html(content);
+      $("#description").html(content);
       console.debug(content);
     });
   }
