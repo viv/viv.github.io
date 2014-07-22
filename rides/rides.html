@@ -8,3 +8,14 @@ menu: rides
 <div>
     <h2>Black Mountain Loop</h2>
 </div>
+
+    {% for ride in site.data.rides %}
+        <h3>{{ ride.name }}</h3>
+        <ul>
+            <li>{{ ride.date }}</li>
+            <li>{{ ride.distance }}</li>
+            <li>{{ ride.duration }}</li>
+            <li>{{ ride.startTime }}</li>
+            <li>{{ ride.finishTime }}</li>
+        </ul>
+    {% endfor %}
