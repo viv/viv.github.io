@@ -4,6 +4,43 @@ title: Rides
 menu: rides
 ---
 
+<div id="home">
+  <h1>Rides</h1>
+  {% for ride in site.data.rides %}
+      <h3>{{ ride.name }}</h3>
+      <dl class="dl-horizontal">
+          <dt>Date</dt>
+          <dd>{{ ride.date }}</dd>
+          <dt>Distance</dt>
+          <dd>{{ ride.distance }}</dd>
+          <dt>Duration</dt>
+          <dd>{{ ride.duration }}</dd>
+          <dt>Start Time</dt>
+          <dd>{{ ride.startTime }}</dd>
+          <dt>Finish Time</dt>
+          <dd>{{ ride.finishTime }}</dd>
+          <dt>Average Speed</dt>
+          <dd>{{ ride.averageSpeed }}</dd>
+          <dt>Maximum Speed</dt>
+          <dd>{{ ride.maximumSpeed }}</dd>
+          <dt>Average Pace</dt>
+          <dd>{{ ride.averagePace }}</dd>
+          <dt>Minimum Altitude</dt>
+          <dd>{{ ride.minimumAltitude }}</dd>
+          <dt>Maximum Altitude</dt>
+          <dd>{{ ride.maximumAltitude }}</dd>
+      </dl>
+  {% endfor %}
+</div>
+
+<div>
+  <ul class="posts">
+    {% for ride in site.collections %}
+      <li><span>{{ ride.content }}</span></li>
+    {% endfor %}
+  </ul>
+</div>
+
 <h1>Rides</h1>
 <h2 id="title"></h2>
 <div id="description"></div>
