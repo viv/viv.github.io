@@ -25,7 +25,7 @@ Speakers
 
 Hardware
 -------
-Circuit diagram & description. 10k resistor fine for small test circuit but with longer run of telephone cable supplied too much resistance. A 5k resistor solved that although does sometimes give false positives.  
+Circuit diagram & description. 10k resistor fine for small test circuit but with longer run of telephone cable supplied too much resistance. A 5k resistor solved that although does sometimes give false positives. TV / electronic interference.
 
 
 Button housing
