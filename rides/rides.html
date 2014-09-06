@@ -4,9 +4,14 @@ title: Rides
 menu: rides
 ---
 
+<script>
+  var mapFiles = [];
+</script>
+
 <div id="home">
   <h1>Rides</h1>
   {% for ride in site.data.rides %}
+  <div class="ride">
       <h3>{{ ride.name }}</h3>
       <dl class="dl-horizontal">
           <dt>Date</dt>
@@ -30,8 +35,38 @@ menu: rides
           <dt>Maximum Altitude</dt>
           <dd>{{ ride.maximumAltitude }}</dd>
       </dl>
+
+      <div class="map_canvas" id="map_{{ride.filename}}"></div>
+      <script>
+        mapFiles.push("{{ride.filename}}");
+      </script>
+    </div>
   {% endfor %}
 </div>
+
+
+<script>
+  /**
+   * Initializes the map and calls the function that creates polylines.
+   */
+  function initialize(mapFiles) {
+
+    var mapOptions = {
+      center: new google.maps.LatLng(52.023762, -3.377263),
+      zoom: 2,
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+    }
+
+    mapFiles.forEach(function(name) {
+      var src = "{{site.url}}/rides/data/" + name;
+      var mapCanvas = "map_" + name;
+      var map = new google.maps.Map(document.getElementById(mapCanvas), mapOptions);
+      loadKmlLayer(src, map);
+    });
+  }
+</script>
+
+
 
 <div>
   <ul class="posts">
@@ -41,22 +76,3 @@ menu: rides
   </ul>
 </div>
 
-
-<div id="map_canvas"></div>
-
-<script>
-  var map;
-  var src = '{{site.url}}/rides/data/Black-Mountains-Talley.kmz';
-
-  /**
-   * Initializes the map and calls the function that creates polylines.
-   */
-  function initialize() {
-    map = new google.maps.Map(document.getElementById('map_canvas'), {
-      center: new google.maps.LatLng(52.023762, -3.377263),
-      zoom: 2,
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-    });
-    loadKmlLayer(src, map);
-  }
-</script>
