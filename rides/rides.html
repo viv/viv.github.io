@@ -23,8 +23,8 @@ menu: rides
             <th>Distance</th>
             <th>Duration</th>
             <th>Average Speed</th>
-            <th>Min Altitude</th>
-            <th>Max Altitude</th>
+            <th class="hidden-xs">Min Altitude</th>
+            <th class="hidden-xs">Max Altitude</th>
           </tr>
         </thead>
         <tbody>
@@ -32,8 +32,8 @@ menu: rides
             <td>{{ ride.distance }}</td>
             <td>{{ ride.duration }}</td>
             <td>{{ ride.averageSpeed }}</td>
-            <td>{{ ride.minimumAltitude }}</td>
-            <td>{{ ride.maximumAltitude }}</td>
+            <td class="hidden-xs">{{ ride.minimumAltitude }}</td>
+            <td class="hidden-xs">{{ ride.maximumAltitude }}</td>
           </tr>
         </tbody>
       </table>
