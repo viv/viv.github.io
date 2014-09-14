@@ -10,7 +10,8 @@ menu: rides
 
 <div id="home">
   <h1>Rides</h1>
-  {% for ride in site.data.rides %}
+
+  {% for ride in site.data.rides reversed %}
 
   <div class="ride panel panel-default">
     <div class="panel-heading">
