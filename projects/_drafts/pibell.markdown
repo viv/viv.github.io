@@ -1,7 +1,8 @@
 ---
-layout: post
+layout: project
 title:  "Raspberry Pi Doorbell"
-categories: Tech
+date:   2014-05-08 20:30:09
+categories: computing
 ---
 
 
