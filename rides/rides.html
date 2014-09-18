@@ -15,7 +15,7 @@ menu: rides
 
   <div class="ride panel panel-default" id="{{ ride.id }}">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ ride.name }} <small>{{ ride.date }}</small></h3>
+      <h3 class="panel-title">{{ ride.name }} <time class="small" datetime="{{ ride.startTime }}">{{ ride.date }}</time></h3>
     </div>
     <div class="panel-body">
       <table class="table table-striped">
@@ -42,6 +42,15 @@ menu: rides
       <div class="map_canvas" id="map_{{ride.filename}}"></div>
       <script>
         mapFiles.push("{{ride.filename}}");
+
+        (function($) {
+          var startTime = new Date('{{ ride.startTime }}')
+          var finishTime = new Date('{{ ride.finishTime }}')
+
+          $('#{{ ride.id }} time:first').text(startTime)
+        })(jQuery);
+
+
       </script>
     </div>
   </div>
