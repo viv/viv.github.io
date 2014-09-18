@@ -13,7 +13,7 @@ menu: rides
 
   {% for ride in site.data.rides reversed %}
 
-  <div class="ride panel panel-default">
+  <div class="ride panel panel-default" id="{{ ride.id }}">
     <div class="panel-heading">
       <h3 class="panel-title">{{ ride.name }} <small>{{ ride.date }}</small></h3>
     </div>

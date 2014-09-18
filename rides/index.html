@@ -8,7 +8,7 @@ menu: rides
   <h1>Rides</h1>
   {% for ride in site.data.rides reversed %}
     <div class="ride">  
-        <h3>{{ ride.name }} <small>{{ ride.date }}</small></h3>
+        <a href="rides.html#{{ ride.id }}">{{ ride.name }}</a> <time class="small" datetime="{{ ride.startTime }}">{{ ride.date }}</time>
     </div>
   {% endfor %}
 </div>
