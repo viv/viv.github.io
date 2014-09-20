@@ -22,6 +22,10 @@ body {
   min-width: 100px;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 /* Fix for bootstrap/google map combo */
 .map_canvas img {
   max-width: none;

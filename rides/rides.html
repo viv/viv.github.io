@@ -14,10 +14,10 @@ menu: rides
   {% for ride in site.data.rides reversed %}
 
   <div class="ride panel panel-default" id="{{ ride.id }}">
-    <div class="panel-heading">
+    <div class="panel-heading clickable" data-toggle="collapse" data-target="#content-{{ ride.id }}">
       <h3 class="panel-title">{{ ride.name }} <time class="small" datetime="{{ ride.startTime }}">{{ ride.date }}</time></h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body collapse in" id="content-{{ ride.id }}">
       <table class="table table-striped">
         <thead>
           <tr>
