@@ -4,9 +4,7 @@ title: Rides
 menu: rides
 ---
 
-<script>
-  var mapFiles = [];
-</script>
+{% include google-maps.html %}
 
 <div id="home">
   <h1>Rides</h1>
@@ -14,10 +12,16 @@ menu: rides
   {% for ride in site.data.rides reversed %}
 
   <div class="ride panel panel-default" id="{{ ride.id }}">
-    <div class="panel-heading clickable" data-toggle="collapse" data-target="#content-{{ ride.id }}">
-      <h3 class="panel-title">{{ ride.name }} <time class="small" datetime="{{ ride.startTime }}">{{ ride.date }}</time></h3>
+    <div class="panel-heading clickable"
+         data-toggle="collapse" data-target="#content-{{ ride.id }}">
+
+      <h3 class="panel-title">
+        {{ ride.name }}
+        <time class="small" datetime="{{ ride.startTime }}">{{ ride.date }}</time>
+      </h3>
+
     </div>
-    <div class="panel-body collapse in" id="content-{{ ride.id }}">
+    <div class="panel-body collapse" id="content-{{ ride.id }}">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -40,9 +44,8 @@ menu: rides
       </table>
 
       <div class="map_canvas" id="map_{{ride.filename}}"></div>
-      <script>
-        mapFiles.push("{{ride.filename}}");
 
+      <script>
         (function($) {
           var startTime = new Date('{{ ride.startTime }}')
           var finishTime = new Date('{{ ride.finishTime }}')
@@ -50,34 +53,13 @@ menu: rides
           $('#{{ ride.id }} time:first').text(startTime)
         })(jQuery);
 
+        $('#content-{{ ride.id }}').on('shown.bs.collapse', function () {
+            displayMap("{{ ride.id }}", "{{ride.filename}}");
+        });
 
       </script>
+
     </div>
   </div>
   {% endfor %}
 </div>
-
-
-<script>
-  /**
-   * Initializes the map and calls the function that creates polylines.
-   */
-  function initialize(mapFiles) {
-
-    var mapOptions = {
-      center: new google.maps.LatLng(52.023762, -3.377263),
-      zoom: 2,
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-    }
-
-    mapFiles.forEach(function(name) {
-      var src = "{{site.url}}/rides/data/" + name;
-      var mapCanvas = "map_" + name;
-      var map = new google.maps.Map(document.getElementById(mapCanvas), mapOptions);
-      loadKmlLayer(src, map);
-    });
-  }
-</script>
-
-{% include google-maps.html %}
-
