@@ -26,6 +26,19 @@ body {
   cursor: pointer;
 }
 
+/* symbol for "opening" panels */
+.panel-heading .panel-title:after {
+  font-family: 'Glyphicons Halflings';
+  float: right;
+  color: grey;
+  content: "\e114";
+}
+
+/* symbol for "collapsed" panels */
+.panel-heading.collapsed  .panel-title:after {
+  content: "\e080";
+}
+
 /* Fix for bootstrap/google map combo */
 .map_canvas img {
   max-width: none;
