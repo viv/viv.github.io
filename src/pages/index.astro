@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Timeline from '../components/Timeline.astro';
+import Expertise from '../components/Expertise.astro';
+import BeyondTheCode from '../components/BeyondTheCode.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<BaseLayout title="Viv — Software Engineer">
+  <Navigation />
+  <Hero />
+  <About />
+  <Timeline />
+  <Expertise />
+  <BeyondTheCode />
+  <Contact />
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // Hero entrance
+    gsap.from('[data-animate="hero"]', {
+      y: 40,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out',
+      stagger: 0.2,
+    });
+
+    // Scroll-triggered fade-ups
+    gsap.utils.toArray('[data-animate="fade-up"]').forEach((el) => {
+      gsap.from(el as Element, {
+        scrollTrigger: {
+          trigger: el as Element,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
+    });
+
+    // Timeline entries
+    gsap.utils.toArray('[data-animate="timeline-entry"]').forEach((el) => {
+      gsap.from(el as Element, {
+        scrollTrigger: {
+          trigger: el as Element,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+      });
+    });
+  }
+</script>

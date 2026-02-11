@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import avatar from '../assets/headshot/avatar.png';
+---
+
+<section id="about" class="py-24 sm:py-32">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
+      {/* Avatar */}
+      <div class="shrink-0 mx-auto md:mx-0">
+        <Image
+          src={avatar}
+          alt="Viv"
+          width={180}
+          height={180}
+          class="rounded-full border-2 border-border-subtle"
+        />
+      </div>
+
+      {/* Text */}
+      <div class="space-y-6">
+        <p data-animate="fade-up" class="text-lg text-text-primary leading-relaxed">
+          I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+        </p>
+
+        <p data-animate="fade-up" class="text-lg text-text-primary leading-relaxed">
+          I'm a Chartered Engineer and a member of the BCS, and I studied Computer Science at Cardiff University. I live in South Wales and I've worked remotely for most of my career, long before it was fashionable. Most of my career has been spent building systems where the stakes are high — national cyber security infrastructure, government services, child safeguarding platforms, identity verification at scale. When the cost of getting it wrong is real, how you build matters as much as what you build.
+        </p>
+
+        <p data-animate="fade-up" class="text-lg text-text-primary leading-relaxed">
+          These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting. After more than 25 years, this is the most significant shift I've seen.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

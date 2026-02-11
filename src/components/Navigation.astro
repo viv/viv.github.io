@@ -1,0 +1,104 @@
+---
+const navLinks = [
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Expertise', href: '#expertise' },
+  { label: 'Beyond the Code', href: '#beyond' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<nav
+  id="main-nav"
+  class="fixed top-0 left-0 right-0 z-50 border-b border-transparent transition-all duration-300"
+>
+  <div class="max-w-6xl mx-auto px-6 flex items-center justify-end h-16">
+    {/* Desktop nav */}
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="text-sm text-text-secondary hover:text-text-primary transition-colors"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* Mobile hamburger */}
+    <button
+      id="nav-toggle"
+      class="md:hidden flex flex-col gap-1.5 p-2"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <span class="block w-6 h-0.5 bg-text-primary transition-transform duration-300 origin-center" />
+      <span class="block w-6 h-0.5 bg-text-primary transition-opacity duration-300" />
+      <span class="block w-6 h-0.5 bg-text-primary transition-transform duration-300 origin-center" />
+    </button>
+  </div>
+
+  {/* Mobile overlay */}
+  <div
+    id="nav-overlay"
+    class="fixed inset-0 bg-bg/95 backdrop-blur-md flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+  >
+    <ul class="flex flex-col items-center gap-8">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="nav-overlay-link text-2xl text-text-secondary hover:text-accent transition-colors"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById('main-nav')!;
+  const toggle = document.getElementById('nav-toggle')!;
+  const overlay = document.getElementById('nav-overlay')!;
+  const spans = toggle.querySelectorAll('span');
+  let open = false;
+
+  function setOverlay(show: boolean) {
+    open = show;
+    toggle.setAttribute('aria-expanded', String(show));
+    if (show) {
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      spans[0].style.transform = 'rotate(45deg) translateY(4px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translateY(-4px)';
+    } else {
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  }
+
+  toggle.addEventListener('click', () => setOverlay(!open));
+
+  overlay.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOverlay(false));
+  });
+
+  // Scroll behaviour: add backdrop on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.classList.add('bg-bg/80', 'backdrop-blur-md', 'border-border-subtle');
+      nav.classList.remove('border-transparent');
+    } else {
+      nav.classList.remove('bg-bg/80', 'backdrop-blur-md', 'border-border-subtle');
+      nav.classList.add('border-transparent');
+    }
+  });
+</script>
