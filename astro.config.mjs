@@ -3,12 +3,19 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import rehypeExternalLinks from 'rehype-external-links';
-import inlineReview from 'review-loop';
+
+const integrations = [mdx(), sitemap()];
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    const { default: inlineReview } = await import('review-loop');
+    integrations.push(inlineReview());
+  } catch {}
+}
 
 export default defineConfig({
   site: 'https://www.viv.me.uk',
   output: 'static',
-  integrations: [mdx(), sitemap(), inlineReview()],
+  integrations,
   markdown: {
     rehypePlugins: [
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
