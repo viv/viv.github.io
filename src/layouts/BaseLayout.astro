@@ -4,22 +4,39 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Software engineer. Building things that matter since 1998.' } = Astro.props;
+const { title, description = 'Software engineer. Building things that matter.' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content="Matthew Vivian" />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.viv.me.uk" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content="https://www.viv.me.uk/social-sharing-preview.png" />
+    <meta property="og:site_name" content="Viv — Software Engineer" />
+    <meta property="og:locale" content="en_GB" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://www.viv.me.uk/social-sharing-preview.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,11 +48,30 @@ const { title, description = 'Software engineer. Building things that matter sin
 
     <title>{title}</title>
 
-    <style>
+    {/* Blocking theme script — prevents flash of wrong theme */}
+    <script is:inline>
+      (function () {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'dark'); // dark is default
+        if (saved === 'light' || (!saved && !prefersDark)) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
+    <style is:global>
       @import '../styles/global.css';
     </style>
   </head>
-  <body class="bg-bg text-text-primary min-h-screen">
+  <body class="bg-bg text-text-primary min-h-screen transition-colors duration-300 overflow-x-hidden">
+    {/* Skip to content link for keyboard users */}
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:text-sm focus:font-medium"
+    >
+      Skip to content
+    </a>
     <slot />
   </body>
 </html>

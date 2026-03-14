@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('notes');
+const tagCounts = new Map<string, number>();
+
+for (const note of notes) {
+  for (const tag of note.data.tags ?? []) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Tags — Field Notes — Viv" description="Browse field notes by tag.">
+  <Navigation />
+
+  <main id="main-content" class="relative pt-24 pb-32">
+    <div aria-hidden="true" class="reading-glow"></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-6">
+      <a href="/notes" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; All notes</a>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">Tags</h1>
+      <p class="text-lg text-text-secondary leading-relaxed mb-16">
+        {sortedTags.length} tags across {notes.length} notes.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        {sortedTags.map(([tag, count]) => (
+          <a
+            href={`/notes/tags/${tag}`}
+            class="inline-flex items-center gap-2 text-sm font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded-lg px-3 py-2 hover:border-accent/40 transition-colors"
+          >
+            {tag}
+            <span class="text-xs text-text-tertiary">({count})</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="border-t border-border-subtle pt-8 mt-16">
+        <a href="/notes" class="text-sm text-accent-functional hover:text-accent-light transition-colors">&larr; All notes</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

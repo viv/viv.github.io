@@ -1,0 +1,179 @@
+---
+// HERO TEST 3B: Integrated hero — name + about combined, animated gradient text on "Viv."
+// Subtle radial violet glow behind the section. No canvas, no particles. Pure CSS elegance.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import { Image } from 'astro:assets';
+import avatar from '../../assets/headshot/avatar.png';
+import Timeline from '../../components/Timeline.astro';
+import Expertise from '../../components/Expertise.astro';
+import WorkInTheOpen from '../../components/WorkInTheOpen.astro';
+import BeyondTheCode from '../../components/BeyondTheCode.astro';
+import Contact from '../../components/Contact.astro';
+---
+
+<BaseLayout title="Viv — Software Engineer">
+  <Navigation />
+  <main id="main-content">
+    {/* Combined hero + about with radial glow */}
+    <section id="about" aria-label="About" class="hero-section relative min-h-[80vh] flex items-center pt-16 pb-24">
+      {/* Subtle radial violet glow — decorative */}
+      <div class="hero-glow" aria-hidden="true"></div>
+
+      <div class="max-w-5xl mx-auto px-6 w-full relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+          {/* Left: avatar + animated name */}
+          <div class="text-center lg:text-left" data-animate="hero">
+            <Image
+              src={avatar}
+              alt="Viv — portrait photo"
+              width={160}
+              height={160}
+              class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-border-subtle mx-auto lg:mx-0 mb-8"
+            />
+            <h1 class="hero-title text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight">
+              Viv.
+            </h1>
+            <p class="mt-3 text-lg text-text-secondary">
+              Software engineer.<br />Building things that matter.
+            </p>
+          </div>
+
+          {/* Right: about text */}
+          <div class="space-y-6">
+            <p data-animate="hero" class="text-lg text-text-primary leading-relaxed">
+              I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+            </p>
+            <p data-animate="hero" class="text-lg text-text-primary leading-relaxed">
+              I'm a Chartered Engineer and a member of the BCS, and I studied Computer Science at Cardiff University. I live in South Wales and I've worked remotely for most of my career, long before it was fashionable. Most of my career has been spent building systems where the stakes are high — national cyber security infrastructure, government services, child safeguarding platforms, identity verification at scale.
+            </p>
+            <p data-animate="hero" class="text-lg text-text-primary leading-relaxed">
+              These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting. After more than 25 years, this is the most significant shift I've seen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Timeline />
+    <Expertise />
+    <WorkInTheOpen />
+    <BeyondTheCode />
+  </main>
+  <Contact />
+</BaseLayout>
+
+<style>
+  /* Subtle radial violet glow behind the hero area */
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at 30% 50%,
+      rgba(124, 58, 237, 0.08) 0%,
+      rgba(124, 58, 237, 0.03) 30%,
+      transparent 60%
+    );
+  }
+
+  /* Lighter glow for light mode */
+  :global(html[data-theme="light"]) .hero-glow {
+    background: radial-gradient(
+      ellipse at 30% 50%,
+      rgba(124, 58, 237, 0.05) 0%,
+      rgba(124, 58, 237, 0.02) 30%,
+      transparent 60%
+    );
+  }
+
+  /* Animated gradient text — dark mode (default) */
+  .hero-title {
+    background: linear-gradient(
+      90deg,
+      #f0eaff 0%,
+      #ffffff 20%,
+      #C4B5FD 40%,
+      #A78BFA 60%,
+      #ffffff 80%,
+      #f0eaff 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 20s ease-in-out infinite;
+    filter:
+      drop-shadow(0 0 40px rgba(124, 58, 237, 0.25))
+      drop-shadow(0 0 80px rgba(139, 92, 246, 0.1));
+  }
+
+  /* Light mode: darker gradient text for readability */
+  :global(html[data-theme="light"]) .hero-title {
+    background: linear-gradient(
+      90deg,
+      #4C1D95 0%,
+      #1a1a1a 20%,
+      #7C3AED 40%,
+      #6D28D9 60%,
+      #1a1a1a 80%,
+      #4C1D95 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter:
+      drop-shadow(0 0 40px rgba(124, 58, 237, 0.15))
+      drop-shadow(0 0 80px rgba(139, 92, 246, 0.05));
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title {
+      animation: none;
+      background-position: 50% 50%;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // Hero entrance animation — fade up with stagger
+    const heroElements = gsap.utils.toArray('[data-animate="hero"]');
+    gsap.from(heroElements as Element[], {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      stagger: 0.15,
+    });
+
+    // Scroll-triggered fade-up for remaining sections
+    gsap.utils.toArray('[data-animate="fade-up"]').forEach((el) => {
+      gsap.from(el as Element, {
+        scrollTrigger: { trigger: el as Element, start: 'top 85%', toggleActions: 'play none none none' },
+        y: 30, opacity: 0, duration: 0.8, ease: 'power2.out',
+      });
+    });
+
+    // Timeline entries
+    gsap.utils.toArray('[data-animate="timeline-entry"]').forEach((el) => {
+      gsap.from(el as Element, {
+        scrollTrigger: { trigger: el as Element, start: 'top 80%', toggleActions: 'play none none none' },
+        y: 50, opacity: 0, duration: 1, ease: 'power3.out',
+      });
+    });
+  }
+</script>

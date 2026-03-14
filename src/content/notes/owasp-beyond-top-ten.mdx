@@ -1,0 +1,64 @@
+---
+title: "Security as a Design Decision: What OWASP Offers Beyond the Top 10"
+date: 2025-01-30
+tags: [security, conference-notes]
+description: "Most developers know the OWASP Top 10, but the project offers far more: maturity models, threat modelling tools, AI security resources, and a philosophy of baking security in rather than sprinkling it on top."
+---
+
+## Don't Sprinkle Security on Top, Bake It In
+
+In January 2025, Sam Stepanyan gave a talk to the [BCS DevSecOps specialist group](https://www.bcs.org/membership-and-registrations/member-communities/devsecops-specialist-group/) titled [DevSecOps the OWASP way](https://www.bcs.org/events-calendar/2025/january/hybrid-event-devsecops-the-owasp-way). Stepanyan is an OWASP Global Board member and independent application security consultant with over twenty years in the industry. I attended expecting a refresher on the [OWASP Top 10](https://owasp.org/www-project-top-ten/). What I got instead was a much broader picture of what the project actually offers.
+
+The distinction, between security as a surface treatment and security as a design decision underpins everything OWASP does beyond its most famous list.
+
+## Beyond Awareness
+
+The Top 10 is an awareness document. It's designed to raise the profile of common application security vulnerabilities, putting them on the same footing as threats like malware and ransomware. It does that job well, but it isn't a standard, and it was never intended to be one.
+
+For teams who want to move beyond awareness into "security maturity", OWASP offers a progression:
+
+- The [Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/) provides a framework of actual security requirements you can test against.
+- [SAMM (Software Assurance Maturity Model)](https://owasp.org/www-project-samm/) gives you a way to assess where your organisation sits on the security maturity curve and plan improvements.
+- [DSOMM (DevSecOps Maturity Model)](https://owasp.org/www-project-devsecops-maturity-model/) does the same specifically for DevSecOps practices.
+
+This progression mirrors how most teams grow. They start by knowing the common risks (Top 10), then want concrete standards to meet (ASVS), then want to assess and improve their overall programme (SAMM/DSOMM). OWASP has built resources for each stage.
+
+## A Few Projects Worth Getting to Know
+
+OWASP maintains an enormous catalogue of projects. Rather than listing everything, a few stand out as genuinely useful for teams building security into their development process.
+
+**[Threat Dragon](https://owasp.org/www-project-threat-dragon/)** is a threat modelling tool with a diagramming interface and a rule engine that auto-generates threats and mitigations from your architecture diagrams. For teams who know they should be threat modelling but find the process intimidating, it significantly lowers the barrier to entry.
+
+**[The Cheat Sheet Series](https://cheatsheetseries.owasp.org/)** is a collection of 94 focused guides covering everything from login security to REST API hardening, XSS prevention, secrets management, LDAP, and secure design patterns. These are the kind of practical, specific references you can reach for during implementation. They're more useful to working developers than the Top 10 itself, because they tell you what to *do*, not just what to worry about.
+
+**[CycloneDX](https://owasp.org/www-project-cyclonedx/)** deserves special attention because it goes far beyond software bills of materials. It covers SBOMs, SaaSBOMs, cryptography BOMs, hardware BOMs, ML BOMs, operations BOMs, vulnerability disclosure reports, and more. Supply chain security is increasingly being scrutinised, CycloneDX provides a structured way to describe what your system is actually made of.
+
+**[DefectDojo](https://owasp.org/www-project-defectdojo/)** aggregates security findings from various tools into a single dashboard, with integrations to push results into Jira and Slack. For any team running multiple security scanning tools, this solves the practical problem of findings being scattered across different interfaces. It's useful for getting a consolidated view of security posture across a project's entire tool chain.
+
+## Security and AI
+
+OWASP has moved quickly to address AI-specific security concerns. The [LLM Top 10](https://genai.owasp.org/llm-top-10/) identifies the most significant risks for applications built on large language models. The [AI Security and Privacy Guide](https://owasp.org/www-project-ai-security-and-privacy-guide/) provides comprehensive guidance for securing AI systems. The [GenAI Red Teaming Guide](https://genai.owasp.org/resource/genai-red-teaming-guide/) covers how to test generative AI systems for vulnerabilities. And the [AI Exchange](https://owaspai.org/) serves as a knowledge-sharing platform for the AI security community.
+
+With the AI security landscape evolving so rapidly these resources are invaluable. Having a community-maintained, vendor-neutral set of references is far more useful than relying on individual vendor guidance.
+
+## Learning by Breaking
+
+The best way to understand security vulnerabilities is to exploit them in a safe environment. OWASP maintains several projects designed specifically for this.
+
+[Juice Shop](https://owasp.org/www-project-juice-shop/) is their flagship deliberately vulnerable application, consistently ranked as the most-used vulnerable web app. It includes a CTF mode and is regularly updated with modern attack surfaces, including an AI chatbot.
+
+[WebGoat](https://owasp.org/www-project-webgoat/) takes a teaching approach, with guided lessons that walk you through vulnerabilities and their exploitation.
+
+[Wrong Secrets](https://owasp.org/www-project-wrongsecrets/) is a CTF focused specifically on secrets management, helping teams understand how secrets leak and how to find them.
+
+[Security Shepherd](https://owasp.org/www-project-security-shepherd/) provides another CTF platform for security training.
+
+These are very useful educational tools. I've used Juice Shop previously and really appreciate the hands-on teaching style. Running a team through Juice Shop or WebGoat builds a shared understanding of how attacks actually work, which is far more effective at changing development behaviour than any amount of policy or documentation.
+
+## Bake It In
+
+The breadth of what OWASP offers surprised me. Most developers and teams I've worked with know the Top 10 and perhaps a few other projects, but the ecosystem extends well beyond what I had previously realised.
+
+I've seen the difference between teams that treat security as a gate at the end of the pipeline and teams that build it in from the start. OWASP has resources for wherever your team sits, but the tools that shift your thinking earlier (into architecture and design decisions) are where the real value lies.
+
+The resources are free, open source, and maintained by volunteers. There's very little reason not to explore beyond the Top 10.

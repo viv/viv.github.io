@@ -2,41 +2,190 @@
 const year = new Date().getFullYear();
 ---
 
-<footer id="contact" class="py-24 sm:py-32 border-t border-border-subtle">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-6">Want to talk?</h2>
-    <p class="text-lg text-text-secondary mb-8">
-      Find me on{' '}
-      <a
-        href="https://github.com/viv"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-accent-functional hover:text-accent-light transition-colors underline underline-offset-4"
-      >
-        GitHub
-      </a>{' '}
-      or{' '}
+<footer id="contact" class="relative isolate pt-14 pb-10 sm:pt-20 sm:pb-16 min-h-[60vh] flex items-center overflow-hidden">
+  {/* Blueprint grid background — bookends the site with the hero */}
+  <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-footer"></div>
+  {/* Blueprint corner markers */}
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--tl"></div>
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--tr"></div>
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--bl"></div>
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--br"></div>
+  {/* Radial glow */}
+  <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow-footer"></div>
+  {/* Top fade to blend from the previous section */}
+  <div
+    aria-hidden="true"
+    class="footer-top-fade absolute inset-0 z-[1] pointer-events-none"
+  />
+
+  <div class="max-w-4xl mx-auto px-6 text-center relative z-10 w-full">
+    <h2 data-animate="fade-up" class="text-4xl sm:text-5xl font-bold text-text-primary mb-6">Want to talk?</h2>
+    <p data-animate="fade-up" class="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto mb-4">
+      Whether it's a project you're working on, a conversation about engineering practice, or just connecting with someone who shares your interests, I'm always happy to hear from people who care about building things well.
+    </p>
+    <p data-animate="fade-up" class="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto mb-10">
+      The best way to reach me is on LinkedIn. You can also browse through some of my public work and get in touch with me on GitHub.
+    </p>
+
+    <div data-animate="fade-up" class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
       <a
         href="https://www.linkedin.com/in/bmvivian"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-accent-functional hover:text-accent-light transition-colors underline underline-offset-4"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent-light transition-colors external-link"
       >
-        LinkedIn
-      </a>.
-    </p>
-
-    <p class="text-sm text-text-tertiary mb-2">South Wales</p>
-
-    <a
-      href="/ai-engineering"
-      class="inline-block text-sm text-accent-functional hover:text-accent-light transition-colors mb-12"
-    >
-      AI Engineering &rarr;
-    </a>
+        Connect on LinkedIn<span class="sr-only"> (opens in new tab)</span>
+      </a>
+      <a
+        href="https://github.com/viv"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 py-3 border border-accent text-accent font-medium rounded-lg hover:bg-accent/10 transition-colors external-link"
+      >
+        Find me on GitHub<span class="sr-only"> (opens in new tab)</span>
+      </a>
+    </div>
 
     <p class="text-xs text-text-tertiary">
       &copy; {year} Matthew Vivian. All rights reserved.
     </p>
   </div>
 </footer>
+
+<style>
+  /* Blueprint grid — lighter version for the footer.
+     The body whisper grid (major 0.03, fine 0.015) shows through
+     since bg-color is transparent. These values are the ADDITIONAL
+     intensity on top of that, giving combined ~0.07 major / ~0.03 fine. */
+  .bg-blueprint-footer {
+    background-color: transparent;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.04) 0px,
+        rgba(141, 127, 210, 0.04) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.04) 0px,
+        rgba(141, 127, 210, 0.04) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.015) 0px,
+        rgba(141, 127, 210, 0.015) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.015) 0px,
+        rgba(141, 127, 210, 0.015) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  :global(html[data-theme="light"]) .bg-blueprint-footer {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.04) 0px,
+        rgba(70, 51, 163, 0.04) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.04) 0px,
+        rgba(70, 51, 163, 0.04) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.015) 0px,
+        rgba(70, 51, 163, 0.015) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.015) 0px,
+        rgba(70, 51, 163, 0.015) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  /* Blueprint corner markers */
+  .blueprint-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .blueprint-corner--tl {
+    top: 40px;
+    left: 40px;
+    border-top: 2px solid rgba(141, 127, 210, 0.15);
+    border-left: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner--tr {
+    top: 40px;
+    right: 40px;
+    border-top: 2px solid rgba(141, 127, 210, 0.15);
+    border-right: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner--bl {
+    bottom: 40px;
+    left: 40px;
+    border-bottom: 2px solid rgba(141, 127, 210, 0.15);
+    border-left: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner--br {
+    bottom: 40px;
+    right: 40px;
+    border-bottom: 2px solid rgba(141, 127, 210, 0.15);
+    border-right: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .blueprint-corner--tl,
+  :global(html[data-theme="light"]) .blueprint-corner--tr,
+  :global(html[data-theme="light"]) .blueprint-corner--bl,
+  :global(html[data-theme="light"]) .blueprint-corner--br {
+    border-color: rgba(70, 51, 163, 0.2);
+  }
+
+  /* Radial glow — matching hero intensity */
+  .bg-glow-footer {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(141, 127, 210, 0.13) 0%,
+      rgba(141, 127, 210, 0.05) 40%,
+      transparent 70%
+    );
+  }
+
+  :global(html[data-theme="light"]) .bg-glow-footer {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      transparent 70%
+    );
+  }
+
+  .footer-top-fade {
+    background: linear-gradient(to bottom, var(--color-bg) 0%, transparent 30%);
+  }
+</style>

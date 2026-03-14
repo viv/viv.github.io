@@ -3,7 +3,7 @@ generated_by: Claude Opus 4.6
 generation_date: 2026-02-08
 model_version: claude-opus-4-6
 purpose: project_plan
-status: draft
+status: near-complete
 human_reviewer: matthewvivian
 tags: [personal-site, project-management, sessions, astro, redesign]
 ---
@@ -419,7 +419,7 @@ Read these files:
 - docs/engineering-plans/2026-02-project-plan.md (this project plan — see Session 2.1)
 
 Build the hero section:
-1. Full-viewport hero with the text: "Viv." / "Software engineer. Building things that matter since 1998."
+1. Full-viewport hero with the text: "Viv." / "Software engineer. Building things that matter."
 2. Animated entrance — text fading or sliding in using GSAP or CSS animations
 3. Background treatment — implement the chosen approach (or a tasteful gradient as placeholder if imagery isn't ready yet)
 4. Subtle scroll indicator at the bottom
@@ -877,37 +877,124 @@ When this session is complete:
 6. Suggest which session to tackle next
 ```
 
+### Session 5.2: Experience Section Rework
+
+**Goal:** Rework the Experience/Timeline section: reverse the order (most recent first), replace vague date labels with real dates, and decide how to handle entries that span multiple periods or don't fit a neat timeline.
+
+**Entry point:** Session 5.1 complete (content reviewed)
+
+**What this produces:**
+- Timeline entries sorted most-recent-first (both tier 1 and tier 2)
+- All `year` fields updated with specific dates or date ranges (no "Various", "Throughout career", or "Ongoing")
+- Entries that span the whole career (e.g. "Building and Growing Teams", "Security as a Design Decision") either anchored to a meaningful start date, restructured as cross-cutting themes rather than timeline entries, or merged into other entries
+- Updated `order` fields in frontmatter to reflect the new sort order
+- Sort logic in `Timeline.astro` updated if needed
+
+**Known challenges:**
+- 6 entries currently have vague dates: "Various" (14, 15, 17, 18, 19), "Throughout career" (16), "Ongoing" (6)
+- These are thematic/cross-cutting entries rather than time-bound roles. They need a decision: anchor them to when they started, move them out of the timeline into the Expertise section, or find another approach
+- The tier 1/tier 2 split may need revisiting once the order flips
+
+**Current entry dates for reference:**
+| # | Title | Year | Tier |
+|---|-------|------|------|
+| 01 | The Beginning | 1980s – 1990s | 1 |
+| 02 | Cardiff University | 1998 – 2001 | 1 |
+| 03 | Tracesmart | 2008 – 2011 | 1 |
+| 04 | CERT-UK | 2013 – 2015 | 1 |
+| 05 | Threatvine | ~2015 – 2019+ | 1 |
+| 06 | Openfire | Ongoing | 1 |
+| 07 | AI-Enhanced Engineering | 2024 – present | 1 |
+| 08 | Remote Working | 2013 – present | 1 |
+| 09 | Glamorgan & Qualtech | 2001 – 2003 | 2 |
+| 10 | Freelance Consulting | 2003 – 2006 | 2 |
+| 11 | Hargreaves Lansdown | 2006 – 2008 | 2 |
+| 12 | BaseKit | 2011 – 2012 | 2 |
+| 13 | Thrupoint | 2012 – 2013 | 2 |
+| 14 | Crossing Domains | Various | 2 |
+| 15 | Stabilising Systems | Various | 2 |
+| 16 | Building and Growing Teams | Throughout career | 2 |
+| 17 | Infrastructure as Code | Various | 2 |
+| 18 | Security as a Design Decision | Various | 2 |
+| 19 | Working at the Edges | Various | 2 |
+
+**Starter Prompt:**
+```
+I'm reworking the Experience/Timeline section of my personal website.
+
+Read these files:
+- docs/engineering-plans/2026-02-project-plan.md (this project plan — see Session 5.2)
+- docs/style-guide.md (writing voice and tone)
+- src/components/Timeline.astro (the timeline component)
+- src/content/timeline/*.md (all 19 timeline entries — check frontmatter and content)
+- src/content.config.ts (content collection schema)
+
+The changes I want:
+1. **Reverse the order** — most recent first, oldest last. Both tier 1 and tier 2.
+2. **Replace all vague dates** — no "Various", "Throughout career", or "Ongoing". Every entry needs a real date or date range.
+3. **Handle cross-cutting entries** — entries 14-19 are thematic rather than time-bound. For each one, decide: can we anchor it to a meaningful start date? Should it be restructured? Should content be merged into other entries or moved to the Expertise section?
+
+Present your proposed changes for each entry before making them. I want to review the date assignments and any structural changes before they're applied.
+
+--- SESSION COMPLETION CHECKLIST ---
+When this session is complete:
+1. Verify all timeline entries have specific dates and display in reverse chronological order
+2. Verify the tier 1/tier 2 split still makes sense in the new order
+3. Commit your changes with a conventional commit message (explain the "why" not the "what")
+4. Update the Progress Log in docs/engineering-plans/2026-02-project-plan.md — set Session 5.2 to "Complete" with today's date and a brief note on what was changed
+5. If you discovered anything that affects other sessions in the project plan, add a note to the relevant session entry
+6. List all files created or modified during this session
+7. Suggest which session to tackle next
+```
+
 ---
 
 ## Phase 6: Optional Enhancements
 
 These sessions are independent and can be done in any order, or not at all.
 
-### Session 6.1: Blog Infrastructure
+### Session 6.1: Engineering Notes Section
 
-**Goal:** Set up blog support using Astro content collections.
+**Goal:** Build an "Engineering Notes" section — a lightweight place to capture learnings, configurations, observations, and technical notes. Not a blog. Think technical notebook, not thought leadership.
+
+**What this produces:**
+- Astro content collection for notes (markdown)
+- Notes index page with listings (date, title, optional tags)
+- Individual note layout — clean, readable, code-friendly
+- Navigation link to the notes section
+- RSS feed generation
+- A sample note to verify everything works
+
+**Design direction:** This should feel like a working engineer's notebook. No hero images, no social sharing buttons, no comments. Just clean text, code blocks, and the occasional diagram. The value is in the content, not the presentation.
+
+**Content examples:**
+- "How I configure Claude Code for a new project"
+- "GSAP ScrollTrigger gotchas with Astro"
+- "Non-obvious Docker Compose patterns"
+- "Things I learned about Tailwind v4 migration"
 
 **Starter Prompt:**
 ```
-I'm adding blog infrastructure to my personal website.
+I'm adding an Engineering Notes section to my personal website — a lightweight technical notebook for capturing learnings, configurations, and observations.
 
 Read these files:
-- docs/engineering-plans/implementation-plan.md (see Phase 6 — Blog)
 - docs/engineering-plans/2026-02-project-plan.md (this project plan — see Session 6.1)
+- docs/style-guide.md (writing voice and tone)
+- src/content.config.ts (existing content collection setup)
 
 Read the site's source files to understand the current Astro setup, then build:
-1. Astro content collection for blog posts (markdown/MDX)
-2. Blog index page with post listings
-3. Individual post layout with date, title, reading time
-4. Navigation link to the blog
+1. Astro content collection for engineering notes (markdown files)
+2. Notes index page — simple list with date and title, most recent first. Optional tag filtering.
+3. Individual note layout — clean, readable, with good code block styling
+4. Navigation link to the notes section from the main nav
 5. RSS feed generation
-6. A sample blog post to verify everything works
+6. A sample note to verify everything works
 
-Keep it simple — the blog is a container for future writing, not a feature-rich platform.
+This is NOT a blog. No hero images on notes, no "read more" teasers, no social sharing. Just a clean, functional technical notebook. Think of it as a public version of personal engineering notes.
 
 --- SESSION COMPLETION CHECKLIST ---
 When this session is complete:
-1. Verify the blog index lists posts, individual posts render correctly, the RSS feed is valid, and navigation works
+1. Verify the notes index lists entries, individual notes render correctly, the RSS feed is valid, and navigation works
 2. Commit your changes with a conventional commit message (explain the "why" not the "what")
 3. Update the Progress Log in docs/engineering-plans/2026-02-project-plan.md — set Session 6.1 to "Complete" with today's date and a brief note on what was built
 4. If you discovered anything that affects other sessions in the project plan, add a note to the relevant session entry
@@ -974,6 +1061,186 @@ When this session is complete:
 5. List all files created or modified during this session
 6. Suggest which session to tackle next
 ```
+
+### Session 6.4: AI Engineering Page Prominence
+
+**Goal:** Make the AI Engineering page more discoverable and better integrated into the main page experience. Currently it's only linked from the contact footer, which isn't prominent enough for what is a key part of Viv's story.
+
+**What this produces:**
+- A more prominent route to the AI Engineering page from the main scroll
+- Could be: a dedicated callout section, a link from the AI expertise card, a nav link, or something else entirely
+- The approach should feel natural within the page flow, not bolted on
+
+**Open questions:**
+- Where in the main page flow does an AI Engineering callout fit best?
+- Should it be a full section, a card within an existing section, or a nav item?
+- Does the AI Engineering page itself need a visual refresh to match? (Header image removed — it looked wrong. May need a different treatment or none at all.)
+
+**Starter Prompt:**
+```
+The AI Engineering page (/ai-engineering) needs to be more prominent and better integrated into the main page experience. Currently it's only linked from the contact footer.
+
+Read these files:
+- docs/engineering-plans/2026-02-project-plan.md (this project plan — see Session 6.4)
+- docs/style-guide.md (writing voice and tone)
+- src/pages/index.astro (main page layout)
+- src/pages/ai-engineering.astro (the AI Engineering page)
+- src/components/Expertise.astro (the AI-augmented engineering card)
+- src/components/Contact.astro (current location of the link)
+
+Explore options for making the AI Engineering page more discoverable:
+1. Review the main page flow and identify natural integration points
+2. Consider: link from the AI expertise card, dedicated callout section, nav link, or other approaches
+3. Present 2-3 options with trade-offs for my review before implementing
+4. The approach should feel natural, not salesy — see the style guide
+
+--- SESSION COMPLETION CHECKLIST ---
+When this session is complete:
+1. Verify the chosen approach is implemented and the AI Engineering page is meaningfully more discoverable
+2. Commit your changes with a conventional commit message (explain the "why" not the "what")
+3. Update the Progress Log in docs/engineering-plans/2026-02-project-plan.md — set Session 6.4 to "Complete" with today's date and a brief note on what was built
+4. If you discovered anything that affects other sessions in the project plan, add a note to the relevant session entry
+5. List all files created or modified during this session
+6. Suggest which session to tackle next
+```
+
+### Session 6.5: "Beyond the Code" Expansion & /life Page
+
+**Goal:** Restructure the "Beyond the Code" section with curated cards for new personal interests, move Mentoring content to the Expertise section, and build a dedicated `/life` page with richer content.
+
+**Entry point:** Core build complete (Phase 2 done)
+
+**What this produces:**
+- Main page: 5 curated cards (Karate, MTB & Active Life, Guitar, Smart Home, Cooking) replacing the current 3
+- Mentoring & Community content integrated into the Expertise section's "Growing engineers" theme
+- Dedicated /life page at `/life` with detailed content for each interest
+- Navigation between main page and /life page
+- Generated imagery for new cards (MTB, smart home, cooking)
+
+**Starter Prompt:**
+```
+I'm expanding the "Beyond the Code" section to include more personal interests and building a dedicated /life page.
+
+Read these files:
+- docs/engineering-plans/2026-02-project-plan.md (this project plan — see Session 6.5)
+- docs/engineering-plans/content-plan-final.md (see expanded "Beyond the Code" section with new interests)
+- docs/research/imagery-strategy.md (for generating new card images)
+- src/components/BeyondTheCode.astro (current 3-card implementation)
+- src/components/Expertise.astro (where Mentoring content will move)
+- src/pages/ai-engineering.astro (pattern for standalone pages)
+
+Build:
+1. Add new content cards to "Beyond the Code": Mountain Biking & Active Life, Smart Home & IoT, Cooking
+2. Restructure the section layout to handle 5 cards well (consider 2+3 grid, or 3+2, or a different layout)
+3. Move Mentoring & Community content into the Expertise section alongside "Growing engineers"
+4. Build a dedicated /life page at `/life` with richer content for each interest
+5. Add a "See more" or similar link from the main page section to /life
+6. Wire up navigation (add /life to the nav menu)
+7. Generate imagery for the new cards using prompts from the imagery strategy document
+8. Note: do NOT link out to Strava or Garmin profiles — Viv prefers not to link to these services
+
+--- SESSION COMPLETION CHECKLIST ---
+When this session is complete:
+1. Verify the main page shows 5 curated cards, Mentoring content is in the Expertise section, and the /life page loads with content for all interests
+2. Verify navigation between the main page and /life page works
+3. Commit your changes with a conventional commit message (explain the "why" not the "what")
+4. Update the Progress Log in docs/engineering-plans/2026-02-project-plan.md — set Session 6.5 to "Complete" with today's date and a brief note on what was built
+5. If you discovered anything that affects other sessions in the project plan, add a note to the relevant session entry
+6. List all files created or modified during this session
+7. Suggest which session to tackle next
+```
+
+### Session 6.6: Strava Activity Integration
+
+**Status:** Removed (2026-02-17). Originally implemented then dropped — the ongoing credential management overhead and API dependency weren't worth it for a personal site. All Strava code, environment variables, and the daily cron rebuild schedule have been removed. Historical review documents in `docs/reviews/` still reference Strava as they are point-in-time snapshots.
+7. List all files created or modified during this session
+8. Suggest which session to tackle next
+```
+
+### Session 6.7: "Work in the Open" — GitHub Contributions Section
+
+**Goal:** Add a section to the main page highlighting Viv's public GitHub contributions, focused on the Openfire and docker-compose repositories.
+
+**Entry point:** Core build complete (Phase 2 done)
+
+**What this produces:**
+- A new section on the main page between Expertise and Beyond the Code
+- 2 repo highlight cards: Openfire (igniterealtime/Openfire) and openfire-docker-compose (surevine/openfire-docker-compose)
+- Brief descriptions of key contributions (crypto security, networking overhaul, ADRs, Docker tooling)
+- Links to GitHub profile (github.com/viv) and specific repos
+- Optional: build-time GitHub API fetching for live stars/forks counts
+- Tone: honest and understated — "here's some work that happens to be public"
+
+**Design direction:**
+- No contribution graph (activity is sporadic — the graph would misrepresent the quality of the work)
+- No commit counts or PR tallies — let the substance speak
+- Compact layout: 2 cards or a simple list, not a showcase wall
+- Consistent with the site's dark theme and card patterns
+
+**Starter Prompt:**
+```
+I'm adding a "Work in the Open" section to highlight my public GitHub contributions.
+
+Read these files:
+- docs/engineering-plans/2026-02-project-plan.md (this project plan — see Session 6.7)
+- docs/engineering-plans/content-plan-final.md (see "Work in the Open" section for content and tone guidance)
+- src/components/Expertise.astro (preceding section — match visual weight)
+- src/components/BeyondTheCode.astro (following section — visual context)
+- src/pages/index.astro (main page layout)
+
+Key context:
+- My GitHub username is "viv" (github.com/viv)
+- Most of my work is private. The public exceptions are:
+  - igniterealtime/Openfire — XMPP server. I've contributed networking overhaul (MINA→Netty), crypto security hardening (IVs, PBKDF2, GCM, OCSP), Architecture Decision Records, performance work
+  - surevine/openfire-docker-compose — Docker Compose setup for Openfire dev/test environments
+- I don't want to overplay this. The tone should be honest — "here's some of my work that's public" not "I'm a prolific open source contributor"
+
+Build:
+1. A new section between Expertise and Beyond the Code
+2. Section title: "Work in the Open" (or suggest something better if you have an idea)
+3. Brief intro line setting the tone (most of my work is behind closed doors, but some isn't)
+4. 2 repo highlight cards with:
+   - Repo name and link
+   - Brief description of the contributions (from the content plan)
+   - Optionally: stars/forks fetched from GitHub API at build time
+5. Link to full GitHub profile
+6. Scroll-triggered reveal animation consistent with other sections
+7. Update the nav menu to include this section
+
+If fetching from GitHub API: use the GraphQL API with a PAT stored as GITHUB_TOKEN env var (no PUBLIC_ prefix). Fetch in Astro frontmatter at build time. Include graceful fallback if the API is unavailable.
+
+--- SESSION COMPLETION CHECKLIST ---
+When this session is complete:
+1. Verify the section renders correctly between Expertise and Beyond the Code, with repo cards and links
+2. Verify the tone feels honest and understated, not self-aggrandising
+3. If using GitHub API: verify build-time fetching works and fallback handles missing token gracefully
+4. Commit your changes with a conventional commit message (explain the "why" not the "what")
+5. Update the Progress Log in docs/engineering-plans/2026-02-project-plan.md — set Session 6.7 to "Complete" with today's date and a brief note on what was built
+6. If you discovered anything that affects other sessions in the project plan, add a note to the relevant session entry
+7. List all files created or modified during this session
+8. Suggest which session to tackle next
+```
+
+### Session 6.8: Photo Gallery (Deferred)
+
+**Goal:** Add a curated photo gallery to the /life page.
+
+**Status:** Documented for future implementation. Not scheduled yet.
+
+**Approach (when implemented):**
+- Viv manually exports favourite photos from Apple Photos
+- Photos go into `src/assets/gallery/` — Astro optimises them at build time
+- Grid or masonry gallery component with lightbox for full-size viewing
+- Photos can have captions/metadata via a content collection or frontmatter
+- Could also explore Cloudinary or similar CDN if manual curation feels like too much friction
+
+**Starter Prompt:** To be written when this session is scheduled.
+
+### Session 6.9: GitHub API Build-Time Integration (Optional)
+
+**Goal:** Consolidate build-time API fetching into a shared pattern if multiple integrations use it.
+
+**Status:** Skipped. 6.6 (Strava) was removed and 6.7 uses static content, so there is no build-time API fetching to consolidate.
 
 ---
 
@@ -1091,9 +1358,9 @@ Track session completion here. Updated by the agent at the end of each session.
 | 0.2 Imagery & Visual Asset Strategy | Complete | 2026-02-08 | Full asset inventory across all site sections, copy-pasteable prompts for GPT-4o and Midjourney V7, tool comparison matrix, headshot/avatar analysis (recommends real photo + abstract monogram for favicon), programmatic SVG/CSS/WebGL approaches for backgrounds and patterns, prompt iteration guidance. Output: docs/research/imagery-strategy.md |
 | 0.3 Typography & Colour Deep Dive | Skipped | 2026-02-10 | Colour palette was already finalised in docs/research/typography-and-colour.md. Violet accent family confirmed. Space Grotesk selected as primary font during initial build. |
 | 0.4 Technology De-risking | Skipped | 2026-02-10 | De-risked by building the real site directly. Astro + Tailwind v4 (@tailwindcss/vite) + GSAP confirmed working. |
-| 0.5 Storytelling Analysis | Not started | | |
+| 0.5 Storytelling Analysis | Skipped | 2026-02-12 | Site design and build already complete — research would have informed decisions that are already made. |
 | 1.1 Project Scaffolding & Dev Environment | Complete | 2026-02-10 | Astro project scaffolded, Tailwind v4 configured via @tailwindcss/vite, design tokens in global.css @theme block, BaseLayout with font loading, CNAME moved to public/. Old Jekyll files removed. Docker setup deferred. |
-| 1.2 Deployment Pipeline | Not started | | |
+| 1.2 Deployment Pipeline | Complete | 2026-02-11 | GitHub Actions workflow at .github/workflows/deploy.yml. Triggers: push to master, workflow_dispatch, daily cron at 06:00 UTC. Uses Node 22, npm ci, actions/deploy-pages@v4. Repo needs Pages source set to "GitHub Actions" manually. |
 | 1.3 Design System Foundation | Complete | 2026-02-10 | Colour palette, typography (Space Grotesk + JetBrains Mono), spacing established in global.css and component styles. Navigation and footer components built. |
 | 2.1 Hero Section | Complete | 2026-02-10 | Full-viewport hero with animated canvas particle network (120 violet particles, connection lines, radial glow), GSAP entrance animation, scroll indicator. Interactive: click spawns particle burst, click-and-drag paints particle trail. Animated gradient text (white/violet shimmer, 20s cycle) with layered drop-shadow glow. prefers-reduced-motion supported. |
 | 2.2 About Section | Complete | 2026-02-10 | Three paragraphs with illustrated avatar, scroll-triggered fade-up animation. |
@@ -1102,16 +1369,22 @@ Track session completion here. Updated by the agent at the end of each session.
 | 2.5 Expertise & Beyond the Code | Complete | 2026-02-10 | Expertise 2x2 grid with icons, Beyond the Code 3-column grid with karate icon + SVG placeholders. |
 | 2.6 Contact Footer & Navigation | Complete | 2026-02-10 | Sticky nav with mobile hamburger menu (right-aligned, no logo link), footer with GitHub/LinkedIn links, AI Engineering link, copyright. Smooth scroll anchors. |
 | 3.1 AI Engineering Page | Complete | 2026-02-10 | Standalone page at /ai-engineering with Philosophy, How I Work with AI, What I've Built, Where This Is Going. Last updated date. Back navigation. |
-| 4.1 Light/Dark Mode Toggle | Not started | | |
-| 4.2 Responsive Refinement | Not started | | |
-| 4.3 Accessibility Review | Not started | | |
-| 4.4 Performance & SEO | Not started | | |
-| 5.1 Content Review & Copy Editing | Not started | | |
-| 6.1 Blog Infrastructure | Not started | | |
-| 6.2 Analytics Exploration | Not started | | |
-| 6.3 Interactive Enhancements | Not started | | |
-| 7.1 GitHub Issues Exploration | Not started | | |
-| 7.2 Transition Plan | Not started | | |
+| 4.1 Light/Dark Mode Toggle | Complete | 2026-02-11 | ThemeToggle.astro with sun/moon icon, persists to localStorage, respects prefers-color-scheme. Light mode overrides in global.css. Blocking script in BaseLayout head prevents flash. Hero canvas and particle glow tuned for both themes. |
+| 4.2 Responsive Refinement | Complete | 2026-02-11 | Nav breakpoint moved from md→lg (tablets now use hamburger menu). Beyond the Code 2-card row centering fixed with max-w approach. Timeline mobile indentation tightened (saves 8px). All components verified at 375/768/1024/1440px. |
+| 4.3 Accessibility Review | Complete | 2026-02-11 | WCAG 2.1 AA colour contrast fixes (dark mode accents lightened for AA compliance, tertiary text adjusted). Global focus-visible outlines. Nav overlay: role=dialog, aria-modal, focus trap, Escape to close. Theme toggle: dynamic aria-label. About: sr-only heading for hierarchy. lang="en-GB". Lighthouse: 96/100/100 across pages. |
+| 4.4 Performance & SEO | Complete | 2026-02-11 | Timeline images switched from raw img to Astro Image (99.8% size reduction per image). Lazy loading on all below-fold images. Favicon: sized variants (16/32/180px) replacing 1.3MB raw PNG. Web manifest added. Redundant font preload removed. og:site_name and og:locale added. Sitemap confirmed working. JS bundle: 115KB/45.5KB gzipped. |
+| 5.1 Content Review & Copy Editing | Complete | 2026-02-11 | Cardiff University degree classification added to tech footnote. Tone verified against style guide throughout. UK English consistent. No staccato drama, no buzzwords, no "hallucinates". All 19 timeline entries, all component text, AI Engineering page (full prose), and /life page reviewed. Minor notes flagged for Viv's review (About wording, second-person voice in some entries, Growing engineers sentence fragments). |
+| 6.1 Engineering Notes Section | Complete | 2026-02-11 | Notes content collection added to content.config.ts. Index page at /notes with date-sorted list, tag display, RSS link. Individual note pages with prev/next navigation. RSS feed at /notes/rss.xml via @astrojs/rss. Code block styling (JetBrains Mono, dark/light modes). Sample note: GSAP ScrollTrigger gotchas. "Notes" added to nav between Life and Contact. |
+| 6.2 Analytics Exploration | Complete | 2026-02-12 | Compared Plausible, Fathom, Umami, GoatCounter, and "none". All options are cookie-free and GDPR compliant. Recommendation: GoatCounter free tier (zero cost, one script tag, clean dashboard). Research document at docs/research/analytics-exploration.md. Implementation deferred pending Viv's decision. |
+| 6.3 Interactive Enhancements | Complete | 2026-02-11 | Subtle interaction polish throughout. Link hover: gradient underline sliding in from left (accent colour). Card hover: translateY -2px lift with violet shadow on Expertise, Work in the Open, Beyond the Code cards. Timeline card hover: understated border brightening. Scroll progress indicator: 2px accent gradient bar at viewport top. External link indicator: small ↗ arrow via CSS ::after. All interactions disabled under prefers-reduced-motion. Nav scroll effect skipped (existing backdrop-blur is sufficient). |
+| 6.4 AI Engineering Page Prominence | Complete | 2026-02-11 | AI Engineering now reachable via 3 routes: nav bar (between Beyond the Code and Life), Expertise card callout ("More about my AI approach →" link on AI-augmented engineering card), and existing Contact footer link. Subtle styling consistent with site tone. |
+| 6.5 "Beyond the Code" Expansion & /life Page | Complete | 2026-02-11 | 5 curated cards in 3+2 grid (Karate, MTB, Guitar, Smart Home, Cooking). Mentoring content moved to Expertise "Growing engineers". Dedicated /life page with richer content per interest. Nav updated with Life link. |
+| 6.6 Strava Activity Integration | Removed | 2026-02-17 | Originally implemented (2026-02-12) then removed. Credential management overhead and API dependency weren't justified for a personal site. All Strava code (src/lib/strava.ts, StravaStats.astro, .env.example), workflow env vars, and daily cron schedule removed. |
+| 6.7 "Work in the Open" — GitHub Contributions | Complete | 2026-02-11 | WorkInTheOpen.astro section between Expertise and Beyond the Code. 2 repo cards (Openfire, docker-compose) with honest intro. GitHub profile link. Added "Open Source" to nav. No API fetching yet — static content. |
+| 6.8 Photo Gallery | Not started | | Deferred — curated photo gallery on /life page. Documented for future scheduling |
+| 6.9 GitHub API Build-Time Integration | Skipped | 2026-02-12 | 6.7 implemented with static content; no build-time API fetching needed. |
+| 7.1 GitHub Issues Exploration | Skipped | 2026-02-12 | Project is nearly complete — only analytics decision remains as an actionable item. GitHub Issues would add process overhead with little benefit at this stage. |
+| 7.2 Transition Plan | Complete | 2026-02-11 | Comprehensive transition plan at docs/engineering-plans/transition-plan.md. Covers: merge strategy (fast-forward, 7 clean commits), old content assessment (let it expire — 1 post from 2014, defunct Twitter, nothing worth redirecting), GitHub Pages source change (critical step), DNS (no changes needed, same CNAME), rollback via jekyll-final tag (two strategies documented), deployment verification checklist, timing recommendation (weekday morning Tue–Thu). |
 
 ---
 
@@ -1124,3 +1397,10 @@ Track session completion here. Updated by the agent at the end of each session.
 | 2026-02-08 | Session 0.2 completed — imagery and visual asset strategy |
 | 2026-02-10 | Initial site build — sessions 1.1, 1.3, 2.1–2.6, 3.1 completed in one pass. Jekyll site replaced with Astro + Tailwind v4 + GSAP. All content sections built with generated imagery. |
 | 2026-02-10 | Hero polish — replaced static gradient with animated canvas particle network, added click/drag interactions, animated gradient text with glow. Nav: removed logo link, right-aligned menu. Subtitle updated to "Building things that matter." |
+| 2026-02-11 | Plan expanded to include personal interests beyond professional content. Added sessions 6.5 (Beyond the Code expansion + /life page), 6.6 (Strava integration — later removed), 6.7 (photo gallery, deferred). Content plan updated with MTB, smart home, cooking. Mentoring moved to Expertise. |
+| 2026-02-11 | Added session 6.7 "Work in the Open" for GitHub contributions section. Photo gallery renumbered to 6.8. Content plan updated with Openfire and docker-compose contribution details. |
+| 2026-02-11 | Parallel build session: completed 1.2 (deployment pipeline), 4.1 (light/dark mode), 6.5 (Beyond the Code expansion + /life page), 6.7 (Work in the Open). Also fixed: cross-page nav links, timeline entry title display, hero particle glow in light mode, Tracesmart tone (title/headline softened). |
+| 2026-02-11 | Polish & refinement parallel session: completed 4.2 (responsive refinement), 4.3 (accessibility review), 4.4 (performance & SEO), 5.1 (content review). WCAG AA colour contrast fixes across both themes. Nav breakpoint adjusted for tablets. Image optimisation via Astro Image pipeline. Favicon variants, web manifest, focus management, keyboard trapping, ARIA improvements throughout. Content verified against tone guide and content plan. |
+| 2026-02-11 | Remaining sessions parallel team: completed 6.1 (engineering notes section with content collection, RSS, code block styling), 6.3 (interactive enhancements — hover effects, scroll progress, external link indicators), 6.4 (AI Engineering page prominence — nav link + Expertise card callout), 7.2 (transition plan with merge strategy, rollback procedures, deployment checklist). Also fixed browser default button backgrounds on all buttons (Tailwind v4 preflight issue). Created 5 hero alternative test pages for review. |
+| 2026-02-12 | Completion assessment and final push. Agent team: built Strava integration (6.6 — later removed), removed 7 test/variation pages, researched analytics (6.2 in progress). Colour scheme shifted from violet to sky/cyan (Blueprint theme). Blueprint CSS grid background added to hero section layered behind particle canvas. All hardcoded violet references updated site-wide. Sessions 0.5 (Storytelling), 6.9 (API consolidation), 7.1 (GitHub Issues) marked as skipped. Build: 5 pages, 1.15s, clean. |
+| 2026-02-17 | Strava integration removed entirely. Deleted src/lib/strava.ts, StravaStats.astro, .env.example. Removed Strava env vars and daily cron schedule from deploy.yml. Updated content plan and progress log. Credential management overhead and API dependency weren't justified for a personal site. |

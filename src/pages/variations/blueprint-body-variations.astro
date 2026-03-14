@@ -1,0 +1,551 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+---
+
+<BaseLayout title="Blueprint Body Variations — Viv" description="Subtle full-page blueprint grid treatments.">
+  <Navigation />
+
+  {/* ── VARIATION A ─────────────────────────────── */}
+  {/* Fine grid only — just the 32px squares, no major grid */}
+
+  <section class="relative isolate min-h-[70vh] flex items-center pt-24 pb-16 overflow-hidden">
+    {/* Hero-strength blueprint */}
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-hero"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[2] pointer-events-none hero-bottom-fade"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-accent/10 text-accent border border-accent/20 rounded-full">Variation A</span>
+      <h1 class="text-5xl sm:text-6xl font-bold text-text-primary mb-4">Fine Grid Only</h1>
+      <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+        Only the 32px fine grid lines continue through the page body — no major grid. Gives a subtle "engineering paper" texture without competing with content.
+      </p>
+    </div>
+  </section>
+
+  <main class="relative">
+    {/* Variation A: Fine grid background on body area */}
+    <div aria-hidden="true" class="absolute inset-0 bg-grid-fine-only pointer-events-none"></div>
+
+    <div class="relative z-10">
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">What I Do</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-xl border border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
+              <h3 class="text-lg font-medium text-text-primary mb-2">Architecture & Design</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">Building systems where the stakes are high — national cyber security infrastructure, government services, identity verification at scale.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
+              <h3 class="text-lg font-medium text-text-primary mb-2">AI-Enhanced Engineering</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">Exploring how AI reshapes the craft of software engineering — not replacing experienced engineers, but amplifying what they do.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Career Timeline</h2>
+          <div class="space-y-8">
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+                <div class="w-px flex-1 bg-border-subtle"></div>
+              </div>
+              <div class="pb-8">
+                <span class="text-sm text-accent font-mono">1999</span>
+                <h3 class="text-lg font-medium text-text-primary">The Beginning</h3>
+                <p class="text-text-secondary text-sm">Started writing software, discovering a passion for understanding systems and how they work together.</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+                <div class="w-px flex-1 bg-border-subtle"></div>
+              </div>
+              <div class="pb-8">
+                <span class="text-sm text-accent font-mono">2004</span>
+                <h3 class="text-lg font-medium text-text-primary">Cardiff University</h3>
+                <p class="text-text-secondary text-sm">Computer Science degree — formal foundations in the theory behind what I'd been teaching myself.</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+              </div>
+              <div>
+                <span class="text-sm text-accent font-mono">2024</span>
+                <h3 class="text-lg font-medium text-text-primary">AI-Enhanced Engineering</h3>
+                <p class="text-text-secondary text-sm">The most significant shift in 25 years — deeply focused on how AI reshapes the craft.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-2xl font-semibold text-text-primary mb-4">Beyond the Code</h2>
+          <p class="text-text-secondary max-w-xl mx-auto">Mountain biking, guitar, cooking, karate, smart home tinkering, and mentoring the next generation of engineers.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="relative isolate py-16 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-footer-demo"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1] pointer-events-none footer-top-fade"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <p class="text-text-secondary">Footer with full-strength blueprint — blends back in from the subtle body grid.</p>
+    </div>
+  </footer>
+
+  <div class="h-px bg-border-emphasis"></div>
+
+  {/* ── VARIATION B ─────────────────────────────── */}
+  {/* Both grids at whisper opacity */}
+
+  <section class="relative isolate min-h-[70vh] flex items-center pt-16 pb-16 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-hero"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[2] pointer-events-none hero-bottom-fade"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-accent/10 text-accent border border-accent/20 rounded-full">Variation B</span>
+      <h1 class="text-5xl sm:text-6xl font-bold text-text-primary mb-4">Full Grid, Whisper Opacity</h1>
+      <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+        Both the 160px major grid and 32px fine grid continue through the body, but at roughly a third of the footer's already-reduced opacity. The full blueprint structure is there but very quiet.
+      </p>
+    </div>
+  </section>
+
+  <div class="relative">
+    {/* Variation B: Both grids, whisper opacity */}
+    <div aria-hidden="true" class="absolute inset-0 bg-grid-both-whisper pointer-events-none"></div>
+
+    <div class="relative z-10">
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">What I Do</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-xl border border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
+              <h3 class="text-lg font-medium text-text-primary mb-2">Architecture & Design</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">Building systems where the stakes are high — national cyber security infrastructure, government services, identity verification at scale.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
+              <h3 class="text-lg font-medium text-text-primary mb-2">AI-Enhanced Engineering</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">Exploring how AI reshapes the craft of software engineering — not replacing experienced engineers, but amplifying what they do.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Career Timeline</h2>
+          <div class="space-y-8">
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+                <div class="w-px flex-1 bg-border-subtle"></div>
+              </div>
+              <div class="pb-8">
+                <span class="text-sm text-accent font-mono">1999</span>
+                <h3 class="text-lg font-medium text-text-primary">The Beginning</h3>
+                <p class="text-text-secondary text-sm">Started writing software, discovering a passion for understanding systems and how they work together.</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+                <div class="w-px flex-1 bg-border-subtle"></div>
+              </div>
+              <div class="pb-8">
+                <span class="text-sm text-accent font-mono">2004</span>
+                <h3 class="text-lg font-medium text-text-primary">Cardiff University</h3>
+                <p class="text-text-secondary text-sm">Computer Science degree — formal foundations in the theory behind what I'd been teaching myself.</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+              </div>
+              <div>
+                <span class="text-sm text-accent font-mono">2024</span>
+                <h3 class="text-lg font-medium text-text-primary">AI-Enhanced Engineering</h3>
+                <p class="text-text-secondary text-sm">The most significant shift in 25 years — deeply focused on how AI reshapes the craft.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-2xl font-semibold text-text-primary mb-4">Beyond the Code</h2>
+          <p class="text-text-secondary max-w-xl mx-auto">Mountain biking, guitar, cooking, karate, smart home tinkering, and mentoring the next generation of engineers.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="relative isolate py-16 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-footer-demo"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1] pointer-events-none footer-top-fade"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <p class="text-text-secondary">Footer with full-strength blueprint — blends back in from the subtle body grid.</p>
+    </div>
+  </footer>
+
+  <div class="h-px bg-border-emphasis"></div>
+
+  {/* ── VARIATION C ─────────────────────────────── */}
+  {/* Fine grid with edge vignette — stronger near hero/footer, fades in middle */}
+
+  <section class="relative isolate min-h-[70vh] flex items-center pt-16 pb-16 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-hero"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[2] pointer-events-none hero-bottom-fade"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-accent/10 text-accent border border-accent/20 rounded-full">Variation C</span>
+      <h1 class="text-5xl sm:text-6xl font-bold text-text-primary mb-4">Fine Grid + Major at Edges</h1>
+      <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+        Fine 32px grid runs throughout. The 160px major grid is also present but slightly more visible — halfway between A and B. Strongest "blueprint paper" feel while staying content-friendly.
+      </p>
+    </div>
+  </section>
+
+  <div class="relative">
+    {/* Variation C: Fine grid everywhere + subtle major grid */}
+    <div aria-hidden="true" class="absolute inset-0 bg-grid-fine-plus-major pointer-events-none"></div>
+
+    <div class="relative z-10">
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">What I Do</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-xl border border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
+              <h3 class="text-lg font-medium text-text-primary mb-2">Architecture & Design</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">Building systems where the stakes are high — national cyber security infrastructure, government services, identity verification at scale.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
+              <h3 class="text-lg font-medium text-text-primary mb-2">AI-Enhanced Engineering</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">Exploring how AI reshapes the craft of software engineering — not replacing experienced engineers, but amplifying what they do.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Career Timeline</h2>
+          <div class="space-y-8">
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+                <div class="w-px flex-1 bg-border-subtle"></div>
+              </div>
+              <div class="pb-8">
+                <span class="text-sm text-accent font-mono">1999</span>
+                <h3 class="text-lg font-medium text-text-primary">The Beginning</h3>
+                <p class="text-text-secondary text-sm">Started writing software, discovering a passion for understanding systems and how they work together.</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+                <div class="w-px flex-1 bg-border-subtle"></div>
+              </div>
+              <div class="pb-8">
+                <span class="text-sm text-accent font-mono">2004</span>
+                <h3 class="text-lg font-medium text-text-primary">Cardiff University</h3>
+                <p class="text-text-secondary text-sm">Computer Science degree — formal foundations in the theory behind what I'd been teaching myself.</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent border-2 border-accent-light"></div>
+              </div>
+              <div>
+                <span class="text-sm text-accent font-mono">2024</span>
+                <h3 class="text-lg font-medium text-text-primary">AI-Enhanced Engineering</h3>
+                <p class="text-text-secondary text-sm">The most significant shift in 25 years — deeply focused on how AI reshapes the craft.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-2xl font-semibold text-text-primary mb-4">Beyond the Code</h2>
+          <p class="text-text-secondary max-w-xl mx-auto">Mountain biking, guitar, cooking, karate, smart home tinkering, and mentoring the next generation of engineers.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="relative isolate py-16 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint-footer-demo"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1] pointer-events-none footer-top-fade"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <p class="text-text-secondary">Footer with full-strength blueprint — blends back in from the subtle body grid.</p>
+    </div>
+  </footer>
+
+  {/* Back to variations link */}
+  <div class="py-8 text-center">
+    <a href="/variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">
+      &larr; Back to Variations
+    </a>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Shared hero blueprint (used in all three variation headers) ── */
+  .bg-blueprint-hero {
+    background-color: #0d0a1a;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.15) 0px, rgba(141, 127, 210, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.15) 0px, rgba(141, 127, 210, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.06) 0px, rgba(141, 127, 210, 0.06) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.06) 0px, rgba(141, 127, 210, 0.06) 1px, transparent 1px, transparent 32px);
+  }
+
+  :global(html[data-theme="light"]) .bg-blueprint-hero {
+    background-color: #f5f3fa;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.15) 0px, rgba(70, 51, 163, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.15) 0px, rgba(70, 51, 163, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.06) 0px, rgba(70, 51, 163, 0.06) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.06) 0px, rgba(70, 51, 163, 0.06) 1px, transparent 1px, transparent 32px);
+  }
+
+  /* ── Shared footer blueprint ── */
+  .bg-blueprint-footer-demo {
+    background-color: transparent;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.08) 0px, rgba(141, 127, 210, 0.08) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.08) 0px, rgba(141, 127, 210, 0.08) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.03) 0px, rgba(141, 127, 210, 0.03) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.03) 0px, rgba(141, 127, 210, 0.03) 1px, transparent 1px, transparent 32px);
+  }
+
+  :global(html[data-theme="light"]) .bg-blueprint-footer-demo {
+    background-image:
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.08) 0px, rgba(70, 51, 163, 0.08) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.08) 0px, rgba(70, 51, 163, 0.08) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.03) 0px, rgba(70, 51, 163, 0.03) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.03) 0px, rgba(70, 51, 163, 0.03) 1px, transparent 1px, transparent 32px);
+  }
+
+  /* ── Shared glow ── */
+  .bg-glow {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(141, 127, 210, 0.06) 0%,
+      rgba(141, 127, 210, 0.02) 40%,
+      transparent 70%
+    );
+  }
+
+  :global(html[data-theme="light"]) .bg-glow {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(70, 51, 163, 0.04) 0%,
+      rgba(70, 51, 163, 0.01) 40%,
+      transparent 70%
+    );
+  }
+
+  /* ── Shared fades ── */
+  .hero-bottom-fade {
+    background: linear-gradient(to bottom, transparent 70%, var(--color-bg) 100%);
+  }
+
+  .footer-top-fade {
+    background: linear-gradient(to bottom, var(--color-bg) 0%, transparent 30%);
+  }
+
+  /* ═══════════════════════════════════════════════
+     VARIATION A — Fine grid only (32px squares)
+     Very subtle engineering paper texture.
+     Major: none  |  Fine: 0.025 opacity
+     ═══════════════════════════════════════════════ */
+  .bg-grid-fine-only {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.025) 0px,
+        rgba(141, 127, 210, 0.025) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.025) 0px,
+        rgba(141, 127, 210, 0.025) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  :global(html[data-theme="light"]) .bg-grid-fine-only {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.03) 0px,
+        rgba(70, 51, 163, 0.03) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.03) 0px,
+        rgba(70, 51, 163, 0.03) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  /* ═══════════════════════════════════════════════
+     VARIATION B — Both grids at whisper opacity
+     Full blueprint structure, very quiet.
+     Major: 0.03 opacity  |  Fine: 0.015 opacity
+     ═══════════════════════════════════════════════ */
+  .bg-grid-both-whisper {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.03) 0px,
+        rgba(141, 127, 210, 0.03) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.03) 0px,
+        rgba(141, 127, 210, 0.03) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.015) 0px,
+        rgba(141, 127, 210, 0.015) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.015) 0px,
+        rgba(141, 127, 210, 0.015) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  :global(html[data-theme="light"]) .bg-grid-both-whisper {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.035) 0px,
+        rgba(70, 51, 163, 0.035) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.035) 0px,
+        rgba(70, 51, 163, 0.035) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.02) 0px,
+        rgba(70, 51, 163, 0.02) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.02) 0px,
+        rgba(70, 51, 163, 0.02) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  /* ═══════════════════════════════════════════════
+     VARIATION C — Fine grid + visible major grid
+     Strongest "paper" feel while still being subtle.
+     Major: 0.045 opacity  |  Fine: 0.025 opacity
+     ═══════════════════════════════════════════════ */
+  .bg-grid-fine-plus-major {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.045) 0px,
+        rgba(141, 127, 210, 0.045) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.045) 0px,
+        rgba(141, 127, 210, 0.045) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.025) 0px,
+        rgba(141, 127, 210, 0.025) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.025) 0px,
+        rgba(141, 127, 210, 0.025) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  :global(html[data-theme="light"]) .bg-grid-fine-plus-major {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.05) 0px,
+        rgba(70, 51, 163, 0.05) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.05) 0px,
+        rgba(70, 51, 163, 0.05) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.03) 0px,
+        rgba(70, 51, 163, 0.03) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.03) 0px,
+        rgba(70, 51, 163, 0.03) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+</style>

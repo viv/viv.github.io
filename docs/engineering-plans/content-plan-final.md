@@ -25,7 +25,7 @@ Warm, practical, unpretentious. If it sounds like a keynote speaker, rewrite it.
 ## Hero
 
 > **Viv.**
-> Software engineer. Building things that matter since 1998.
+> Software engineer. Building things that matter.
 
 (Final wording to be refined during build, but "Viv" confirmed as the lead name.)
 
@@ -79,10 +79,10 @@ This is also where you learned to learn, a skill that turned out to matter far m
 
 ---
 
-#### 3. Tracesmart — From Chaos to Craft
+#### 3. Tracesmart — Building the Foundation
 
 **Year:** 2008 – 2011
-**Headline:** "You can't build great software on a broken foundation"
+**Headline:** "Great software starts with great practices"
 **Story:** Arrived to find a shared server with no source control. Left behind a team of 15 with CI/CD, automated testing, code quality tooling, database versioning, and ISO 27001 compliance. The transformation wasn't just technical, it was cultural. Introducing pair programming, continuous feedback, and feature toggles meant changing how people thought about their work, not just how they shipped it.
 
 Led the development team through the creation of multiple business-critical applications. Pioneered solutions for database replication challenges. Implemented high-performance, secure web services with structured data access, caching, and distributed task processing. Built robust hiring processes and championed technical excellence at every opportunity.
@@ -294,6 +294,8 @@ Not theoretical. Practical. AI is a core part of the daily engineering workflow,
 
 Mentoring apprentices. Hosting work experience. Running 1:1s, 360-degree feedback, and CPD programmes. The best investment a senior engineer can make is in the people around them.
 
+Mentored an apprentice who won BCS Software Developer & Tester Apprentice of the Year. Hosted work experience placements that turned into genuine learning experiences for everyone involved. 5k wellness runs. Mental health advocacy in the workplace. The thread that runs through the whole career: helping people grow.
+
 
 ---
 
@@ -318,16 +320,69 @@ Your calibrated view on the trajectory, informed by 25 years of paradigm shifts.
 ---
 
 
+## Work in the Open
+
+A section on the main page (between Expertise and Beyond the Code) that draws attention to public contributions on GitHub without overstating them. Most of Viv's work is behind closed doors — this highlights the exception.
+
+**Tone:** Honest and understated. Not "look at my open source stats" but "here's some of my work that happens to be public." No contribution graphs or commit counts — focus on the substance of what was contributed and why it matters.
+
+**GitHub profile:** [github.com/viv](https://github.com/viv) (joined 2009)
+
+### Openfire — igniterealtime/Openfire
+
+Long-term contributor to Openfire, the open source XMPP server used by defence and government organisations worldwide. Contributions span:
+
+- **Networking overhaul** — replaced the MINA networking framework with Netty for both server-to-server and client-to-server connections. A foundational change touching the entire server's networking stack.
+- **Cryptographic security programme** — systematic hardening: fixed hardcoded IVs, upgraded key derivation from SHA1 to PBKDF2, migrated from CBC to authenticated GCM mode, added certificate revocation checking (OCSP). All while maintaining backward compatibility with years of production data.
+- **Architecture Decision Records** — introduced ADRs to give a 20-year-old codebase something it never had: a way to understand why things are the way they are. Including a forward-looking post-quantum cryptography migration strategy.
+- **Performance engineering** — parallel MUC room loading with benchmarks (2.39x speedup on 10,000 rooms).
+
+Link to: [Openfire on GitHub](https://github.com/igniterealtime/Openfire)
+
+### Openfire Docker Compose — surevine/openfire-docker-compose
+
+Docker Compose setup for running multiple Openfire servers with databases for local development and testing. Added clustering support, OCSP configuration, Java remote debugging, and documentation.
+
+Link to: [openfire-docker-compose on GitHub](https://github.com/surevine/openfire-docker-compose)
+
+### Design notes
+
+- 2 repo highlight cards (Openfire + docker-compose) with brief descriptions and links
+- Optional: fetch repo stars/forks from GitHub API at build time for live data
+- Keep it compact — this is a quiet, honest section, not a showcase wall
+- Consider fetching pinned repos from GitHub API to keep the section in sync with what Viv has pinned on his profile
+
+---
+
 ## Beyond the Code
 
-### Wado Ryu Karate
+The main page shows 5 curated cards. A dedicated `/life` page provides the full picture with richer content.
+
+### Main Page Cards
+
+#### Wado Ryu Karate
 3rd Dan. You teach. See [ogwrkarate.co.uk](https://www.ogwrkarate.co.uk). This isn't a hobby. It's a parallel discipline of teaching, leadership, and personal development pursued for decades.
 
-### Guitar & Keyboard
+#### Mountain Biking & Active Life
+Mountain biking is the primary outdoor passion — trails in South Wales and beyond. Also running, rowing, and general fitness. Links to the /life page.
+
+#### Guitar & Keyboard
 Electric and acoustic guitar since 1995, plus keyboard. A hobby, but 30 years of one.
 
+#### Smart Home & IoT
+Home Assistant, Matter, Thread, Apple Home. The intersection of engineering curiosity and domestic life. Building automations, tinkering with protocols, and trying to make the house smarter without making it fragile.
+
+#### Cooking
+Another creative outlet. No restaurant ambitions, just genuine enjoyment of the craft.
+
 ### Mentoring & Community
-Ben's work experience story. The apprentice who won BCS Software Developer & Tester Apprentice of the Year. 5k wellness runs. Mental health advocacy in the workplace.
+_Moved to the "Growing engineers" theme in the Expertise section above. The mentoring, BCS apprentice award, work experience, wellness runs, and mental health advocacy stories enrich the professional narrative and fit naturally alongside "Growing engineers"._
+
+### /life Page (Dedicated)
+
+A standalone page at `/life` with richer content for each interest above, plus:
+
+- **Photo gallery** — deferred for now. When implemented: manually curated photos exported from Apple Photos, displayed in a grid/masonry layout with lightbox. Documented as Session 6.8.
 
 
 ---
@@ -350,7 +405,7 @@ Ben's work experience story. The apprentice who won BCS Software Developer & Tes
 
 These are not displayed as a list. They're embedded in the timeline entries and section copy.
 
-1. **"You can't build great software on a broken foundation."** (Tracesmart)
+1. **"Great software starts with great practices."** (Tracesmart)
 2. **"The most interesting engineering happens at the boundaries."** (Cross-domain work)
 3. **"Security is a design decision, not a feature."** (Government work, Openfire, governance)
 4. **"If you can't rebuild it from scratch, you don't own it."** (IaC, automation)

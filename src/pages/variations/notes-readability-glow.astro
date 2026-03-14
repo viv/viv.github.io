@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+---
+
+<BaseLayout title="Readability: Radial Glow — Viv" description="Radial glow approach to improving notes readability over blueprint grid.">
+  <Navigation />
+
+  <main id="main-content" class="relative pt-24 pb-32">
+    {/* Radial glow overlay — sits between body grid and content */}
+    <div aria-hidden="true" class="fixed inset-0 reading-glow pointer-events-none z-0"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6">
+      <a href="/variations/notes-readability-variations" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; Back to comparison</a>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">Field Notes</h1>
+      <p class="text-lg text-text-secondary leading-relaxed mb-16">
+        My engineering notebook. Discoveries, observations, failures, and ideas I've been pondering.
+      </p>
+
+      <p class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-3 py-2 mb-12 inline-block">Variation A — Radial glow centred on the content column. Grid fades softly in the reading area.</p>
+
+      {/* Simulated note list */}
+      <ul class="space-y-8">
+        <li class="group">
+          <a href="#" class="block">
+            <time class="text-sm text-text-tertiary font-mono">2026-03-08</time>
+            <h2 class="text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors mt-1">Principles for leading AI-augmented development</h2>
+            <p class="text-lg text-text-secondary mt-1">What changes when your team has AI pair-programmers, and what stays the same.</p>
+          </a>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">leadership</span>
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">ai</span>
+          </div>
+        </li>
+        <li class="group">
+          <a href="#" class="block">
+            <time class="text-sm text-text-tertiary font-mono">2026-03-01</time>
+            <h2 class="text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors mt-1">Voice-driven development</h2>
+            <p class="text-lg text-text-secondary mt-1">Exploring the shift from typing to speaking your code into existence.</p>
+          </a>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">tooling</span>
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">workflow</span>
+          </div>
+        </li>
+        <li class="group">
+          <a href="#" class="block">
+            <time class="text-sm text-text-tertiary font-mono">2026-02-15</time>
+            <h2 class="text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors mt-1">GSAP ScrollTrigger gotchas with Astro</h2>
+            <p class="text-lg text-text-secondary mt-1">Z-index traps and canvas layering lessons from building scroll-driven animations in Astro.</p>
+          </a>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">astro</span>
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">gsap</span>
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">animation</span>
+          </div>
+        </li>
+        <li class="group">
+          <a href="#" class="block">
+            <time class="text-sm text-text-tertiary font-mono">2026-02-01</time>
+            <h2 class="text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors mt-1">Observability beyond the three pillars</h2>
+            <p class="text-lg text-text-secondary mt-1">Logs, metrics, and traces aren't enough. What a more holistic approach looks like.</p>
+          </a>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">observability</span>
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">architecture</span>
+          </div>
+        </li>
+        <li class="group">
+          <a href="#" class="block">
+            <time class="text-sm text-text-tertiary font-mono">2026-01-20</time>
+            <h2 class="text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors mt-1">Staying sharp in the AI age</h2>
+            <p class="text-lg text-text-secondary mt-1">How to keep your engineering skills honed when AI can write most of the code.</p>
+          </a>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">career</span>
+            <span class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5">ai</span>
+          </div>
+        </li>
+      </ul>
+
+      {/* Simulated article content below the list */}
+      <div class="border-t border-border-subtle mt-16 pt-16">
+        <p class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-3 py-2 mb-8 inline-block">Sample article content for readability comparison</p>
+
+        <div class="prose-note">
+          <h2>GSAP ScrollTrigger gotchas with Astro</h2>
+          <p>A few things caught me out whilst building scroll-driven animations for this site with GSAP ScrollTrigger and Astro. Noting them here so I don't have to rediscover them next time.</p>
+          <h3>The z-index trap</h3>
+          <p>The hero section uses a full-viewport <code>&lt;canvas&gt;</code> for the interactive particle network, with gradient overlays and text content stacked on top. The natural instinct is to push the canvas behind everything with a negative z-index.</p>
+          <p>This doesn't work. Negative z-index pushes the element behind the <code>&lt;body&gt;</code> background, making it invisible. The canvas renders fine. You just can't see it.</p>
+          <h3>The fix: isolation</h3>
+          <p>The solution is to use CSS isolation on the parent container and positive z-indices for all children. This creates a new stacking context without changing the visual appearance of the background.</p>
+          <blockquote>The key insight: <code>isolate</code> on the parent means z-index values are relative to that container, not the document root.</blockquote>
+          <p>Once I understood the stacking context, the layering order became: blueprint grid at <code>z-0</code>, particle canvas at <code>z-[1]</code>, bottom fade at <code>z-[2]</code>, text content at <code>z-10</code>.</p>
+          <ul>
+            <li>Canvas must use <code>clearRect</code> (transparent) so the grid shows through</li>
+            <li>Never fill the canvas background — let the CSS grid layer underneath</li>
+            <li>All layers need explicit z-index within the isolated stacking context</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-border-subtle pt-8 mt-16">
+        <a href="/variations/notes-readability-variations" class="text-sm text-accent-functional hover:text-accent-light transition-colors">&larr; Back to comparison</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Radial glow — uses the background colour to soften the grid
+     in the centre of the viewport. Inspired by the footer's
+     bg-glow-footer but covering the full reading area. */
+  .reading-glow {
+    background: radial-gradient(
+      ellipse 50% 100% at 50% 50%,
+      var(--color-bg) 0%,
+      rgba(12, 10, 20, 0.7) 40%,
+      transparent 70%
+    );
+  }
+
+  :global(html[data-theme="light"]) .reading-glow {
+    background: radial-gradient(
+      ellipse 50% 100% at 50% 50%,
+      var(--color-bg) 0%,
+      rgba(249, 248, 252, 0.7) 40%,
+      transparent 70%
+    );
+  }
+</style>

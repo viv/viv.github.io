@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+---
+
+<BaseLayout title="Violet Tone Variations — Viv" description="Exploring refined violet accent tones for better readability.">
+  <Navigation />
+  <main id="main-content" class="pt-24 pb-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Violet Tone Variations</h1>
+      <p class="text-text-secondary mb-4">
+        The current violet (<code class="text-sm bg-bg-surface px-1.5 py-0.5 rounded border border-border-subtle font-mono">#8B5CF6</code>) reads as neon/gaudy at 90% saturation.
+        These alternatives keep the violet family but reduce saturation for a more refined, sophisticated feel.
+      </p>
+      <p class="text-text-tertiary text-sm mb-12">
+        Each palette shows a dark and light mode preview with the actual site elements. Contrast ratios are computed live — look for the AA/AAA badges.
+        Toggle the site theme to see how each card adapts.
+      </p>
+
+      <div id="palettes" class="space-y-16">
+        <!-- Palettes are rendered by the script below -->
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  // ─── Colour utilities ───────────────────────────────
+  function hslToRgb(h: number, s: number, l: number): [number, number, number] {
+    s /= 100; l /= 100;
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+    const m = l - c / 2;
+    let r = 0, g = 0, b = 0;
+    if (h < 60) { r = c; g = x; }
+    else if (h < 120) { r = x; g = c; }
+    else if (h < 180) { g = c; b = x; }
+    else if (h < 240) { g = x; b = c; }
+    else if (h < 300) { r = x; b = c; }
+    else { r = c; b = x; }
+    return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
+  }
+
+  function rgbToHex(r: number, g: number, b: number): string {
+    return '#' + [r, g, b].map(c => c.toString(16).padStart(2, '0')).join('').toUpperCase();
+  }
+
+  function hslToHex(h: number, s: number, l: number): string {
+    const [r, g, b] = hslToRgb(h, s, l);
+    return rgbToHex(r, g, b);
+  }
+
+  function relativeLuminance(hex: string): number {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const toLinear = (c: number) => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+  }
+
+  function contrastRatio(hex1: string, hex2: string): number {
+    const l1 = relativeLuminance(hex1);
+    const l2 = relativeLuminance(hex2);
+    const lighter = Math.max(l1, l2);
+    const darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  function badge(ratio: number, isLargeText: boolean): string {
+    const threshold = isLargeText ? 3.0 : 4.5;
+    const aaaThreshold = isLargeText ? 4.5 : 7.0;
+    if (ratio >= aaaThreshold) return `<span style="background:#166534;color:#bbf7d0;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;">AAA ${ratio.toFixed(1)}:1</span>`;
+    if (ratio >= threshold) return `<span style="background:#854d0e;color:#fef08a;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;">AA ${ratio.toFixed(1)}:1</span>`;
+    return `<span style="background:#991b1b;color:#fecaca;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;">FAIL ${ratio.toFixed(1)}:1</span>`;
+  }
+
+  // ─── Palette definitions ────────────────────────────
+  interface PaletteDef {
+    name: string;
+    description: string;
+    tag: string;
+    dark: { accent: [number, number, number]; light: [number, number, number]; pale: [number, number, number] };
+    light: { accent: [number, number, number]; light: [number, number, number]; pale: [number, number, number] };
+  }
+
+  const palettes: PaletteDef[] = [
+    {
+      name: 'Current (Neon Violet)',
+      description: 'The existing palette — 90% saturation. Shown for comparison.',
+      tag: 'CURRENT',
+      dark:  { accent: [258, 90, 66], light: [258, 92, 76], pale: [258, 95, 85] },
+      light: { accent: [263, 70, 50], light: [263, 70, 42], pale: [263, 65, 56] },
+    },
+    {
+      name: 'Muted Violet',
+      description: 'Same hue, saturation dropped to ~55%. Refined without losing identity. The most conservative change.',
+      tag: 'OPTION A',
+      dark:  { accent: [258, 55, 66], light: [258, 55, 76], pale: [258, 50, 84] },
+      light: { accent: [263, 55, 44], light: [263, 50, 38], pale: [263, 50, 52] },
+    },
+    {
+      name: 'Dusty Lavender',
+      description: 'Lower saturation (~40%) for a soft, editorial feel. More muted than Option A — elegant but less punchy.',
+      tag: 'OPTION B',
+      dark:  { accent: [262, 40, 68], light: [262, 40, 78], pale: [262, 35, 85] },
+      light: { accent: [262, 50, 40], light: [262, 50, 34], pale: [262, 45, 48] },
+    },
+    {
+      name: 'Slate Violet',
+      description: 'Blue-shifted hue (~250°) with medium saturation. Feels more cerebral and technical — less playful, more authoritative.',
+      tag: 'OPTION C',
+      dark:  { accent: [250, 48, 66], light: [250, 48, 76], pale: [250, 42, 84] },
+      light: { accent: [250, 52, 42], light: [250, 50, 36], pale: [250, 48, 50] },
+    },
+    {
+      name: 'Warm Amethyst',
+      description: 'Warmer hue (~272°) with medium saturation. Slightly pink-shifted — more human and approachable.',
+      tag: 'OPTION D',
+      dark:  { accent: [272, 50, 66], light: [272, 50, 76], pale: [272, 45, 84] },
+      light: { accent: [272, 55, 42], light: [272, 55, 36], pale: [272, 50, 50] },
+    },
+  ];
+
+  // ─── Background colours ─────────────────────────────
+  const darkBg = '#0A0A0A';
+  const darkSurface = '#141414';
+  const lightBg = '#FAFAFA';
+  const lightSurface = '#FFFFFF';
+
+  // ─── Render ─────────────────────────────────────────
+  function renderPalette(p: PaletteDef, index: number): string {
+    const dAccent = hslToHex(...p.dark.accent);
+    const dLight  = hslToHex(...p.dark.light);
+    const dPale   = hslToHex(...p.dark.pale);
+    const lAccent = hslToHex(...p.light.accent);
+    const lLight  = hslToHex(...p.light.light);
+    const lPale   = hslToHex(...p.light.pale);
+
+    // Contrast ratios
+    const dAccentOnBg    = contrastRatio(dAccent, darkBg);
+    const dAccentOnSurf  = contrastRatio(dAccent, darkSurface);
+    const dLightOnSurf   = contrastRatio(dLight, darkSurface);
+    const lAccentOnBg    = contrastRatio(lAccent, lightBg);
+    const lAccentOnSurf  = contrastRatio(lAccent, lightSurface);
+    const lLightOnSurf   = contrastRatio(lLight, lightSurface);
+
+    const isCurrent = index === 0;
+    const borderClass = isCurrent ? 'border-border-emphasis' : 'border-border-subtle';
+
+    return `
+      <section class="border ${borderClass} rounded-xl overflow-hidden">
+        <div class="px-6 py-4 bg-bg-raised flex items-center gap-3 border-b border-border-subtle">
+          <span style="background:${dAccent};color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.05em;">${p.tag}</span>
+          <h2 class="text-xl font-bold text-text-primary">${p.name}</h2>
+        </div>
+        <div class="px-6 py-3 bg-bg-surface border-b border-border-subtle">
+          <p class="text-text-secondary text-sm">${p.description}</p>
+        </div>
+
+        <div class="grid md:grid-cols-2">
+          <!-- Dark mode preview -->
+          <div style="background:${darkBg};padding:2rem;" class="border-b md:border-b-0 md:border-r border-border-subtle">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+              <span style="color:#a0a0a0;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Dark Mode</span>
+            </div>
+
+            <!-- Swatches -->
+            <div style="display:flex;gap:8px;margin-bottom:24px;">
+              <div style="text-align:center;">
+                <div style="width:48px;height:48px;border-radius:8px;background:${dAccent};border:1px solid rgba(255,255,255,0.1);"></div>
+                <div style="color:#a0a0a0;font-size:10px;margin-top:4px;font-family:monospace;">${dAccent}</div>
+                <div style="color:#666;font-size:9px;">accent</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:48px;height:48px;border-radius:8px;background:${dLight};border:1px solid rgba(255,255,255,0.1);"></div>
+                <div style="color:#a0a0a0;font-size:10px;margin-top:4px;font-family:monospace;">${dLight}</div>
+                <div style="color:#666;font-size:9px;">light</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:48px;height:48px;border-radius:8px;background:${dPale};border:1px solid rgba(255,255,255,0.1);"></div>
+                <div style="color:#a0a0a0;font-size:10px;margin-top:4px;font-family:monospace;">${dPale}</div>
+                <div style="color:#666;font-size:9px;">pale</div>
+              </div>
+            </div>
+
+            <!-- Section heading sample -->
+            <div style="margin-bottom:20px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:${dAccent};margin:0;">Experience</h3>
+              <div style="margin-top:4px;">${badge(dAccentOnBg, true)} <span style="color:#666;font-size:10px;">on bg (large text)</span></div>
+            </div>
+
+            <!-- Link sample -->
+            <div style="margin-bottom:20px;background:${darkSurface};border:1px solid #262626;border-radius:8px;padding:16px;">
+              <p style="color:#a0a0a0;font-size:14px;margin:0 0 8px 0;">Practical application of language models, retrieval-augmented generation, and agentic workflows.</p>
+              <a style="color:${dAccent};font-size:14px;text-decoration:none;cursor:default;">More about my AI approach &rarr;</a>
+              <div style="margin-top:4px;">${badge(dAccentOnSurf, false)} <span style="color:#666;font-size:10px;">on surface (normal text)</span></div>
+            </div>
+
+            <!-- Quote sample -->
+            <div style="background:${darkSurface};border:1px solid #262626;border-radius:8px;padding:16px;margin-bottom:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <div style="width:12px;height:12px;border-radius:50%;background:${dAccent};border:2px solid ${darkBg};"></div>
+                <span style="color:#a0a0a0;font-size:12px;">1980s – 1990s</span>
+              </div>
+              <p style="font-weight:700;color:#f5f5f5;font-size:14px;margin:0 0 4px 0;">The Beginning</p>
+              <p style="color:${dLight};font-style:italic;font-size:16px;margin:0;">&ldquo;Every expert was once a beginner&rdquo;</p>
+              <div style="margin-top:4px;">${badge(dLightOnSurf, false)} <span style="color:#666;font-size:10px;">quote on surface</span></div>
+            </div>
+          </div>
+
+          <!-- Light mode preview -->
+          <div style="background:${lightBg};padding:2rem;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+              <span style="color:#555;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Light Mode</span>
+            </div>
+
+            <!-- Swatches -->
+            <div style="display:flex;gap:8px;margin-bottom:24px;">
+              <div style="text-align:center;">
+                <div style="width:48px;height:48px;border-radius:8px;background:${lAccent};border:1px solid rgba(0,0,0,0.1);"></div>
+                <div style="color:#555;font-size:10px;margin-top:4px;font-family:monospace;">${lAccent}</div>
+                <div style="color:#999;font-size:9px;">accent</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:48px;height:48px;border-radius:8px;background:${lLight};border:1px solid rgba(0,0,0,0.1);"></div>
+                <div style="color:#555;font-size:10px;margin-top:4px;font-family:monospace;">${lLight}</div>
+                <div style="color:#999;font-size:9px;">light</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:48px;height:48px;border-radius:8px;background:${lPale};border:1px solid rgba(0,0,0,0.1);"></div>
+                <div style="color:#555;font-size:10px;margin-top:4px;font-family:monospace;">${lPale}</div>
+                <div style="color:#999;font-size:9px;">pale</div>
+              </div>
+            </div>
+
+            <!-- Section heading sample -->
+            <div style="margin-bottom:20px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:${lAccent};margin:0;">Experience</h3>
+              <div style="margin-top:4px;">${badge(lAccentOnBg, true)} <span style="color:#999;font-size:10px;">on bg (large text)</span></div>
+            </div>
+
+            <!-- Link sample -->
+            <div style="margin-bottom:20px;background:${lightSurface};border:1px solid #e0e0e0;border-radius:8px;padding:16px;">
+              <p style="color:#555;font-size:14px;margin:0 0 8px 0;">Practical application of language models, retrieval-augmented generation, and agentic workflows.</p>
+              <a style="color:${lAccent};font-size:14px;text-decoration:none;cursor:default;">More about my AI approach &rarr;</a>
+              <div style="margin-top:4px;">${badge(lAccentOnSurf, false)} <span style="color:#999;font-size:10px;">on surface (normal text)</span></div>
+            </div>
+
+            <!-- Quote sample -->
+            <div style="background:${lightSurface};border:1px solid #e0e0e0;border-radius:8px;padding:16px;margin-bottom:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <div style="width:12px;height:12px;border-radius:50%;background:${lAccent};border:2px solid ${lightBg};"></div>
+                <span style="color:#555;font-size:12px;">1980s – 1990s</span>
+              </div>
+              <p style="font-weight:700;color:#1a1a1a;font-size:14px;margin:0 0 4px 0;">The Beginning</p>
+              <p style="color:${lLight};font-style:italic;font-size:16px;margin:0;">&ldquo;Every expert was once a beginner&rdquo;</p>
+              <div style="margin-top:4px;">${badge(lLightOnSurf, false)} <span style="color:#999;font-size:10px;">quote on surface</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ─── Mount ──────────────────────────────────────────
+  const container = document.getElementById('palettes');
+  if (container) {
+    container.innerHTML = palettes.map((p, i) => renderPalette(p, i)).join('');
+  }
+</script>

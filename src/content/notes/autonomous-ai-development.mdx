@@ -1,0 +1,38 @@
+---
+title: "Autonomous AI Development: Outsourcing Authorship, Not Ownership"
+date: 2025-12-05
+tags: [ai, workflow, agentic-workflows]
+description: "A practical workflow for freeing AI agents to handle more code generation autonomously, whilst retaining ownership of quality and direction."
+---
+
+Many software engineers have been working with AI for software development in a hands-on, human-in-the-loop way. This maintains control and ensures adherence to requirements, but limits development speed. If we want to go faster, we must step back and let AI agents handle more of the code generation autonomously. The challenge is ensuring we still have the opportunity to provide the value that, to date, we've been providing in real time.
+
+Before going further, we need to acknowledge that we're outsourcing authorship, not ownership. AI agents write the code, but we remain accountable for its quality, security, and fitness for purpose. Our workflow has to reflect this. We define what gets built, set the standards it must meet, and verify that it does.
+
+What I'm covering here is how I have made the most of the tooling and capabilities of models in late 2025. I expect this will change rapidly, but I'm as certain as I can be that the principles, practices, and values of [XP](https://en.wikipedia.org/wiki/Extreme_programming) will continue to serve me well for many years to come regardless of how the world changes around it.
+
+## Same Tools, Different Coders
+
+For autonomous AI development to work, you need the same engineering discipline you might apply to a human team. Practices like requirements documents, automated checking, delivery pipelines, and architecture decision records exist to solve coordination and quality problems independent of who does the work. They don't become less important when agents replace humans. They become essential infrastructure, because agents take things literally and won't discuss the nuances of the way you worded something in the same way that another human, already familiar with the messy "human way" of communicating, might.
+
+Teams that are already disciplined about clear requirements, good test practices, and structured documentation will find this transition easier. The practices that sometimes feel like overhead with human teams become the fabric by which AI agents operate.
+
+> I've written more about this in [My Approach to Software Engineering with AI](/notes/ai-engineering-q1-2026), including how I structure context, run parallel reviews, and think about maintaining good software engineering practice alongside AI-assisted delivery.
+
+## The Autonomous Workflow
+
+For autonomous AI-enhanced development to succeed, we need a workflow that ensures all our requirements are met, functional and non-functional, down to basics like ensuring tests pass, and we need it to happen without constant human intervention.
+
+How do agents know what to build? We have to tell them, through clear requirements and acceptance criteria, a clear specification covering what we want and what we care about (perhaps architecture, library choices, languages, test criteria).
+
+Maybe we also need to go further and generate a set of structured tasks with discrete portions of work that an orchestrating agent can delegate. I'm not suggesting we create lengthy spec or requirements docs, just enough to define what we _think_ we want and the criteria that will be met when it's complete. A small set of needs, sourced from the right place (users), with acceptance criteria defined and refined through iteration.
+
+The workflow I've been trialling centres on two documents: a **specification** (the stable definition of what we're building) and a **plan** (a living document that agents update and use to coordinate work). The workflow looks like this:
+
+1. **Create the specification.** Work with AI agents to produce a clear Markdown specification document covering current requirements and system details.
+2. **Enrich the specification.** Use AI agents to augment the spec with implementation details you'd normally determine as a developer: identifying suitable libraries, evaluating technical approaches, and filling in the practical gaps.
+3. **Define the plan.** Create a companion plan document that breaks the work into discrete tasks with clear definition-of-done criteria. This becomes the shared coordination point for all agents.
+4. **Orchestrate delivery.** A top-level agent delegates tasks to sub-agents (or an agent-team), each agent responsible for a bounded piece of work. Agents update the plan as they complete tasks, flag issues, or identify new work, providing visibility into progress and enabling coordination without constant human oversight.
+
+The distinction between the specification and the plan is important. The specification is stable, it's the agreed definition of what we're building. The plan is more frequently changing, agents update it as work progresses. This separation means the goal doesn't drift (without our input), even as the route to it evolves.
+

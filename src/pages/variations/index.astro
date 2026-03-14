@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+---
+
+<BaseLayout title="Variations — Viv" description="Design variations and experiments.">
+  <Navigation />
+  <main id="main-content" class="relative pt-24 pb-16">
+    <div aria-hidden="true" class="reading-glow"></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Variations</h1>
+      <p class="text-text-secondary mb-12">Design experiments and layout alternatives. Pick one, iterate, discard the rest.</p>
+
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6">Hero</h2>
+        <ul class="space-y-4">
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/hero-test-3" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Test 3</a>
+            <span class="text-sm text-text-secondary">Integrated hero+about — avatar and name left, about text right. No effects.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/hero-test-3a" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Test 3a</a>
+            <span class="text-sm text-text-secondary">Same layout + interactive canvas particles + animated gradient text + smooth blend.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/hero-test-3b" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Test 3b</a>
+            <span class="text-sm text-text-secondary">Same layout + animated gradient text + subtle violet glow. No canvas.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6">Hero Backgrounds</h2>
+        <ul class="space-y-4">
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/hero-bg-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Background Variations</a>
+            <span class="text-sm text-text-secondary">5 background treatments — Graph Paper, Blueprint, Animated Glow, Dot Matrix, Grid + Particles.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/blueprint-body-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Blueprint Body Grid</a>
+            <span class="text-sm text-text-secondary">3 subtle full-page grid treatments — fine grid only, both grids whisper, fine + visible major.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/hero-glow-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Hero Glow Intensity</a>
+            <span class="text-sm text-text-secondary">3 CSS radial glow intensities for the hero — full, medium, and subtle. No particles.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/light-glow-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Light Mode Glow</a>
+            <span class="text-sm text-text-secondary">3 light-mode glow treatments — warm white, edge vignette, no glow. Dark-mode reference included.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6">Colour</h2>
+        <ul class="space-y-4">
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/colour-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Colour Variations</a>
+            <span class="text-sm text-text-secondary">Accent colour schemes — warm copper and alternative palettes.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/violet-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Violet Tone Variations</a>
+            <span class="text-sm text-text-secondary">Refined violet accent tones — less neon, more sophisticated. Side-by-side dark/light with contrast ratios.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6">Sections</h2>
+        <ul class="space-y-4">
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/expertise-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">What I Do Variations</a>
+            <span class="text-sm text-text-secondary">Image display alternatives for the What I Do / Expertise cards — 6 layout options from small icon to full header.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/beyond-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Beyond the Code Variations</a>
+            <span class="text-sm text-text-secondary">Layout alternatives for the Beyond the Code section with card-based image layouts.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6">Readability</h2>
+        <ul class="space-y-4">
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/notes-readability-variations" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Side-by-Side Comparison</a>
+            <span class="text-sm text-text-secondary">Both approaches in demo boxes with a control — radial glow vs vertical strip vs no treatment.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/notes-readability-glow" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Radial Glow (full page)</a>
+            <span class="text-sm text-text-secondary">Footer-style elliptical glow centred on the content column. Grid fades softly in the reading area.</span>
+          </li>
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/notes-readability-strip" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Vertical Strip (full page)</a>
+            <span class="text-sm text-text-secondary">Linear gradient creating a clean reading column. Grid disappears in the centre, visible at edges.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6">Content</h2>
+        <ul class="space-y-4">
+          <li class="flex items-baseline gap-4">
+            <a href="/variations/content-comparisons" class="text-accent-functional hover:text-accent-light transition-colors font-medium link-hover">Content Comparisons</a>
+            <span class="text-sm text-text-secondary">Side-by-side current vs proposed text — expertise card and timeline entry rewording.</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

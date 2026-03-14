@@ -1,0 +1,56 @@
+---
+title: "Observability Beyond Three Pillars"
+date: 2025-03-25
+tags: [observability, conference-notes]
+description: "Why observability is more than logs, metrics, and traces. Wide events, the fourth quadrant of unknown unknowns, and full SDLC observability."
+---
+
+## The Vendor Pitch vs the Reality
+
+In March 2025, Andrew Hardie gave [a talk to the DevSecOps specialist group on observability in DevSecOps](https://www.bcs.org/events-calendar/2025/march/hybrid-observability-in-devsecops-wider-than-three-pillars/). Hardie has been in the industry since the 1960s, working across government, financial services, and startups. His central argument was that the vendor pitch for observability, packaged as "three pillars" of logs, metrics, and traces, understates the problem and oversimplifies the solution.
+
+Most observability tooling is sold on the premise that if you collect enough logs, metrics, and traces, you'll be able to understand your system. Hardie's point was that true observability is about what you can *do* with that data, not just how much of it you collect.
+
+## Monitoring vs Observability
+
+There's an important distinction to be made between monitoring and observability. Monitoring shows you what you already know to look for. You define thresholds, set alerts, and get notified when something crosses a line you've drawn in advance. It's reactive by design, and it's only as good as your ability to predict what will go wrong.
+
+Observability is different, it lets you see what you didn't know you needed to look for. Rather than pre-defining what "broken" looks like and watching for it, observability gives you the tools to ask novel questions of your system after something unexpected has happened. In a world where the most damaging incidents are often the ones nobody anticipated, this is a fundamentally more useful capability.
+
+## Wide Events
+
+The most compelling idea from the talk was wide events. Rather than treating logs, metrics, and traces as three separate streams of data that need to be correlated after the fact, wide events combine rich context into single structured events. Each event carries enough information to be useful on its own, without needing to combine it with other data sources.
+
+Jeremy Morrell's [ A Practitioner's Guide to Wide Events ](https://jeremymorrell.dev/blog/a-practitioners-guide-to-wide-events/) makes a persuasive case for this approach. The argument is that the three-pillar model creates artificial boundaries between data types that are really just different views of the same underlying event. Wide events collapse those boundaries and make it easier to understand what actually occurred, because all the relevant context travels together.
+
+For anyone building systems where security events need to be correlated with operational events, this makes immediate sense. Security incidents rarely announce themselves through a single log line or metric. They emerge from patterns across multiple signals, and wide events make those patterns easier to spot.
+
+## The Fourth Quadrant
+
+Hardie framed true observability as illuminating the "fourth quadrant" of the [Rumsfeld matrix](https://en.wikipedia.org/wiki/There_are_unknown_unknowns), the unknown unknowns. Standard monitoring handles the known knowns (things we expect and check for) and the known unknowns (things we know we don't know and try to measure). But the incidents that cause real damage are usually the ones nobody saw coming.
+
+The goal, as Hardie put it, is presenting an issue along with enough supporting context to help handle it. Not just "this thing broke" but "this thing broke, here's what was happening around it, and here's what's likely relevant." That's a higher bar than most monitoring setups achieve, but it's what teams actually need when they're diagnosing a production incident at three in the morning.
+
+## Beyond Production
+
+Another key topic was the argument that SDLC observability is just as important as operational observability. We invest effort in instrumenting production systems, but often lack visibility during development, testing, and deployment. Build pipelines can fail without clear diagnostics. Test environments may behave differently from production without a clear understanding of why. Deployments may succeed or fail with limited insight into what actually happened.
+
+Applying the same observability thinking to the development lifecycle, not just the running system, closes a gap that most teams don't realise they have. If we're serious about DevSecOps, the "Dev" part needs the same quality of insight as the "Ops" part.
+
+## Write It, Instrument It, Run It, Debug It
+
+In the same way that DevSecOps embedded security into the development workflow, observability embeds instrumentation. The developers who write the code are best placed to define what signals it should emit. Instrumentation is not a separate concern for operations or security teams; it is embedded in the development process, much like testing and security practices. This alignment ensures that the signals needed for security, reliability, and rapid incident response are present from the start, supporting the core goals of DevSecOps.
+
+A key principle in DevSecOps is full ownership throughout the software lifecycle:
+
+> "You write it, you instrument it, you run it, you debug it."
+
+It captures the full ownership mindset that observability demands. Instrumenting your code isn't someone else's job. It's not a task for an operations team to bolt on after the fact. It's part of writing the code in the first place, in the same way that testing is, or security considerations are.
+
+Application developers must output events. It's a fundamental part of what it means to write production software, not something to bolt on afterward. When observability is treated as a design concern rather than an operational concern, the quality of the signals your system produces goes up dramatically. And that's what determines whether, when something unexpected happens, you'll be able to understand it.
+
+## Further Reading
+
+- [Live Your Best Life with Structured Events](https://charity.wtf/2022/08/15/live-your-best-life-with-structured-events/)
+- [All You Need is Wide Events, Not Metrics](https://isburmistrov.substack.com/p/all-you-need-is-wide-events-not-metrics)
+- [A Practitioner's Guide to Wide Events](https://jeremymorrell.dev/blog/a-practitioners-guide-to-wide-events/)

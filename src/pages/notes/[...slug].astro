@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+// Get all notes sorted by date for prev/next navigation
+const allNotes = (await getCollection('notes')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const currentIndex = allNotes.findIndex((n) => n.id === note.id);
+const prevNote = currentIndex < allNotes.length - 1 ? allNotes[currentIndex + 1] : null;
+const nextNote = currentIndex > 0 ? allNotes[currentIndex - 1] : null;
+
+const dateStr = note.data.date.toISOString().slice(0, 10);
+const pageTitle = `${note.data.title} — Viv`;
+const pageDesc = note.data.description || `Field note: ${note.data.title}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDesc}>
+  <Navigation />
+
+  <main id="main-content" class="relative pt-24 pb-32">
+    <div aria-hidden="true" class="reading-glow"></div>
+    <article class="relative z-10 max-w-3xl mx-auto px-6">
+      <a href="/notes" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; All notes</a>
+
+      <header class="mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">{note.data.title}</h1>
+        <time datetime={dateStr} class="text-sm text-text-tertiary font-mono">{dateStr}</time>
+        {note.data.tags && note.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-3">
+            {note.data.tags.map((tag: string) => (
+              <a
+                href={`/notes/tags/${tag}`}
+                class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5 hover:border-accent/40 transition-colors"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="prose-note">
+        <Content />
+      </div>
+
+      {/* Prev / Next navigation */}
+      <nav class="border-t border-border-subtle pt-8 mt-16 grid grid-cols-2 gap-4" aria-label="Note navigation">
+        {prevNote ? (
+          <a href={`/notes/${prevNote.id}`} class="group text-left">
+            <span class="text-xs text-text-tertiary">&larr; Older</span>
+            <span class="block text-sm text-accent-functional group-hover:text-accent-light transition-colors mt-1 line-clamp-2">{prevNote.data.title}</span>
+          </a>
+        ) : <div />}
+        {nextNote ? (
+          <a href={`/notes/${nextNote.id}`} class="group text-right">
+            <span class="text-xs text-text-tertiary">Newer &rarr;</span>
+            <span class="block text-sm text-accent-functional group-hover:text-accent-light transition-colors mt-1 line-clamp-2">{nextNote.data.title}</span>
+          </a>
+        ) : <div />}
+      </nav>
+
+      <div class="border-t border-border-subtle pt-8 mt-8">
+        <a href="/notes" class="text-sm text-accent-functional hover:text-accent-light transition-colors">&larr; All notes</a>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

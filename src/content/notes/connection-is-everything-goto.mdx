@@ -1,0 +1,100 @@
+---
+title: "Connection is Everything: A Message from GOTO Copenhagen"
+date: 2025-10-14
+tags: [leadership, culture, conference-notes]
+description: "Synthesising talks from GOTO Copenhagen 2025, from customer connection to Kent Beck's Forest and Desert metaphor, and what it means for how we build software."
+---
+
+import { Image } from 'astro:assets';
+import hughesKen from '../../assets/notes/hughes-ken-connection.jpg';
+import forestDesert from '../../assets/notes/forest-desert.png';
+import beckFowler from '../../assets/notes/beck-fowler-truth-circle.jpeg';
+
+If there was a single idea that wove its way through the talks and conversations at [GOTO Copenhagen 2025](https://gotocph.com/), it was that we need to connect with our users and customers. Genuine, trust-based relationships that fundamentally change how we build software.
+
+## Setting the Scene
+
+[Ken Hughes](https://kenhughes.com/) opened the conference with this exact message. His keynote, "Connection is Everything", was about the nature of genuine customer relationships. He talked about customers needing to feel seen, heard, and valued.
+
+Often when we talk about "customers" in software it's not always clear whether we mean the people paying for the software, the people using it, or both. It's clear to me that connection is needed with both. The people paying for the software need to feel connected to the value it's delivering. Those using the software need to feel a connection with the experience and solution it provides.
+
+<Image src={hughesKen} alt="Ken Hughes delivering his keynote 'Connection is Everything' at GOTO Copenhagen 2025" />
+
+Hughes introduced the concept of "blue dot thinking", the shift from asking "where am I in the world?" (old-school map reading) to "the world comes to me" (Google Maps, where you are the blue dot at the centre and the world revolves around you). He encourages us to focus on the user solution, not the software solution. It's personal. It's about their world, not ours.
+
+This shift from "in the world" to "is the world" represents how expectations have fundamentally changed. Services come to you now: films, dating, fuel delivery (a new one on me), groceries. Users don't just want solutions; they want personal solutions.
+
+Hughes held up Taylor Swift as the exemplar of customer experience and connection. Whether you're a Swiftie or not, there's something to learn from someone who's mastered engagement across physical, digital, social, and gaming dimensions simultaneously.
+
+I loved the example he shared of Octopus Energy, determining your most nostalgic summer soundtrack (the summer that you were 14 years old) and using it as hold music. It demonstrated how AI and well-designed software systems can enable a depth and scale of connection with individuals that wasn't previously possible. I tested the "most nostalgic summer soundtrack" idea myself when I got home and can confirm that it worked for me.
+
+What I liked most was Hughes' assertion that creativity happens when two or more people get together and inspire each other. It can't be planned or measured. This isn't just about building better products; it's about fundamentally different ways of working.
+
+## The Environment That Enables Connection
+
+[Kent Beck](https://www.kentbeck.com/)'s session, "The Forest and The Desert Are Parallel Universes", provided the framework to understand why some projects feel deeply connected and others don't. Beck described two parallel worlds of software development that operate on completely different principles.
+
+In the Forest, resources are abundant. Dependencies are an invitation for collaboration. "Let's build together, there will be enough time." Status reporting is honest conversation. "We're behind and struggling; we have capacity, where can we help?" Accountability in the forest is an invitation to trust. "Do this, I trust you to do this, just let me know what you've done." Compliance exists because it helps teams to better serve their users. Metrics are vehicles for self-awareness and improvement. In the forest we get to eat the whole cake.
+
+In the Desert, resources feel scarce. Dependencies on others become convenient excuses for failure. Status reporting becomes a mechanism for prediction, control, and pressure. Accountability is a mechanism to force behaviour: "Do this or you will be held to account". Compliance is there to prevent people from getting away with whatever they'll certainly try to get away with. Metrics are sticks to hit people with. In the desert we are content with the crumbs of the cake that could have been. Tasty crumbs, but crumbs nonetheless.
+
+These aren't just different approaches; they're fundamentally different realities existing in parallel.
+
+<Image src={forestDesert} alt="Kent Beck's Forest and Desert metaphor, contrasting abundant and scarce mindsets in software development" />
+
+Beck put it bluntly. "Nobody's needs are fully met in the desert. Not the developers'. Not the managers'. And certainly not the users'."
+
+He noted something that might make us feel uncomfortable. "The luxury of a customer in the team seems scary, integrating 20 times per day seems impractical". These things seem scary and impractical because we're operating from a desert mindset. We've internalised scarcity so deeply that abundance looks like recklessness.
+
+When I think about the closest customer engagement I've worked on, I realise we'd created a forest environment. We were in regular contact, we had conversations, we adjusted based on feedback, both ways. Dependencies were solved through collaboration rather than finger-pointing. It didn't feel luxurious or impractical, it felt obvious. The difference shows up in how we operate: making the journey to visit the customer site, sitting with their team, seeing their problems in context rather than filtered through tickets or emails. That direct connection meant when we proposed solutions, they matched the customer's budget and addressed what actually mattered to them, not what appeared important from our side of the fence.
+
+Many other projects I've seen sometimes feel more like desert work, more arm's length and defensive, more about protecting ourselves from blame than creating value.
+
+## Start With Communication
+
+During the Beck & Fowler panel discussion "The Tech Truth Circle," [Martin Fowler](https://martinfowler.com/) was asked for his top advice for new developers. He put communication with users first. This wasn't buried in a list of technical practices, it was the foundation. Incidentally, his second piece of advice was to seek out your biggest bottleneck and cut it by half.
+
+<div style={{display: "flex", justifyContent: "center"}}>
+<Image src={beckFowler} alt="Kent Beck and Martin Fowler during 'The Tech Truth Circle' panel at GOTO Copenhagen 2025" width={400} />
+</div>
+
+Both Beck and Fowler emphasised the recurring theme that technical skill is necessary, but not sufficient. Beck summed it up clearly:
+>"Understand the domain, speak to users, this is where real mastery comes from. After that it's about how you spend your time in the gaps between features. Learning, explaining, comparing, refactoring, testing. But it starts with understanding who you're building for and what they actually need."
+
+## Ensuring the Conversations Happen
+
+[Andrew Harmel-Law](https://andrewharmellaw.github.io/)'s talk, "A Commune in the Ivory Tower?", was ostensibly about architecture, but really about connection, conversation, and collaboration.
+
+Harmel-Law quoted [Ruth Malan](https://www.ruthmalan.com/): "[In order for an architecture to be successful] it is very much about ensuring that conversations that need to be happening are happening, not always initiating them, nor always helping to focus or navigate them, but ensuring they do happen".
+
+His session explored the [Advice Process](https://www.reinventingorganizationswiki.com/en/theory/decision-making/), a decentralised way of making decisions where anybody (not everybody, but anybody) is empowered to make decisions when they have the context and responsibility, provided they consult with affected people and experts. This requires trust. It requires conversation. It requires treating dependencies as invitations for collaboration rather than triggers for political manoeuvring. Lack of trust was identified as a key cause of failure in such decentralised decision-making. Trust must be protected. You can't say no to approaches you don't like as one-off exceptions, you have to trust those making the decision. This maps directly onto Beck's Forest and Desert metaphor. The Advice Process is a forest technique. It requires trusting that people will make good decisions when given the right context and authority. It falls apart in a desert environment where every decision is a potential threat.
+
+## What Does This Mean in Practice?
+
+I've been reflecting on why that close customer engagement felt different. It was because we'd created the conditions for connection. We were in regular conversation with the customer, in a working relationship where trust existed. We treated dependencies between our work and theirs as invitations for collaboration, not as risks to manage. We focused on their problems, not our abstractions.
+
+On other projects I've worked on, we were often operating at arm's length. Communicating through meetings and formal channels. Protecting ourselves with process. At risk of just building software instead of solving user problems. Living in the desert, taking the tasty crumbs and not daring to ask for more.
+
+This combination of talks at GOTO didn't present a single methodology or framework. They presented a mindset. They suggested that the way we work matters as much as what we work on. That connection with users isn't a luxury for when we have extra time, it's the foundation of everything else.
+
+So what does this mean for how we build software systems day-to-day? A few things stand out:
+
+**Create the conditions for forest behaviour.** This isn't about implementing specific practices; it's about examining whether your environment treats time, trust, and expertise as abundant or scarce. Desert practices won't transform into forest practices through force of will. You need to change the underlying conditions.
+
+**Make user connection integral, not aspirational.** If "understanding users" only happens during occasional research sessions or when requirements are gathered, you're maintaining arm's-length. The close-engagement model works because the connection is continuous, not episodic. Find ways to make user conversation part of the regular rhythm, not a special event.
+
+**Conversations over documentation.** Whether it's architecture decisions (Harmel-Law), understanding the domain (Beck & Fowler), or customer experience (Hughes), the theme is consistent. Human connection and conversation is where the real work happens. Documentation matters, but it's the fossil record, not the living process.
+
+**Trust is the foundation.** Without trust, every practice becomes a desert practice. Metrics become weapons. Dependencies become excuses. Status reports become games. Trust isn't soft or optional. It's the prerequisite for everything else.
+
+**Connection enables creativity.** Hughes reminded us that creativity happens between people and can't be planned or measured. If your processes optimise for predictability and control over connection and creativity, you might be building the wrong things efficiently.
+
+## The Challenge
+
+What I'm taking away is that connection with users and customers isn't a nice-to-have that we'll get to as the project progresses or when we have "bandwidth". It's the thing that determines whether we're operating in the forest or the desert. It's what separates mastery from just going through the motions. It's the foundation for both architectural success and product success.
+
+The challenge is that it requires courage: honest conversations, real trust, and inviting customers into the team rather than keeping them at arm's length.
+
+Looking at projects where genuine customer connection exists compared to those where it doesn't, the difference isn't in the technical practices or the tools. It's in the quality of the relationships and the conversations. That's uncomfortable to admit because relationships are messier and harder to control than frameworks and processes.
+
+The thread through GOTO was clear: every practice, framework, and process we adopt is only as good as the relationships it serves. The teams that build the best software are the ones closest to the people using it.

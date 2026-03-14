@@ -1,0 +1,64 @@
+---
+title: "A Sea of Sameness: Diversity in Tech"
+date: 2025-10-10
+tags: [culture, conference-notes]
+description: "Reflections on the visible homogeneity at GOTO Copenhagen 2025, and what we lose when the people building the future are all the same."
+---
+
+import { Image } from 'astro:assets';
+import minifigFaces from '../../assets/notes/minifig-faces.png';
+import rainbowTidy from '../../assets/notes/rainbow-tidy.png';
+
+## The Observation
+
+[GOTO Copenhagen 2025](https://gotocph.com/) was an excellent conference. Genuinely worth attending, with forward-looking talks and thoughtful speakers. But walking around the break-out area, it struck me that in a room representing over 40 countries and the forefront of technology, there was an overwhelming visual similarity. A sea of sameness, almost uniformly white, male, and 30-50 years old.
+
+<Image src={minifigFaces} alt="A row of nearly identical Lego minifigures, illustrating the visual homogeneity of conference attendees" />
+
+This isn't unique to GOTO, who put on an impressive event, but it's a pattern across the industry. When we gather in large numbers, it becomes visible in a way that's easy to miss day-to-day.
+
+[Joanna Bryson](https://en.wikipedia.org/wiki/Joanna_Bryson) would later touch on this in her keynote. Different backgrounds bring different solutions. Varied experiences reveal different problems. By operating with such a narrow band of perspectives, we're not just excluding people. We're excluding ideas, innovations, and answers.
+
+## Why This Matters Now
+
+During her keynote on AI ethics, Joanna Bryson explored how in-group cooperation has lower risk but out-group diversity has higher expected outcomes. **Diversity delivers better results**. She wasn't making a moral argument but a practical observation about problem-solving.
+
+Her [work on AI bias](https://www.science.org/doi/10.1126/science.aal4230) (Caliskan, Bryson & Narayanan, Science 2017) showed how AI trained on human language replicates our implicit biases. Translation systems learning gender stereotypes aren't programmed to be biased, they learn from data that reflects who was in the room when the systems were built.
+
+A revealing demonstration of this was presented at the conference. *Han* is a gender-neutral personal pronoun used to refer to people of any gender, including men, women, and non-binary individuals. It has been part of the Finnish language since its earliest written records. And yet, when we ask a popular translation tool to translate simple Finnish sentences containing *han*, we see biases reflected back:
+
+| Finnish | English (via translation software) |
+|---|---|
+| Han sijoittaa. | He invests. |
+| Han urheilee. | He's playing sports. |
+| Han tekee t&ouml;it&auml;. | He works. |
+| Han ajaa autoa. | He drives a car. | |
+| Han pesee pyykki&auml;. | She washes the laundry. |
+| Han hoitaa lapsia. | She takes care of the children. |
+| Han tanssii. | She dances. |
+
+Looking around at the conference it was clear that the "who's in the room" problem is happening right now. We're building AI systems, global platforms, and future infrastructure with a remarkably narrow slice of human perspective. The homogeneity directly affects capability. Are we building systems that work for everyone when "everyone" isn't represented in the building process?
+
+## The Pipeline Question
+
+[Sam Aaron](https://sam.aaron.name/)'s keynote on [Sonic Pi](https://sonic-pi.net/) offered an unexpected insight into this pattern. He challenged the fundamental assumption that "programming is only for business", comparing it to how we teach sports in schools, not to create professional athletes, but to develop physical literacy. His creative coding approach, making music with code, naturally attracts different people than traditional computer science pathways.
+
+This raises an interesting question about pipelines and pathways. How many people were missing from that conference not because they lacked capability, but because the only door they saw into technology was marked "Computer Science Degree" or "Maths Wizz" or "Coding Since Age 10"? Aaron's work demonstrates that when you create different entry points (creative, musical, visual) you get different people. But most of the industry still has just one door, and it's shaped exactly like the people already inside.
+
+Early engagement is key, Aaron mentioned that his tool isn't for teaching computer science but for engaging kids with it. Engagement has to come before education, interest before instruction. But if the only examples of "what a programmer looks like" are variations of the same type, how many kids never even develop that initial spark of interest?
+
+## The Comfort of Homogeneity
+
+There's an efficiency to homogeneity that is rarely acknowledged. When everyone shares similar backgrounds, communication is easier. References are understood without explanation, assumptions align without discussion, trust builds quickly because we trust what's familiar. It's not malicious, it's human nature, but this comfort comes at a cost.
+
+The cost isn't just to those excluded, though that cost is real, it's also a cost to the industry. When we're all variations of the same Lego figure, we're going to build variations of the same solutions. We'll approach problems from the same angles, make the same assumptions, have the same blind spots. For an industry that prides itself on innovation, we've created a system that selects for similarity.
+
+## Questions Without Easy Answers
+
+If the patterns are this entrenched, how do they change? If the pipeline starts narrowing in primary school, when kids start to engage with coding or not, how do we widen it? If comfort and efficiency pull us toward similarity, what forces could pull us toward diversity strongly enough to overcome that natural gravity?
+
+The sixteen-year-olds starting their software path today will only know a world with generative AI. They won't carry our assumptions about how things "should" work. But looking at our current industry gatherings, will they see themselves reflected in technology's future? Not just the ones who already look like us, but all of them? Those that do engage, despite not seeing themselves reflected, deserve active support, mentorship, and sponsorship to counter the headwinds they may face. And if they don't engage or find that support, what innovations will we miss? What problems will go unsolved? What perspectives will never shape the tools that shape our world?
+
+The conference made these patterns visible. Until our industry includes a broader spectrum of human perspective, we're building the future with a limited palette of ideas. That costs all of us.
+
+<Image src={rainbowTidy} alt="A row of Lego minifigures in every colour of the rainbow, the diversity we should be aiming for" />

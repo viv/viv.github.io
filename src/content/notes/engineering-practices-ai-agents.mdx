@@ -1,0 +1,28 @@
+---
+title: "Core Engineering Principles for AI-Augmented Workflows"
+date: 2026-02-13
+tags: [ai, workflow, quality]
+description: "Traditional engineering practices don't become obsolete when AI handles implementation. They become essential infrastructure. The engineer's role is to focus on defining what success looks like and less about inspecting how it was achieved."
+---
+
+Coordinating autonomous agents is remarkably similar to coordinating human software engineers. The same coordination tools can also apply: requirements documents, tests, architecture decision records, stories/cards/issues, documentation, pull requests. These practices exist to solve coordination and quality problems that are independent of who is doing the work. Requirements exist because we need to know what to build. Tests exist because we need to verify correctness. These problems don't disappear when agents replace humans. If anything, they intensify, because agents take things literally and can't reasonably guess what we meant.
+
+Teams who are already disciplined about clear requirements, good test coverage, and structured documentation are finding it easier to adopt autonomous AI development. The practices that sometimes feel like overhead with human teams become essential infrastructure when our workers are AI agents.
+
+The tools might stay the same, but the cadence shifts. Agents can work continuously, so asynchronous coordination patterns like issues, pull requests, and written specifications become the primary mode rather than a supplement to synchronous discussion.
+
+This has the benefit of traceability. Review agents comment on pull requests, remediation agents address those comments, orchestrating agents update plans. Everything leaves a log. When authorship and ownership went hand in hand, accountability was implicit. When we outsource authorship but retain ownership, that audit trail becomes essential. When used alongside tests and specs it forms part of how we demonstrate due diligence over work we didn't directly write.
+
+## The Spec Is the Product
+
+When a human team builds software, ambiguity in a spec gets caught naturally. Someone asks a question in a planning session. A developer pushes back in a standup. A Slack conversation surfaces an assumption nobody had written down. Those interactions quietly compensate for what the spec didn't say.
+
+AI doesn't do that, it takes the spec at face value and runs. No pushback or clarifying questions, no instinct that something feels off. If the spec is wrong, the output is confidently, efficiently wrong.
+
+How well we define what to build matters, and defining what to build is a function of something that hasn't changed: how deeply we understand the system, the users, the customer, and the problem.
+
+Dan Shapiro calls the fully autonomous end of this spectrum the ["Dark Software Factory"](https://www.danshapiro.com/blog/2026/01/the-five-levels-from-spicy-autocomplete-to-the-software-factory/), where AI systems handle implementation end-to-end and human engineers manage the goals and the system without routinely (or ever) looking at the code. Whether or not we're there yet (a few orgs claim to be), the direction is clear. Spec quality, our ability to define what we want with sufficient fidelity, is becoming the primary constraint, and spec quality is a direct function of engineering expertise.
+
+## Where This Is Going
+
+Agent swarms, where multiple agents coordinate on larger pieces of work with a top-level orchestrator delegating and reviewing, are [already practical](https://github.com/ruvnet/ruflo). The engineer's role is becoming more about defining what success looks like and less about inspecting how it was achieved.

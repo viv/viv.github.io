@@ -226,35 +226,35 @@ Create a minimal icon (256x256) representing mentoring and growing people. Abstr
 Create a minimal abstract illustration (512x512) representing martial arts / karate. Not a literal figure or silhouette — something more abstract: perhaps the arc of a technique, the geometry of a kata, or intersecting lines suggesting discipline and movement. Off-white (#f5f5f5) on transparent background with optional deep violet (#7C3AED) accent. Modern, elegant. Output as PNG with transparent background.
 ```
 
-**Prompt — Guitar & Music:**
+**Prompt — Guitar & Music: [DONE]**
 ```
 Create a minimal abstract illustration (512x512) representing guitar and music. Not a literal guitar shape — something more abstract: perhaps sound waves, harmonic patterns, or the geometry of a fretboard abstracted into lines. Off-white (#f5f5f5) on transparent background with optional deep violet (#7C3AED) accent. Modern, elegant. Output as PNG with transparent background.
 ```
 
-**Prompt — Mentoring & Community:**
+**Prompt — Mentoring & Community: [DONE]**
 ```
 Create a minimal abstract illustration (512x512) representing mentoring, community, and human connection. Abstract shapes suggesting support, growth, and collaboration — overlapping circles, branching paths, or connected forms. Off-white (#f5f5f5) on transparent background with optional deep violet (#7C3AED) accent. Warm, human, not corporate. Output as PNG with transparent background.
 ```
 
-### 2.6 AI Engineering Page Header
+### 2.6 AI Engineering Page Header [DONE]
 
 **Prompt:**
 ```
 Create a wide atmospheric graphic (1792x1024) for the header of a dedicated AI Engineering page on a personal website. Dark background (#0a0a0a). Abstract visualisation suggesting the intersection of traditional software engineering principles and AI — perhaps overlapping geometric structures (representing established engineering) merging with more fluid, organic network patterns (representing AI). Very subtle, low opacity (10-20%), serving as a background behind white text. Colours: off-white traces with hints of deep violet (#7C3AED). Cinematic, thoughtful, not hype. Output as PNG.
 ```
 
-### 2.7 Favicon
+### 2.7 Favicon [DONE]
 
 **Prompt:**
 ```
 Create a simple, bold favicon design (512x512) featuring the letter "V". Style: geometric, modern sans-serif. The V should be off-white (#f5f5f5) on a dark background (#0a0a0a), or off-white on transparent background. Consider a subtle design touch — a cut, a violet (#7C3AED) gradient, or single accent line — that makes it distinctive at 16x16px and 32x32px sizes. Must be legible at very small sizes. Output as PNG with transparent background.
 ```
 
-### 2.8 Open Graph / Social Sharing Image
+### 2.8 Open Graph / Social Sharing Image [DONE]
 
 **Prompt:**
 ```
-Create a social sharing preview image (1200x630) for a personal website. Dark background (#0a0a0a). Large bold text in the centre reading "Viv." in off-white (#f5f5f5), with smaller text below: "Software engineer. Building things that matter since 1998." Subtle atmospheric background treatment — a very faint violet (#7C3AED) gradient mesh or geometric pattern at low opacity. The text should be the clear focus. Modern, cinematic, premium. Output as PNG.
+Create a social sharing preview image (1200x630) for a personal website. Dark background (#0a0a0a). Large bold text in the centre reading "Viv." in off-white (#f5f5f5), with smaller text below: "Software engineer. Building things that matter." Subtle atmospheric background treatment — a very faint violet (#7C3AED) gradient mesh or geometric pattern at low opacity. The text should be the clear focus. Modern, cinematic, premium. Output as PNG.
 ```
 
 ---
@@ -612,6 +612,57 @@ For assets where the aesthetic isn't decided, generate multiple variations to co
 | **Organic abstract** | Warmer, more fluid, human | Add: "Style: organic abstract forms, flowing curves, hand-drawn feel but clean execution" |
 
 Generate both styles for one item (e.g. the karate icon), compare them in context against the dark background and alongside the narrative text, then apply the chosen style to all three Beyond the Code items for consistency.
+
+---
+
+
+--- 
+## Additional Images
+
+---
+Experience Timeline Entry Accents
+
+Cardiff University — "Learning to think in systems"
+
+Create a small abstract icon (512x512) representing formal computer science education and systems thinking. Geometric shapes suggesting structured, interconnected systems — perhaps a tree-like structure or layered graph nodes arranged with deliberate hierarchy, evoking algorithms and data structures
+rendered as visual form. Colour: off-white (#f5f5f5) on transparent background with subtle deep violet (#7C3AED) highlights. Clean, academic in feel but modern, not institutional. Output as PNG with transparent background.
+
+Tracesmart — "Great software starts with great practices"
+
+Create a small abstract icon (512x512) representing building strong engineering foundations and culture from the ground up. Geometric shapes suggesting layers being assembled — structured ascending forms like building blocks or stacked planes gaining complexity and order as they rise. Evokes
+transformation: from disorganised to disciplined, from fragile to solid. Colour: off-white (#f5f5f5) on transparent background with subtle deep violet (#7C3AED) highlights. Modern, minimal, constructive. Output as PNG with transparent background.
+
+Threatvine — "Technical authority for national infrastructure"
+
+Create a small abstract icon (512x512) representing technical authority over a national-scale cyber security platform. A structured network of interconnected nodes suggesting both scale and governance — authoritative, deliberate, not chaotic. The pattern should feel like infrastructure: purposeful
+connections, hierarchical but distributed. More commanding and structured than a simple network diagram. Colour: off-white (#f5f5f5) on transparent background with subtle deep violet (#7C3AED) accents. Modern, minimal, authoritative. Output as PNG with transparent background.
+
+Remote Working — "Before it was normal"
+
+Create a small abstract icon (512x512) representing remote collaboration and distributed teams built on trust. Abstract nodes or points connected by lines spanning deliberate distance — the connections should feel intentional and warm rather than cold or technical. Suggests human connection
+maintained across space: communication lines reaching outward, bridging gaps. Colour: off-white (#f5f5f5) on transparent background with subtle deep violet (#7C3AED) accents. Modern, minimal, human. Output as PNG with transparent background.
+
+  ---
+Beyond the Code
+
+Mountain Biking & Active Life
+
+Create a minimal abstract illustration (512x512) representing mountain biking and outdoor adventure. Not a literal bicycle — something more abstract: perhaps dynamic flowing lines suggesting a trail cutting through terrain, or angular geometric forms evoking speed, elevation, and the contours of
+hillside paths. Suggests movement, energy, and the outdoors. Off-white (#f5f5f5) on transparent background with optional deep violet (#7C3AED) accent. Modern, elegant. Output as PNG with transparent background.
+
+Smart Home & IoT
+
+Create a minimal abstract illustration (512x512) representing smart home technology and IoT tinkering. Not a literal house — something more abstract: perhaps interconnected geometric nodes forming a mesh or constellation pattern suggesting devices communicating via protocols, with a subtle sense of
+domestic scale rather than industrial. Evokes the intersection of engineering curiosity and home life. Off-white (#f5f5f5) on transparent background with optional deep violet (#7C3AED) accent. Modern, elegant. Output as PNG with transparent background.
+
+Cooking
+
+Create a minimal abstract illustration (512x512) representing cooking as a creative craft. Not literal kitchen implements — something more abstract: perhaps flowing geometric forms suggesting transformation, composition, or layered elements coming together. Evokes the artistry of preparation and the
+satisfaction of creating something from raw ingredients. Off-white (#f5f5f5) on transparent background with optional deep violet (#7C3AED) accent. Modern, elegant, warm. Output as PNG with transparent background.
+
+  ---
+All prompts follow the established pattern: 512x512, off-white (#f5f5f5) on transparent, subtle violet (#7C3AED) accents, abstract/geometric rather than literal, PNG output. They should sit comfortably alongside the existing beginning, national_cyber, open_source, ai_human_collab, karate, and
+guitar-music images.
 
 ---
 

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  const tagMap = new Map<string, typeof notes>();
+
+  for (const note of notes) {
+    for (const tag of note.data.tags ?? []) {
+      if (!tagMap.has(tag)) tagMap.set(tag, []);
+      tagMap.get(tag)!.push(note);
+    }
+  }
+
+  return [...tagMap.entries()].map(([tag, notes]) => ({
+    params: { tag },
+    props: {
+      tag,
+      notes: notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { tag, notes } = Astro.props;
+---
+
+<BaseLayout title={`Notes tagged "${tag}" — Viv`} description={`Field notes tagged with ${tag}.`}>
+  <Navigation />
+
+  <main id="main-content" class="relative pt-24 pb-32">
+    <div aria-hidden="true" class="reading-glow"></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-6">
+      <a href="/notes" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; All notes</a>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-2">
+        <span class="text-text-tertiary font-normal">#</span>{tag}
+      </h1>
+      <p class="text-lg text-text-secondary mb-16">
+        {notes.length} {notes.length === 1 ? 'note' : 'notes'} tagged <span class="font-mono text-accent-functional">{tag}</span>
+      </p>
+
+      <ul class="space-y-8">
+        {notes.map((note) => (
+          <li class="group relative">
+            <a
+              href={`/notes/${note.id}`}
+              class="block"
+            >
+              <time
+                datetime={note.data.date.toISOString().slice(0, 10)}
+                class="text-sm text-text-tertiary font-mono"
+              >
+                {note.data.date.toISOString().slice(0, 10)}
+              </time>
+              <h2 class="text-2xl font-semibold text-text-primary group-hover:text-accent transition-colors mt-1">
+                {note.data.title}
+              </h2>
+              {note.data.description && (
+                <p class="text-lg text-text-secondary mt-1">{note.data.description}</p>
+              )}
+            </a>
+            {note.data.tags && note.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 mt-2">
+                {note.data.tags.map((t: string) => (
+                  <a
+                    href={`/notes/tags/${t}`}
+                    class:list={[
+                      'text-xs font-mono rounded px-2 py-0.5 transition-colors',
+                      t === tag
+                        ? 'text-text-primary bg-accent/20 border border-accent/40'
+                        : 'text-accent-functional bg-bg-surface border border-border-subtle hover:border-accent/40',
+                    ]}
+                  >
+                    {t}
+                  </a>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <div class="border-t border-border-subtle pt-8 mt-16 flex items-center justify-between">
+        <a href="/notes" class="text-sm text-accent-functional hover:text-accent-light transition-colors">&larr; All notes</a>
+        <a href="/notes/tags" class="text-sm text-accent-functional hover:text-accent-light transition-colors">All tags &rarr;</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -28,7 +28,7 @@ The site is a single scrolling page with the following sections, in order. A ded
 Full-viewport opening. Animated entrance with text fading or sliding in. Subtle scroll indicator.
 
 > **Viv.**
-> Software engineer. Building things that matter since 1998.
+> Software engineer. Building things that matter.
 
 Background treatment TBD: subtle particle field, gradient mesh, or abstract geometric animation. Something tasteful, not a stock video.
 

@@ -2,28 +2,38 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
 import Timeline from '../components/Timeline.astro';
 import Expertise from '../components/Expertise.astro';
+import WorkInTheOpen from '../components/WorkInTheOpen.astro';
 import BeyondTheCode from '../components/BeyondTheCode.astro';
+import RecentNotes from '../components/RecentNotes.astro';
 import Contact from '../components/Contact.astro';
 ---
 
 <BaseLayout title="Viv — Software Engineer">
+  <div id="scroll-progress" aria-hidden="true"></div>
   <Navigation />
-  <Hero />
-  <About />
-  <Expertise />
-  <Timeline />
-  <BeyondTheCode />
+  <main id="main-content">
+    <Hero />
+    <Expertise />
+    <Timeline />
+    <WorkInTheOpen />
+    <BeyondTheCode />
+    <RecentNotes />
+  </main>
   <Contact />
 </BaseLayout>
 
 <script>
+  // GSAP scroll animations
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   gsap.registerPlugin(ScrollTrigger);
+
+  // Expose for components that need to create animations after initial load
+  (window as any).__gsap = gsap;
+  (window as any).__gsapScrollTrigger = ScrollTrigger;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -37,12 +47,47 @@ import Contact from '../components/Contact.astro';
       stagger: 0.2,
     });
 
+    // Expertise intro — heading then first row of cards appear together,
+    // triggered by the card grid, so the heading never appears orphaned on tall screens
+    const expertiseHeading = document.getElementById('expertise-heading');
+    const expertiseFirstRow = document.querySelectorAll('[data-expertise-intro]');
+    const expertiseGrid = document.querySelector('#expertise .grid');
+    if (expertiseHeading && expertiseGrid) {
+      gsap.from(expertiseHeading, {
+        scrollTrigger: {
+          trigger: expertiseGrid,
+          start: 'top 95%',
+          toggleActions: 'play none none none',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        immediateRender: true,
+      });
+    }
+    if (expertiseFirstRow.length && expertiseGrid) {
+      gsap.from(expertiseFirstRow, {
+        scrollTrigger: {
+          trigger: expertiseGrid,
+          start: 'top 95%',
+          toggleActions: 'play none none none',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.15,
+        ease: 'power2.out',
+        immediateRender: true,
+      });
+    }
+
     // Scroll-triggered fade-ups
     gsap.utils.toArray('[data-animate="fade-up"]').forEach((el) => {
       gsap.from(el as Element, {
         scrollTrigger: {
           trigger: el as Element,
-          start: 'top 85%',
+          start: 'top 90%',
           toggleActions: 'play none none none',
         },
         y: 30,
@@ -57,7 +102,7 @@ import Contact from '../components/Contact.astro';
       gsap.from(el as Element, {
         scrollTrigger: {
           trigger: el as Element,
-          start: 'top 80%',
+          start: 'top 90%',
           toggleActions: 'play none none none',
         },
         y: 50,
@@ -66,5 +111,19 @@ import Contact from '../components/Contact.astro';
         ease: 'power3.out',
       });
     });
+  }
+
+  // Scroll progress indicator
+  const scrollProgress = document.getElementById('scroll-progress');
+  if (scrollProgress) {
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgress!.style.width = `${progress}%`;
+      scrollProgress!.style.opacity = scrollTop > 50 ? '1' : '0';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
   }
 </script>

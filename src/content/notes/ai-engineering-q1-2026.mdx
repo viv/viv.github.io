@@ -1,0 +1,30 @@
+---
+title: "My Approach to Software Engineering with AI in 2026"
+date: 2026-02-22
+tags: [ai, workflow, xp, agentic-workflows, claude-code]
+description: "I outline my approach to AI-enhanced software engineering in 2026, informed by 30 years of experience and a couple of years deliberately leaning into AI as a core part of how I work."
+---
+
+## Philosophy
+
+In my 30 years of building software, AI is proving to be the most significant shift in how software engineering is practised. Working effectively with AI agents requires the same skills I've been applying with human teams for years: understanding and modelling the domain, clear scoping, small increments, test-driven development, managing complexity, scheduling, managing teams, and iterating based on feedback. These skills matter more when your tooling can produce code faster than you can review it.
+
+AI agents write the code, but I remain accountable for quality, security, and fitness for purpose. I might outsource authorship, but ownership remains with me. My workflow reflects this. I define what gets built, set the standards it must meet, and verify that it does.
+
+[XP](https://en.wikipedia.org/wiki/Extreme_programming) practices are proving as relevant as ever. I'm encouraged that the same discipline that makes me effective as a senior engineer leading a team of humans is also what makes me effective orchestrating a team of AI agents. Core software engineering skills are crucial as we rapidly increase the amount of software underpinning our lives.
+
+## How I (Currently) Work with AI
+
+AI tooling and capabilities are changing so rapidly that what is effective today might not be next month. I'm mindful of this, so I keep my workflow adaptable and deliberately not tied to any specific model or tool. I work at the principles level. What follows is how I work today, built to change as the landscape does.
+
+Agents are part of my daily engineering workflow. Every project I work on has structured context that AI agents can read. Project-level guidance files define conventions, auto-triggered rules handle specific standards or security constraints, reusable [skills](https://agentskills.io) encode capabilities that are needed occasionally, and explicit permission boundaries control what agents can and can't do. This layered approach means I can start a new session and the agent understands the project's conventions, architecture, and constraints without me re-explaining everything.
+
+I centre most work around a **specification** document that defines what I'm building, and a **plan** document (or set of plan documents) that breaks the work into discrete tasks. The specification covers requirements, architecture, library choices, and acceptance criteria. The spec document stays relatively stable. The plan is a living document that agents update as they complete work, flag blockers, or identify new tasks. An orchestrating agent delegates tasks to sub-agents, each responsible for a bounded piece of work. [Architecture decision records](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) capture the reasoning behind significant choices. Everything lives in the repository alongside the code.
+
+> I'm experimenting with using GitHub/GitLab issues and PRs as the coordination engine for the agents' work (in the same way as a human team would) but there's something about the simplicity and availability of text files in a repository that I like.
+
+I break plans into small, discrete sessions with clear entry and exit points. Each session has a focused goal and produces one working increment. So that the problem fits into the context window, I chunk it into pieces and externalise context into the filesystem. This lets agents selectively read and remember without filling up the full conversation. Context survives between sessions and between people.
+
+Agents reduce the cost of producing code, but that shifts the bottleneck. If code is cheap, then ensuring the quality, security, and review of that code becomes the constraint. I run code reviews with multiple AI agents working in parallel. One reviewing with fresh eyes on technical merit alone, another with full context of the implementation goals, others might focus on design, architecture, security, writing style.
+
+Continuous delivery practices are the counterbalance to increased velocity. When AI agents can produce working software faster than any human team, the automated processes we already rely on become critical. CI/CD pipelines with comprehensive test suites, static analysis, security scanning, and deployment checks are exactly the kind of verification that scales. They don't slow down when output increases. They just keep running. Progressive release strategies like [blue-green deployments](https://martinfowler.com/bliki/BlueGreenDeployment.html) and [canary releases](https://martinfowler.com/bliki/CanaryRelease.html) add another layer, catching problems in production before they reach everyone. The teams that have invested in strong delivery pipelines already have the infrastructure to match the pace of AI-assisted engineering. The safety net scales with the output. That's where I'm focusing my effort, strengthening these practices so that as the pace of delivery increases, the confidence in what I ship increases with it.

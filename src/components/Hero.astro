@@ -1,46 +1,75 @@
 ---
+import { Image } from 'astro:assets';
+import avatar from '../assets/headshot/avatar.png';
 ---
 
-<section class="relative isolate min-h-screen flex items-center justify-center overflow-hidden">
-  {/* Animated canvas background */}
+<section id="about" aria-label="About" class="relative isolate min-h-[80vh] flex items-center pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
+  {/* Blueprint grid background */}
+  <div aria-hidden="true" class="absolute inset-0 z-0 bg-blueprint"></div>
+  {/* Blueprint corner markers */}
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--tl"></div>
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--tr"></div>
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--bl"></div>
+  <div aria-hidden="true" class="blueprint-corner blueprint-corner--br"></div>
+  {/* Radial glow */}
+  <div aria-hidden="true" class="absolute inset-0 z-0 bg-glow-violet"></div>
+  {/* Particle canvas — hidden easter egg, revealed by 5 rapid clicks */}
   <canvas
     id="hero-canvas"
-    class="absolute inset-0 z-0 w-full h-full"
+    aria-hidden="true"
+    class="absolute inset-0 z-[1] w-full h-full opacity-0 pointer-events-none transition-opacity duration-1000"
   />
-  {/* Bottom fade to seamlessly blend into the next section */}
+  {/* Bottom fade to blend into the next section */}
   <div
-    class="absolute inset-0 z-[1] pointer-events-none"
-    style="background: linear-gradient(to bottom, transparent 70%, #0a0a0a 100%);"
+    aria-hidden="true"
+    class="hero-bottom-fade absolute inset-0 z-[2] pointer-events-none"
   />
 
-  <div class="text-center px-6 relative z-10">
-    <h1
-      data-animate="hero"
-      class="hero-title text-7xl sm:text-8xl lg:text-9xl font-bold tracking-tight"
-    >
-      Viv.
-    </h1>
-    <p
-      data-animate="hero"
-      class="mt-6 text-xl sm:text-2xl text-text-secondary max-w-xl mx-auto"
-    >
-      Software engineer. Building things that matter.
-    </p>
+  <div class="max-w-5xl mx-auto px-6 w-full relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+      {/* Left: name + avatar */}
+      <div class="text-center lg:text-left">
+        <Image
+          src={avatar}
+          alt="Viv — portrait photo"
+          width={160}
+          height={160}
+          class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-border-subtle mx-auto lg:mx-0 mb-8"
+        />
+        <h1
+          data-animate="hero"
+          class="hero-title text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight"
+        >
+          Viv.
+        </h1>
+        <p data-animate="hero" class="mt-3 text-lg text-text-secondary max-w-[80vw] sm:max-w-[60vw] lg:max-w-[18rem] text-center lg:text-left mx-auto lg:mx-0">
+          Software engineer. 25 years understanding systems, users, and problems. It's never mattered more.
+        </p>
+      </div>
+
+      {/* Right: about text */}
+      <div class="space-y-6">
+        <p data-animate="fade-up" class="text-base lg:text-lg text-text-primary leading-relaxed">
+          I've been writing software since the late 90s. In that time I've learned that tools change frequently but the principles of good engineering don't.
+        </p>
+        <p data-animate="fade-up" class="text-base lg:text-lg text-text-primary leading-relaxed">
+          Based in South Wales, I'm a Chartered Engineer with a Computer Science degree from the University of Wales, Cardiff. I've worked remotely for most of my career, long before it was fashionable, and most of that time has been spent building systems where the stakes are high. National cyber security infrastructure, government services, child safeguarding platforms, identity verification at scale. When the cost of getting it wrong is real, how you build matters as much as what you build.
+        </p>
+        <p data-animate="fade-up" class="text-base lg:text-lg text-text-primary leading-relaxed">
+          I've been working seriously with AI tools for the past couple of years. It's the most significant shift in software engineering I've seen, removing friction around applying engineering judgement. The tedious parts are faster, the interesting parts are more interesting.
+        </p>
+      </div>
+    </div>
   </div>
 
   {/* Scroll indicator */}
   <div
     data-animate="hero"
-    class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+    aria-hidden="true"
+    class="absolute bottom-2 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
   >
     <span class="text-xs text-text-tertiary tracking-widest uppercase">Scroll</span>
-    <svg
-      class="w-5 h-5 text-text-tertiary animate-bounce"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      stroke-width="2"
-    >
+    <svg class="w-5 h-5 text-text-tertiary animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
     </svg>
   </div>
@@ -48,323 +77,427 @@
 
 <style>
   .hero-title {
-    background: linear-gradient(
-      90deg,
-      #f0eaff 0%,
-      #ffffff 20%,
-      #C4B5FD 40%,
-      #7C3AED 60%,
-      #ffffff 80%,
-      #f0eaff 100%
+    color: #ffffff;
+  }
+
+  :global(html[data-theme="light"]) .hero-title {
+    color: #1a1a1a;
+  }
+
+  .hero-bottom-fade {
+    background: linear-gradient(to bottom, transparent 70%, var(--color-bg) 100%);
+  }
+
+  /* ── Blueprint grid background (violet) ── */
+  .bg-blueprint {
+    background-color: #0d0a1a;
+    background-image:
+      /* Major grid — 160px */
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.15) 0px,
+        rgba(141, 127, 210, 0.15) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.15) 0px,
+        rgba(141, 127, 210, 0.15) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      /* Fine grid — 32px */
+      repeating-linear-gradient(
+        0deg,
+        rgba(141, 127, 210, 0.06) 0px,
+        rgba(141, 127, 210, 0.06) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(141, 127, 210, 0.06) 0px,
+        rgba(141, 127, 210, 0.06) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  :global(html[data-theme="light"]) .bg-blueprint {
+    background-color: #f5f3fa;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.15) 0px,
+        rgba(70, 51, 163, 0.15) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.15) 0px,
+        rgba(70, 51, 163, 0.15) 1px,
+        transparent 1px,
+        transparent 160px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(70, 51, 163, 0.06) 0px,
+        rgba(70, 51, 163, 0.06) 1px,
+        transparent 1px,
+        transparent 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(70, 51, 163, 0.06) 0px,
+        rgba(70, 51, 163, 0.06) 1px,
+        transparent 1px,
+        transparent 32px
+      );
+  }
+
+  /* Blueprint corner markers */
+  .blueprint-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .blueprint-corner--tl {
+    top: 60px;
+    left: 40px;
+    border-top: 2px solid rgba(141, 127, 210, 0.15);
+    border-left: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner--tr {
+    top: 60px;
+    right: 40px;
+    border-top: 2px solid rgba(141, 127, 210, 0.15);
+    border-right: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner--bl {
+    bottom: 40px;
+    left: 40px;
+    border-bottom: 2px solid rgba(141, 127, 210, 0.15);
+    border-left: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner--br {
+    bottom: 40px;
+    right: 40px;
+    border-bottom: 2px solid rgba(141, 127, 210, 0.15);
+    border-right: 2px solid rgba(141, 127, 210, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .blueprint-corner--tl,
+  :global(html[data-theme="light"]) .blueprint-corner--tr,
+  :global(html[data-theme="light"]) .blueprint-corner--bl,
+  :global(html[data-theme="light"]) .blueprint-corner--br {
+    border-color: rgba(70, 51, 163, 0.2);
+  }
+
+  /* Violet radial glow — full intensity (matched from easter-egg canvas glow) */
+  .bg-glow-violet {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(141, 127, 210, 0.13) 0%,
+      rgba(141, 127, 210, 0.05) 40%,
+      transparent 70%
     );
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 20s ease-in-out infinite;
-    filter:
-      drop-shadow(0 0 40px rgba(124, 58, 237, 0.25))
-      drop-shadow(0 0 80px rgba(139, 92, 246, 0.1));
   }
 
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-title {
-      animation: none;
-      background-position: 50% 50%;
-    }
+  :global(html[data-theme="light"]) .bg-glow-violet {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      transparent 70%
+    );
   }
 </style>
 
 <script>
-  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
-  if (canvas) {
-    const ctx = canvas.getContext('2d')!;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Easter egg: 5 rapid clicks on the hero reveals the particle canvas
+  {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
+    const heroSection = canvas?.closest('section');
+    if (canvas && heroSection) {
+      const CLICKS_REQUIRED = 5;
+      const CLICK_WINDOW_MS = 1500;
+      const clickTimes: number[] = [];
+      let activated = false;
 
-    // Configuration
-    const PARTICLE_COUNT = 120;
-    const CONNECTION_DISTANCE = 180;
-    const MOUSE_RADIUS = 250;
-    const BASE_SPEED = 0.4;
+      heroSection.addEventListener('click', () => {
+        if (activated) return;
+        const now = Date.now();
+        clickTimes.push(now);
+        // Keep only clicks within the time window
+        while (clickTimes.length > 0 && now - clickTimes[0] > CLICK_WINDOW_MS) {
+          clickTimes.shift();
+        }
+        if (clickTimes.length >= CLICKS_REQUIRED) {
+          activated = true;
+          startParticles();
+        }
+      });
 
-    // Colours (violet accent family)
-    const VIOLET_BRAND = { r: 124, g: 58, b: 237 };   // #7C3AED
-    const VIOLET_LIGHT = { r: 167, g: 139, b: 250 };   // #A78BFA
+      function startParticles() {
+        // Reveal the canvas
+        canvas.classList.remove('opacity-0', 'pointer-events-none');
+        canvas.classList.add('opacity-100');
 
-    let width = 0;
-    let height = 0;
-    let mouseX = -1000;
-    let mouseY = -1000;
-    let animationId: number;
+        const ctx = canvas.getContext('2d')!;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    interface Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      brightness: number; // 0-1, affects which colour shade
-    }
+        const PARTICLE_COUNT = 120;
+        const CONNECTION_DISTANCE = 180;
+        const MOUSE_RADIUS = 250;
+        const BASE_SPEED = 0.4;
 
-    const particles: Particle[] = [];
+        const VIOLET_BRAND = { r: 139, g: 92, b: 246 };
+        const VIOLET_LIGHT = { r: 167, g: 139, b: 250 };
 
-    function resize() {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
-    }
+        function isLightMode(): boolean {
+          return document.documentElement.getAttribute('data-theme') === 'light';
+        }
 
-    function createParticles() {
-      particles.length = 0;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * BASE_SPEED * 2,
-          vy: (Math.random() - 0.5) * BASE_SPEED * 2,
-          radius: Math.random() * 2.5 + 1,
-          brightness: Math.random(),
-        });
-      }
-    }
+        let width = 0;
+        let height = 0;
+        let mouseX = -1000;
+        let mouseY = -1000;
+        let animationId: number;
 
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
+        interface Particle {
+          x: number; y: number;
+          vx: number; vy: number;
+          radius: number; brightness: number;
+        }
 
-      // Fill background
-      ctx.fillStyle = '#0a0a0a';
-      ctx.fillRect(0, 0, width, height);
+        const particles: Particle[] = [];
 
-      // Draw subtle radial glow behind the centre
-      const centreGlow = ctx.createRadialGradient(
-        width * 0.5, height * 0.45, 0,
-        width * 0.5, height * 0.45, Math.max(width, height) * 0.6
-      );
-      centreGlow.addColorStop(0, 'rgba(124, 58, 237, 0.07)');
-      centreGlow.addColorStop(0.4, 'rgba(124, 58, 237, 0.03)');
-      centreGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = centreGlow;
-      ctx.fillRect(0, 0, width, height);
+        function resize() {
+          const dpr = window.devicePixelRatio || 1;
+          const rect = canvas.getBoundingClientRect();
+          width = rect.width;
+          height = rect.height;
+          canvas.width = width * dpr;
+          canvas.height = height * dpr;
+          ctx.scale(dpr, dpr);
+        }
 
-      // Draw connections between nearby particles
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+        function createParticles() {
+          for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: (Math.random() - 0.5) * BASE_SPEED * 2,
+              vy: (Math.random() - 0.5) * BASE_SPEED * 2,
+              radius: Math.random() * 2.5 + 1,
+              brightness: Math.random(),
+            });
+          }
+        }
 
-          if (dist < CONNECTION_DISTANCE) {
-            const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.35;
-            ctx.strokeStyle = `rgba(${VIOLET_BRAND.r}, ${VIOLET_BRAND.g}, ${VIOLET_BRAND.b}, ${opacity})`;
-            ctx.lineWidth = 0.8;
+        function draw() {
+          ctx.clearRect(0, 0, width, height);
+
+          // Centre glow — dark mode only
+          if (!isLightMode()) {
+            const centreGlow = ctx.createRadialGradient(
+              width * 0.5, height * 0.45, 0,
+              width * 0.5, height * 0.45, Math.max(width, height) * 0.6
+            );
+            centreGlow.addColorStop(0, `rgba(141, 127, 210, 0.07)`);
+            centreGlow.addColorStop(0.4, `rgba(141, 127, 210, 0.03)`);
+            centreGlow.addColorStop(1, 'transparent');
+            ctx.fillStyle = centreGlow;
+            ctx.fillRect(0, 0, width, height);
+          }
+
+          const light = isLightMode();
+          const connectionAlpha = light ? 0.2 : 0.35;
+          const mouseAlpha = light ? 0.3 : 0.45;
+
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < CONNECTION_DISTANCE) {
+                const opacity = (1 - dist / CONNECTION_DISTANCE) * connectionAlpha;
+                ctx.strokeStyle = `rgba(${VIOLET_BRAND.r}, ${VIOLET_BRAND.g}, ${VIOLET_BRAND.b}, ${opacity})`;
+                ctx.lineWidth = 0.8;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          if (mouseX > 0 && mouseY > 0) {
+            for (const p of particles) {
+              const dx = mouseX - p.x;
+              const dy = mouseY - p.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < MOUSE_RADIUS) {
+                const opacity = (1 - dist / MOUSE_RADIUS) * mouseAlpha;
+                ctx.strokeStyle = `rgba(${VIOLET_LIGHT.r}, ${VIOLET_LIGHT.g}, ${VIOLET_LIGHT.b}, ${opacity})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(mouseX, mouseY);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          for (const p of particles) {
+            const r = Math.round(VIOLET_BRAND.r + (VIOLET_LIGHT.r - VIOLET_BRAND.r) * p.brightness);
+            const g = Math.round(VIOLET_BRAND.g + (VIOLET_LIGHT.g - VIOLET_BRAND.g) * p.brightness);
+            const b = Math.round(VIOLET_BRAND.b + (VIOLET_LIGHT.b - VIOLET_BRAND.b) * p.brightness);
+
+            // Glow halos — dark mode only
+            if (!light) {
+              const glowRadius = p.radius * 2.5;
+              const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius);
+              glow.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.1)`);
+              glow.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, 0.03)`);
+              glow.addColorStop(1, 'transparent');
+              ctx.fillStyle = glow;
+              ctx.fillRect(p.x - glowRadius, p.y - glowRadius, glowRadius * 2, glowRadius * 2);
+            }
+
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw mouse connections
-      if (mouseX > 0 && mouseY > 0) {
-        for (const p of particles) {
-          const dx = mouseX - p.x;
-          const dy = mouseY - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < MOUSE_RADIUS) {
-            const opacity = (1 - dist / MOUSE_RADIUS) * 0.5;
-            ctx.strokeStyle = `rgba(${VIOLET_LIGHT.r}, ${VIOLET_LIGHT.g}, ${VIOLET_LIGHT.b}, ${opacity})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(mouseX, mouseY);
-            ctx.lineTo(p.x, p.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw particles
-      for (const p of particles) {
-        // Interpolate colour based on brightness
-        const r = Math.round(VIOLET_BRAND.r + (VIOLET_LIGHT.r - VIOLET_BRAND.r) * p.brightness);
-        const g = Math.round(VIOLET_BRAND.g + (VIOLET_LIGHT.g - VIOLET_BRAND.g) * p.brightness);
-        const b = Math.round(VIOLET_BRAND.b + (VIOLET_LIGHT.b - VIOLET_BRAND.b) * p.brightness);
-
-        // Glow
-        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 6);
-        glow.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.6)`);
-        glow.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, 0.15)`);
-        glow.addColorStop(1, 'transparent');
-        ctx.fillStyle = glow;
-        ctx.fillRect(p.x - p.radius * 6, p.y - p.radius * 6, p.radius * 12, p.radius * 12);
-
-        // Core
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 1)`;
-        ctx.fill();
-      }
-    }
-
-    function update() {
-      for (const p of particles) {
-        // Mouse repulsion (gentle)
-        if (mouseX > 0 && mouseY > 0) {
-          const dx = p.x - mouseX;
-          const dy = p.y - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < MOUSE_RADIUS && dist > 0) {
-            const force = (1 - dist / MOUSE_RADIUS) * 0.5;
-            p.vx += (dx / dist) * force;
-            p.vy += (dy / dist) * force;
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.35)`;
+            ctx.fill();
           }
         }
 
-        // Apply velocity with damping
-        p.vx *= 0.99;
-        p.vy *= 0.99;
-
-        // Clamp speed
-        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > BASE_SPEED * 3) {
-          p.vx = (p.vx / speed) * BASE_SPEED * 3;
-          p.vy = (p.vy / speed) * BASE_SPEED * 3;
+        function update() {
+          for (const p of particles) {
+            if (mouseX > 0 && mouseY > 0) {
+              const dx = p.x - mouseX;
+              const dy = p.y - mouseY;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < MOUSE_RADIUS && dist > 0) {
+                const force = (1 - dist / MOUSE_RADIUS) * 0.5;
+                p.vx += (dx / dist) * force;
+                p.vy += (dy / dist) * force;
+              }
+            }
+            p.vx *= 0.99;
+            p.vy *= 0.99;
+            const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            if (speed > BASE_SPEED * 3) {
+              p.vx = (p.vx / speed) * BASE_SPEED * 3;
+              p.vy = (p.vy / speed) * BASE_SPEED * 3;
+            }
+            if (speed < BASE_SPEED * 0.5) {
+              p.vx += (Math.random() - 0.5) * 0.1;
+              p.vy += (Math.random() - 0.5) * 0.1;
+            }
+            p.x += p.vx;
+            p.y += p.vy;
+            const pad = 50;
+            if (p.x < -pad) p.x = width + pad;
+            if (p.x > width + pad) p.x = -pad;
+            if (p.y < -pad) p.y = height + pad;
+            if (p.y > height + pad) p.y = -pad;
+          }
         }
 
-        // Ensure minimum drift
-        if (speed < BASE_SPEED * 0.5) {
-          p.vx += (Math.random() - 0.5) * 0.1;
-          p.vy += (Math.random() - 0.5) * 0.1;
+        function animate() {
+          update();
+          draw();
+          animationId = requestAnimationFrame(animate);
         }
 
-        p.x += p.vx;
-        p.y += p.vy;
+        // Mouse interaction (only active once easter egg is triggered)
+        let isDragging = false;
+        let dragMoved = false;
+        let dragThrottle = 0;
+        const DRAG_SPAWN_INTERVAL = 40;
 
-        // Wrap around edges with padding
-        const pad = 50;
-        if (p.x < -pad) p.x = width + pad;
-        if (p.x > width + pad) p.x = -pad;
-        if (p.y < -pad) p.y = height + pad;
-        if (p.y > height + pad) p.y = -pad;
-      }
-    }
-
-    function animate() {
-      update();
-      draw();
-      animationId = requestAnimationFrame(animate);
-    }
-
-    // Static render for reduced motion
-    function drawStatic() {
-      draw();
-    }
-
-    // Event listeners
-    window.addEventListener('resize', () => {
-      resize();
-      if (prefersReducedMotion) drawStatic();
-    });
-
-    let isDragging = false;
-    let dragMoved = false;
-    let dragThrottle = 0;
-    const DRAG_SPAWN_INTERVAL = 40; // ms between trail particles
-
-    const heroSection = canvas.closest('section')!;
-
-    heroSection.addEventListener('mousemove', (e: Event) => {
-      const me = e as MouseEvent;
-      const rect = canvas.getBoundingClientRect();
-      mouseX = me.clientX - rect.left;
-      mouseY = me.clientY - rect.top;
-
-      // Paint trail particles while dragging
-      if (isDragging) {
-        dragMoved = true;
-        const now = performance.now();
-        if (now - dragThrottle > DRAG_SPAWN_INTERVAL) {
-          dragThrottle = now;
-          // Spawn a particle drifting perpendicular to the drag direction
-          const angle = Math.random() * Math.PI * 2;
-          const speed = BASE_SPEED * (0.3 + Math.random() * 0.5);
-          particles.push({
-            x: mouseX + (Math.random() - 0.5) * 8,
-            y: mouseY + (Math.random() - 0.5) * 8,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            radius: Math.random() * 2 + 1.5,
-            brightness: 0.8 + Math.random() * 0.2,
-          });
-        }
-      }
-    });
-
-    heroSection.addEventListener('mouseleave', () => {
-      mouseX = -1000;
-      mouseY = -1000;
-      isDragging = false;
-    });
-
-    heroSection.addEventListener('mousedown', () => {
-      isDragging = true;
-      dragMoved = false;
-      dragThrottle = 0;
-    });
-
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    heroSection.addEventListener('click', (e: Event) => {
-      // Don't burst-spawn if the user was dragging
-      if (dragMoved) return;
-
-      const me = e as MouseEvent;
-      const rect = canvas.getBoundingClientRect();
-      const cx = me.clientX - rect.left;
-      const cy = me.clientY - rect.top;
-
-      // Spawn a burst of new particles at the click location
-      const BURST_COUNT = 5;
-      for (let i = 0; i < BURST_COUNT; i++) {
-        const angle = (Math.PI * 2 * i) / BURST_COUNT;
-        const speed = BASE_SPEED * (1.5 + Math.random());
-        particles.push({
-          x: cx,
-          y: cy,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          radius: Math.random() * 2.5 + 1,
-          brightness: 0.7 + Math.random() * 0.3,
+        heroSection.addEventListener('mousemove', (e: Event) => {
+          const me = e as MouseEvent;
+          const rect = canvas.getBoundingClientRect();
+          mouseX = me.clientX - rect.left;
+          mouseY = me.clientY - rect.top;
+          if (isDragging) {
+            dragMoved = true;
+            const now = performance.now();
+            if (now - dragThrottle > DRAG_SPAWN_INTERVAL) {
+              dragThrottle = now;
+              const angle = Math.random() * Math.PI * 2;
+              const speed = BASE_SPEED * (0.3 + Math.random() * 0.5);
+              particles.push({
+                x: mouseX + (Math.random() - 0.5) * 8,
+                y: mouseY + (Math.random() - 0.5) * 8,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                radius: Math.random() * 2 + 1.5,
+                brightness: 0.8 + Math.random() * 0.2,
+              });
+            }
+          }
         });
+
+        heroSection.addEventListener('mouseleave', () => {
+          mouseX = -1000;
+          mouseY = -1000;
+          isDragging = false;
+        });
+
+        heroSection.addEventListener('mousedown', () => {
+          isDragging = true;
+          dragMoved = false;
+          dragThrottle = 0;
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        heroSection.addEventListener('click', (e: Event) => {
+          if (dragMoved) return;
+          const me = e as MouseEvent;
+          const rect = canvas.getBoundingClientRect();
+          const cx = me.clientX - rect.left;
+          const cy = me.clientY - rect.top;
+          const BURST_COUNT = 5;
+          for (let i = 0; i < BURST_COUNT; i++) {
+            const angle = (Math.PI * 2 * i) / BURST_COUNT;
+            const speed = BASE_SPEED * (1.5 + Math.random());
+            particles.push({
+              x: cx, y: cy,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed,
+              radius: Math.random() * 2.5 + 1,
+              brightness: 0.7 + Math.random() * 0.3,
+            });
+          }
+        });
+
+        window.addEventListener('resize', () => { resize(); });
+
+        document.addEventListener('astro:before-swap', () => {
+          cancelAnimationFrame(animationId);
+        });
+
+        // Go!
+        resize();
+        createParticles();
+        if (prefersReducedMotion) {
+          draw();
+        } else {
+          animate();
+        }
       }
-    });
-
-    // Initialise
-    resize();
-    createParticles();
-
-    if (prefersReducedMotion) {
-      drawStatic();
-    } else {
-      animate();
     }
-
-    // Clean up when navigating away
-    document.addEventListener('astro:before-swap', () => {
-      cancelAnimationFrame(animationId);
-    });
   }
 </script>

@@ -1,0 +1,44 @@
+---
+title: "GSAP ScrollTrigger Gotchas with Astro"
+date: 2026-01-20
+tags: [frontend, how-to]
+description: "Z-index traps and canvas layering lessons from building scroll-driven animations in Astro."
+---
+
+A few things caught me out whilst building scroll-driven animations for this site with [GSAP](https://gsap.com/) [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) and [Astro](https://astro.build/). Noting them here so I don't have to rediscover them next time.
+
+## The Z-Index Trap
+
+The hero section uses a full-viewport `<canvas>` for the interactive particle network, with gradient overlays and text content stacked on top. The natural instinct is to push the canvas behind everything with a negative z-index:
+
+```css
+.canvas {
+  z-index: -20;
+}
+```
+
+This doesn't work. Negative z-index pushes the element behind the `<body>` background, making it invisible. The canvas renders fine. You just can't see it.
+
+### The Fix: Isolation
+
+The solution is to use CSS isolation on the parent container and positive z-indices for all children:
+
+```html
+<section class="isolate">
+  <canvas class="z-0" />
+  <div class="z-[1]"><!-- gradient overlay --></div>
+  <div class="z-10"><!-- text content --></div>
+</section>
+```
+
+The [`isolate`](https://developer.mozilla.org/en-US/docs/Web/CSS/isolation) property creates a new [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Stacking_context). Within that context, `z-0` is the bottom layer, but it's still above the body background. Everything stacks correctly without anything disappearing.
+
+## Canvas Particle Network Approach
+
+The hero's interactive particle network (now hidden behind a 5-click Easter egg gate) is drawn on a `<canvas>` element rather than using DOM elements or SVG. This matters for performance. The particle system handles click-to-spawn and drag-to-trail interactions, which means potentially dozens of particles updating every frame. Canvas gives us direct pixel control without the overhead of DOM reconciliation.
+
+The animation loop uses [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame) and only redraws when the canvas is visible. GSAP's ScrollTrigger handles pausing the animation when the hero section scrolls out of view, which saves CPU cycles on the rest of the page.
+
+## Astro and Client-Side Scripts
+
+Astro's `<script>` tags in components run once on page load by default. For GSAP animations that need to target specific DOM elements, this works fine in a static site. If you move to view transitions or client-side routing, you'll need to re-initialise ScrollTrigger on each navigation.

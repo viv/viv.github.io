@@ -1,0 +1,317 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import { Image } from 'astro:assets';
+import avatar from '../../assets/headshot/avatar.png';
+---
+
+<BaseLayout title="Light Mode Glow Variations — Viv" description="Glow treatments for the light-mode hero.">
+  <Navigation />
+
+  {/* ── REFERENCE: Dark mode full glow ── */}
+  <section id="dark-ref" aria-label="Dark mode reference" class="relative isolate min-h-[80vh] flex items-center pt-24 sm:pt-28 pb-16 sm:pb-24 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-dark-blueprint"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-dark blueprint-corner--tl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-dark blueprint-corner--tr"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-dark blueprint-corner--bl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-dark blueprint-corner--br"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1] bg-dark-glow-full"></div>
+    <div aria-hidden="true" class="fade-bottom-dark absolute inset-0 z-[2] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-6 w-full relative z-10">
+      <div class="text-center mb-8">
+        <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-[rgba(141,127,210,0.1)] text-[#8D7FD2] border border-[rgba(141,127,210,0.2)] rounded-full">Reference — Dark Mode Full Glow</span>
+        <p class="text-sm text-[#a0a0a0]">This is the current homepage dark-mode glow for comparison.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+        <div class="text-center lg:text-left">
+          <Image
+            src={avatar}
+            alt="Viv — portrait photo"
+            width={160}
+            height={160}
+            class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-[#262626] mx-auto lg:mx-0 mb-8"
+          />
+          <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white">Viv.</h1>
+          <p class="mt-3 text-lg text-[#a0a0a0] max-w-[80vw] sm:max-w-[60vw] lg:max-w-[18rem] text-center lg:text-left mx-auto lg:mx-0">
+            Software engineer. 25 years understanding systems, users, and problems.
+          </p>
+        </div>
+        <div class="space-y-6">
+          <p class="text-base lg:text-lg text-[#f5f5f5] leading-relaxed">
+            I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+          </p>
+          <p class="text-base lg:text-lg text-[#f5f5f5] leading-relaxed">
+            These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── OPTION A: Warm white glow ── */}
+  <section id="light-warm" aria-label="Warm white glow" class="relative isolate min-h-[80vh] flex items-center pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-light-blueprint"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--tl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--tr"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--bl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--br"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1] bg-light-glow-warm"></div>
+    <div aria-hidden="true" class="fade-bottom-light absolute inset-0 z-[2] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-6 w-full relative z-10">
+      <div class="text-center mb-8">
+        <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-[rgba(70,51,163,0.08)] text-[#4633A3] border border-[rgba(70,51,163,0.15)] rounded-full">Option A — Warm White Glow</span>
+        <p class="text-sm text-[#555555]">A near-white radial glow — "light hitting the page" rather than adding colour. Feels like paper under a desk lamp.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+        <div class="text-center lg:text-left">
+          <Image
+            src={avatar}
+            alt="Viv — portrait photo"
+            width={160}
+            height={160}
+            class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-[#e0e0e0] mx-auto lg:mx-0 mb-8"
+          />
+          <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-[#1a1a1a]">Viv.</h1>
+          <p class="mt-3 text-lg text-[#555555] max-w-[80vw] sm:max-w-[60vw] lg:max-w-[18rem] text-center lg:text-left mx-auto lg:mx-0">
+            Software engineer. 25 years understanding systems, users, and problems.
+          </p>
+        </div>
+        <div class="space-y-6">
+          <p class="text-base lg:text-lg text-[#1a1a1a] leading-relaxed">
+            I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+          </p>
+          <p class="text-base lg:text-lg text-[#1a1a1a] leading-relaxed">
+            These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── OPTION B: Edge vignette ── */}
+  <section id="light-vignette" aria-label="Edge vignette" class="relative isolate min-h-[80vh] flex items-center pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-light-blueprint"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--tl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--tr"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--bl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--br"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1] bg-light-glow-vignette"></div>
+    <div aria-hidden="true" class="fade-bottom-light absolute inset-0 z-[2] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-6 w-full relative z-10">
+      <div class="text-center mb-8">
+        <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-[rgba(70,51,163,0.08)] text-[#4633A3] border border-[rgba(70,51,163,0.15)] rounded-full">Option B — Edge Vignette</span>
+        <p class="text-sm text-[#555555]">Darkened edges instead of a bright centre. The centre appears lighter by contrast without adding colour — inverts the approach.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+        <div class="text-center lg:text-left">
+          <Image
+            src={avatar}
+            alt="Viv — portrait photo"
+            width={160}
+            height={160}
+            class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-[#e0e0e0] mx-auto lg:mx-0 mb-8"
+          />
+          <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-[#1a1a1a]">Viv.</h1>
+          <p class="mt-3 text-lg text-[#555555] max-w-[80vw] sm:max-w-[60vw] lg:max-w-[18rem] text-center lg:text-left mx-auto lg:mx-0">
+            Software engineer. 25 years understanding systems, users, and problems.
+          </p>
+        </div>
+        <div class="space-y-6">
+          <p class="text-base lg:text-lg text-[#1a1a1a] leading-relaxed">
+            I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+          </p>
+          <p class="text-base lg:text-lg text-[#1a1a1a] leading-relaxed">
+            These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── OPTION C: No glow ── */}
+  <section id="light-none" aria-label="No glow" class="relative isolate min-h-[80vh] flex items-center pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 z-0 bg-light-blueprint"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--tl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--tr"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--bl"></div>
+    <div aria-hidden="true" class="blueprint-corner blueprint-corner-light blueprint-corner--br"></div>
+    {/* No glow div here — just the blueprint grid */}
+    <div aria-hidden="true" class="fade-bottom-light absolute inset-0 z-[2] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-6 w-full relative z-10">
+      <div class="text-center mb-8">
+        <span class="inline-block px-3 py-1 mb-6 text-xs font-mono tracking-widest uppercase bg-[rgba(70,51,163,0.08)] text-[#4633A3] border border-[rgba(70,51,163,0.15)] rounded-full">Option C — No Glow</span>
+        <p class="text-sm text-[#555555]">Drop the glow entirely in light mode. Let the blueprint grid carry the visual interest on its own.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+        <div class="text-center lg:text-left">
+          <Image
+            src={avatar}
+            alt="Viv — portrait photo"
+            width={160}
+            height={160}
+            class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-[#e0e0e0] mx-auto lg:mx-0 mb-8"
+          />
+          <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-[#1a1a1a]">Viv.</h1>
+          <p class="mt-3 text-lg text-[#555555] max-w-[80vw] sm:max-w-[60vw] lg:max-w-[18rem] text-center lg:text-left mx-auto lg:mx-0">
+            Software engineer. 25 years understanding systems, users, and problems.
+          </p>
+        </div>
+        <div class="space-y-6">
+          <p class="text-base lg:text-lg text-[#1a1a1a] leading-relaxed">
+            I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+          </p>
+          <p class="text-base lg:text-lg text-[#1a1a1a] leading-relaxed">
+            These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Jump nav */}
+  <div class="py-8 bg-bg-surface border-t border-b border-border-subtle">
+    <div class="max-w-3xl mx-auto px-6 flex flex-wrap items-center justify-center gap-6 text-sm">
+      <span class="text-text-tertiary">Jump to:</span>
+      <a href="#dark-ref" class="text-accent-functional hover:text-accent-light transition-colors link-hover">Dark Ref</a>
+      <a href="#light-warm" class="text-accent-functional hover:text-accent-light transition-colors link-hover">A: Warm White</a>
+      <a href="#light-vignette" class="text-accent-functional hover:text-accent-light transition-colors link-hover">B: Vignette</a>
+      <a href="#light-none" class="text-accent-functional hover:text-accent-light transition-colors link-hover">C: No Glow</a>
+      <span class="text-border-emphasis">|</span>
+      <a href="/variations" class="text-accent-functional hover:text-accent-light transition-colors link-hover">&larr; Back to Variations</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Dark mode blueprint (hardcoded, ignores theme toggle) ── */
+  .bg-dark-blueprint {
+    background-color: #0d0a1a;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.15) 0px, rgba(141, 127, 210, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.15) 0px, rgba(141, 127, 210, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.06) 0px, rgba(141, 127, 210, 0.06) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.06) 0px, rgba(141, 127, 210, 0.06) 1px, transparent 1px, transparent 32px);
+  }
+
+  /* ── Light mode blueprint (hardcoded, always light) ── */
+  .bg-light-blueprint {
+    background-color: #f5f3fa;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.15) 0px, rgba(70, 51, 163, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.15) 0px, rgba(70, 51, 163, 0.15) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.06) 0px, rgba(70, 51, 163, 0.06) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.06) 0px, rgba(70, 51, 163, 0.06) 1px, transparent 1px, transparent 32px);
+  }
+
+  /* ── Corner markers ── */
+  .blueprint-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .blueprint-corner--tl { top: 60px; left: 40px; }
+  .blueprint-corner--tr { top: 60px; right: 40px; }
+  .blueprint-corner--bl { bottom: 40px; left: 40px; }
+  .blueprint-corner--br { bottom: 40px; right: 40px; }
+
+  .blueprint-corner--tl { border-top-style: solid; border-left-style: solid; }
+  .blueprint-corner--tr { border-top-style: solid; border-right-style: solid; }
+  .blueprint-corner--bl { border-bottom-style: solid; border-left-style: solid; }
+  .blueprint-corner--br { border-bottom-style: solid; border-right-style: solid; }
+
+  .blueprint-corner { border-width: 2px; border-color: transparent; }
+
+  .blueprint-corner-dark {
+    border-color: transparent;
+  }
+  .blueprint-corner-dark.blueprint-corner--tl {
+    border-top-color: rgba(141, 127, 210, 0.15);
+    border-left-color: rgba(141, 127, 210, 0.15);
+  }
+  .blueprint-corner-dark.blueprint-corner--tr {
+    border-top-color: rgba(141, 127, 210, 0.15);
+    border-right-color: rgba(141, 127, 210, 0.15);
+  }
+  .blueprint-corner-dark.blueprint-corner--bl {
+    border-bottom-color: rgba(141, 127, 210, 0.15);
+    border-left-color: rgba(141, 127, 210, 0.15);
+  }
+  .blueprint-corner-dark.blueprint-corner--br {
+    border-bottom-color: rgba(141, 127, 210, 0.15);
+    border-right-color: rgba(141, 127, 210, 0.15);
+  }
+
+  .blueprint-corner-light {
+    border-color: transparent;
+  }
+  .blueprint-corner-light.blueprint-corner--tl {
+    border-top-color: rgba(70, 51, 163, 0.2);
+    border-left-color: rgba(70, 51, 163, 0.2);
+  }
+  .blueprint-corner-light.blueprint-corner--tr {
+    border-top-color: rgba(70, 51, 163, 0.2);
+    border-right-color: rgba(70, 51, 163, 0.2);
+  }
+  .blueprint-corner-light.blueprint-corner--bl {
+    border-bottom-color: rgba(70, 51, 163, 0.2);
+    border-left-color: rgba(70, 51, 163, 0.2);
+  }
+  .blueprint-corner-light.blueprint-corner--br {
+    border-bottom-color: rgba(70, 51, 163, 0.2);
+    border-right-color: rgba(70, 51, 163, 0.2);
+  }
+
+  /* ── Bottom fades ── */
+  .fade-bottom-dark {
+    background: linear-gradient(to bottom, transparent 70%, var(--color-bg) 100%);
+  }
+
+  .fade-bottom-light {
+    background: linear-gradient(to bottom, transparent 70%, var(--color-bg) 100%);
+  }
+
+  /* ═══════════════════════════════════════════════
+     GLOW VARIATIONS
+     ═══════════════════════════════════════════════ */
+
+  /* Dark reference — full glow (matches homepage) */
+  .bg-dark-glow-full {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(141, 127, 210, 0.13) 0%,
+      rgba(141, 127, 210, 0.05) 40%,
+      transparent 70%
+    );
+  }
+
+  /* Option A — Warm white glow
+     Near-white centre brightens the page without adding violet. */
+  .bg-light-glow-warm {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      transparent 70%
+    );
+  }
+
+  /* Option B — Edge vignette
+     Darken edges with subtle violet, centre stays clear. */
+  .bg-light-glow-vignette {
+    background: radial-gradient(
+      ellipse 80% 70% at 50% 50%,
+      transparent 40%,
+      rgba(70, 51, 163, 0.04) 70%,
+      rgba(70, 51, 163, 0.08) 100%
+    );
+  }
+
+  /* Option C — no glow div rendered, just blueprint */
+</style>

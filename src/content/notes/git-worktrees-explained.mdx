@@ -1,0 +1,141 @@
+---
+title: "Git Worktrees Explained"
+date: 2026-02-17
+tags: [git, tooling, claude-code, how-to]
+description: "How Git worktrees work, how they differ from multiple clones, and how Claude Code uses them for parallel agent work."
+---
+
+## What is a Worktree?
+
+A [Git worktree](https://git-scm.com/docs/git-worktree) lets you check out multiple branches of the **same repository** simultaneously, each in its own directory, all sharing a **single `.git` database**.
+
+```
+Normal repo (1 working tree):
+
+  my-project/
+  ├── .git/            ← the actual git database
+  ├── src/
+  └── README.md        ← checked out on branch "main"
+
+
+With worktrees (multiple working trees, ONE database):
+
+  my-project/                          (main worktree)
+  ├── .git/                            ← the ONE git database
+  ├── src/
+  └── README.md                        ← branch "main"
+
+  ../my-project-feature-x/             (linked worktree)
+  ├── .git  (file, not dir!)           ← pointer back to my-project/.git
+  ├── src/
+  └── README.md                        ← branch "feature-x"
+```
+
+Key commands:
+
+```bash
+git worktree add ../my-project-feature-x feature-x
+git worktree list
+git worktree remove ../my-project-feature-x
+```
+
+## Worktrees vs Multiple Clones
+
+```
+MULTIPLE CLONES
+
+  clone-1/                    clone-2/
+  ├── .git/  ◄── full copy    ├── .git/  ◄── full copy
+  ├── src/                    ├── src/
+  └── ...                     └── ...
+
+  • Each has its OWN complete .git database
+  • Each has its OWN object store (commits, blobs, trees)
+  • Each has its OWN refs (branches, tags, stash)
+  • Changes in clone-1 are invisible to clone-2 until pushed/pulled
+  • Disk: 2x the storage (or more)
+
+
+WORKTREES
+
+  main-tree/                  feature-tree/
+  ├── .git/  ◄── THE database ├── .git (file) ──► points to main's
+  ├── src/                    ├── src/
+  └── ...                     └── ...
+
+  • SHARED object store (commits, blobs, trees)
+  • SHARED refs (commit on one, instantly visible in the other)
+  • SHARED stash, config, hooks, remotes
+  • Each tree has its own: index, HEAD, checked-out branch
+  • Disk: only 1x objects + small overhead per worktree
+```
+
+### Comparison Summary
+
+| Aspect | Multiple clones | Worktrees |
+|---|---|---|
+| Object storage | Duplicated per clone | Shared (single `.git`) |
+| Disk usage | High (full copy each) | Low (one copy + working files) |
+| Commit visibility | Must push/pull between clones | Instant (same database) |
+| Branch constraint | Can check out same branch in multiple clones | Each worktree must be on a **different** branch |
+| Independence | Fully independent | Linked (removing main worktree breaks others) |
+| Remotes/config | Independent per clone | Shared |
+
+The branch constraint is important: you **cannot** have two worktrees on the same branch simultaneously, because they share the ref and would conflict.
+
+## How Claude Code Uses Worktrees
+
+When you use [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview)'s **team/swarm features** or run **multiple Claude Code sessions in parallel**, worktrees solve a real problem. Multiple agents can't safely work in the same directory on different branches simultaneously (they'd clobber each other's files).
+
+```
+Your repo (main worktree):
+  ~/code/my-project/
+  ├── .git/
+  └── (your working directory, branch "main")
+
+Claude Code spawns parallel agents:
+
+  Agent "frontend"                    Agent "backend"
+  +---------------------+            +---------------------+
+  | Worktree:           |            | Worktree:           |
+  | /tmp/.../frontend/  |            | /tmp/.../backend/   |
+  | Branch: feat-ui     |            | Branch: feat-api    |
+  |                     |            |                     |
+  | .git --> points to  |            | .git --> points to  |
+  | ~/code/my-project   |            | ~/code/my-project   |
+  +---------------------+            +---------------------+
+           |                                    |
+           +-------- shared .git database ------+
+```
+
+**Why worktrees instead of clones?**
+
+1. **Shared state.** When one agent commits, the other agents can see the commit immediately without pushing/pulling. This makes merging and coordination much simpler.
+2. **Atomic coordination.** Because refs are shared, the orchestrator can see what every agent has committed without any network round-trips.
+3. **Speed.** Creating a worktree is near-instant (no copying objects). Cloning a large repo could take minutes.
+4. **Disk efficiency.** Only the checked-out files are duplicated, not the entire git history.
+
+### The Workflow
+
+```
+1. You start Claude Code in ~/code/my-project (on "main")
+
+2. You ask for parallel work (e.g., "Use an agent team and worktrees to...")
+
+3. Claude Code creates worktrees:
+   git worktree add /tmp/cc-abc123/agent-1  -b agent-1-branch
+   git worktree add /tmp/cc-def456/agent-2  -b agent-2-branch
+
+4. Each agent works independently in its own directory
+   (editing files, running tests, committing)
+
+5. When done, changes are merged back:
+   git merge agent-1-branch
+   git merge agent-2-branch
+
+6. Worktrees are cleaned up:
+   git worktree remove /tmp/cc-abc123/agent-1
+   git worktree remove /tmp/cc-def456/agent-2
+```
+
+The worktree mechanism is fundamental to how Claude Code parallelises work safely across multiple agents without them stepping on each other's files. It can get by without them, but it's so much easier and more efficient to use them.

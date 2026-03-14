@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+---
+
+<BaseLayout title="Notes Readability Variations — Viv" description="Two approaches to improving text readability over the blueprint grid.">
+  <Navigation />
+  <main id="main-content" class="pt-24 pb-32">
+    <div class="max-w-3xl mx-auto px-6">
+      <a href="/variations" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; Back to variations</a>
+
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Notes Readability</h1>
+      <p class="text-text-secondary mb-12">Two approaches to softening the blueprint grid behind content. Compare these to the <a href="/variations/notes-readability-glow" class="text-accent-functional hover:text-accent-light transition-colors">radial glow</a> and <a href="/variations/notes-readability-strip" class="text-accent-functional hover:text-accent-light transition-colors">vertical strip</a> pages individually.</p>
+
+      {/* ── VARIATION A: Radial Glow ── */}
+      <section class="mb-24">
+        <h2 class="text-xl font-semibold text-text-primary mb-2">A — Radial Glow (footer-style)</h2>
+        <p class="text-sm text-text-tertiary mb-8">A soft elliptical radial gradient centred on the content area, using the background colour to fade the grid. Same approach as the footer's <code class="text-xs font-mono bg-bg-surface border border-border-subtle rounded px-1 py-0.5">bg-glow-footer</code>.</p>
+
+        <div class="relative border border-border-subtle rounded-lg overflow-hidden p-8">
+          {/* Simulated blueprint grid */}
+          <div aria-hidden="true" class="absolute inset-0 demo-grid"></div>
+          {/* The radial glow overlay */}
+          <div aria-hidden="true" class="absolute inset-0 glow-overlay"></div>
+          {/* Content */}
+          <div class="relative z-10 prose-note">
+            <h2>GSAP ScrollTrigger gotchas with Astro</h2>
+            <p>A few things caught me out whilst building scroll-driven animations for this site with GSAP ScrollTrigger and Astro. Noting them here so I don't have to rediscover them next time.</p>
+            <h3>The z-index trap</h3>
+            <p>The hero section uses a full-viewport <code>&lt;canvas&gt;</code> for the interactive particle network, with gradient overlays and text content stacked on top. The natural instinct is to push the canvas behind everything with a negative z-index:</p>
+            <pre><code>.canvas &#123;
+  z-index: -20;
+&#125;</code></pre>
+            <p>This doesn't work. Negative z-index pushes the element behind the <code>&lt;body&gt;</code> background, making it invisible. The canvas renders fine. You just can't see it.</p>
+            <h3>The fix: isolation</h3>
+            <p>The solution is to use CSS isolation on the parent container and positive z-indices for all children. This creates a new stacking context without changing the visual appearance of the background.</p>
+            <blockquote>The key insight: <code>isolate</code> on the parent means z-index values are relative to that container, not the document root.</blockquote>
+            <p>Once I understood the stacking context, the layering order became: blueprint grid at <code>z-0</code>, particle canvas at <code>z-[1]</code>, bottom fade at <code>z-[2]</code>, text content at <code>z-10</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VARIATION B: Vertical Strip ── */}
+      <section class="mb-24">
+        <h2 class="text-xl font-semibold text-text-primary mb-2">B — Vertical Fade Strip</h2>
+        <p class="text-sm text-text-tertiary mb-8">A vertical linear gradient that's opaque in the centre and transparent at the edges. Creates a clean column where the grid disappears, with grid visible in the margins.</p>
+
+        <div class="relative border border-border-subtle rounded-lg overflow-hidden p-8">
+          {/* Simulated blueprint grid */}
+          <div aria-hidden="true" class="absolute inset-0 demo-grid"></div>
+          {/* The vertical strip overlay */}
+          <div aria-hidden="true" class="absolute inset-0 strip-overlay"></div>
+          {/* Content */}
+          <div class="relative z-10 prose-note">
+            <h2>GSAP ScrollTrigger gotchas with Astro</h2>
+            <p>A few things caught me out whilst building scroll-driven animations for this site with GSAP ScrollTrigger and Astro. Noting them here so I don't have to rediscover them next time.</p>
+            <h3>The z-index trap</h3>
+            <p>The hero section uses a full-viewport <code>&lt;canvas&gt;</code> for the interactive particle network, with gradient overlays and text content stacked on top. The natural instinct is to push the canvas behind everything with a negative z-index:</p>
+            <pre><code>.canvas &#123;
+  z-index: -20;
+&#125;</code></pre>
+            <p>This doesn't work. Negative z-index pushes the element behind the <code>&lt;body&gt;</code> background, making it invisible. The canvas renders fine. You just can't see it.</p>
+            <h3>The fix: isolation</h3>
+            <p>The solution is to use CSS isolation on the parent container and positive z-indices for all children. This creates a new stacking context without changing the visual appearance of the background.</p>
+            <blockquote>The key insight: <code>isolate</code> on the parent means z-index values are relative to that container, not the document root.</blockquote>
+            <p>Once I understood the stacking context, the layering order became: blueprint grid at <code>z-0</code>, particle canvas at <code>z-[1]</code>, bottom fade at <code>z-[2]</code>, text content at <code>z-10</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTROL: No treatment ── */}
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-2">Control — No Treatment</h2>
+        <p class="text-sm text-text-tertiary mb-8">The current state: content sits directly on the body grid with no overlay.</p>
+
+        <div class="relative border border-border-subtle rounded-lg overflow-hidden p-8">
+          {/* Simulated blueprint grid — no overlay */}
+          <div aria-hidden="true" class="absolute inset-0 demo-grid"></div>
+          {/* Content */}
+          <div class="relative z-10 prose-note">
+            <h2>GSAP ScrollTrigger gotchas with Astro</h2>
+            <p>A few things caught me out whilst building scroll-driven animations for this site with GSAP ScrollTrigger and Astro. Noting them here so I don't have to rediscover them next time.</p>
+            <h3>The z-index trap</h3>
+            <p>The hero section uses a full-viewport <code>&lt;canvas&gt;</code> for the interactive particle network, with gradient overlays and text content stacked on top. The natural instinct is to push the canvas behind everything with a negative z-index:</p>
+            <pre><code>.canvas &#123;
+  z-index: -20;
+&#125;</code></pre>
+            <p>This doesn't work. Negative z-index pushes the element behind the <code>&lt;body&gt;</code> background, making it invisible. The canvas renders fine. You just can't see it.</p>
+            <h3>The fix: isolation</h3>
+            <p>The solution is to use CSS isolation on the parent container and positive z-indices for all children. This creates a new stacking context without changing the visual appearance of the background.</p>
+            <blockquote>The key insight: <code>isolate</code> on the parent means z-index values are relative to that container, not the document root.</blockquote>
+            <p>Once I understood the stacking context, the layering order became: blueprint grid at <code>z-0</code>, particle canvas at <code>z-[1]</code>, bottom fade at <code>z-[2]</code>, text content at <code>z-10</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <a href="/variations" class="text-sm text-accent-functional hover:text-accent-light transition-colors">&larr; Back to variations</a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* ── Simulated blueprint grid (stronger than body for demo visibility) ── */
+  .demo-grid {
+    background-color: var(--color-bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.08) 0px, rgba(141, 127, 210, 0.08) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.08) 0px, rgba(141, 127, 210, 0.08) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(141, 127, 210, 0.04) 0px, rgba(141, 127, 210, 0.04) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(141, 127, 210, 0.04) 0px, rgba(141, 127, 210, 0.04) 1px, transparent 1px, transparent 32px);
+  }
+
+  :global(html[data-theme="light"]) .demo-grid {
+    background-color: var(--color-bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.06) 0px, rgba(70, 51, 163, 0.06) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.06) 0px, rgba(70, 51, 163, 0.06) 1px, transparent 1px, transparent 160px),
+      repeating-linear-gradient(0deg, rgba(70, 51, 163, 0.03) 0px, rgba(70, 51, 163, 0.03) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(70, 51, 163, 0.03) 0px, rgba(70, 51, 163, 0.03) 1px, transparent 1px, transparent 32px);
+  }
+
+  /* ── VARIATION A: Radial glow overlay ──
+     Elliptical gradient using the bg colour to mask the grid in the centre.
+     Inspired by the footer's bg-glow-footer but inverted — fading the grid
+     away rather than adding colour. */
+  .glow-overlay {
+    background: radial-gradient(
+      ellipse 80% 70% at 50% 40%,
+      var(--color-bg) 0%,
+      rgba(12, 10, 20, 0.85) 30%,
+      rgba(12, 10, 20, 0.4) 60%,
+      transparent 80%
+    );
+  }
+
+  :global(html[data-theme="light"]) .glow-overlay {
+    background: radial-gradient(
+      ellipse 80% 70% at 50% 40%,
+      var(--color-bg) 0%,
+      rgba(249, 248, 252, 0.85) 30%,
+      rgba(249, 248, 252, 0.4) 60%,
+      transparent 80%
+    );
+  }
+
+  /* ── VARIATION B: Vertical fade strip ──
+     Linear gradient from left to right: transparent edges, opaque centre.
+     Creates a clean reading column. */
+  .strip-overlay {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(12, 10, 20, 0.5) 8%,
+      var(--color-bg) 15%,
+      var(--color-bg) 85%,
+      rgba(12, 10, 20, 0.5) 92%,
+      transparent 100%
+    );
+  }
+
+  :global(html[data-theme="light"]) .strip-overlay {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(249, 248, 252, 0.5) 8%,
+      var(--color-bg) 15%,
+      var(--color-bg) 85%,
+      rgba(249, 248, 252, 0.5) 92%,
+      transparent 100%
+    );
+  }
+</style>

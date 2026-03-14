@@ -1,0 +1,458 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import karateImg from '../../assets/beyond-code/karate.png';
+import mtbImg from '../../assets/beyond-code/mtb_outdoors.png';
+import smartHomeImg from '../../assets/beyond-code/smart_home.png';
+
+const cards = [
+  {
+    title: 'Wado Ryu Karate',
+    shortTitle: 'Karate',
+    image: karateImg,
+    text: "3rd Dan. I teach. This isn't a hobby — it's a parallel discipline of teaching, leadership, and personal development pursued for decades.",
+    link: { label: 'ogwrkarate.co.uk', href: 'https://www.ogwrkarate.co.uk' },
+  },
+  {
+    title: 'Mountain Biking & Active Life',
+    shortTitle: 'MTB & Outdoors',
+    image: mtbImg,
+    text: "Mountain biking is the primary outdoor passion — trails in South Wales and beyond. Also running, rowing, and general fitness.",
+    link: null,
+  },
+  {
+    title: 'Smart Home & IoT',
+    shortTitle: 'Smart Home',
+    image: smartHomeImg,
+    text: "Home Assistant, Matter, Thread, Apple Home. The intersection of engineering curiosity and domestic life. Building automations, tinkering with protocols, and trying to make the house smarter without making it fragile.",
+    link: null,
+  },
+];
+
+const topRow = cards.slice(0, 3);
+const bottomRow = cards.slice(3);
+---
+
+<BaseLayout title="Beyond the Code — Layout Variations">
+  <main id="main-content" class="py-16">
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 1: Hero Image Top
+        Image takes the full card width as a header
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 1</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Hero Image Top</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Image takes the full card width at the top (~180px tall), acting as a visual header.
+            Title and body text sit below in their own padded area. Clean, editorial feel.
+          </p>
+        </div>
+
+        {/* Top row: 3 cards */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {topRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg overflow-hidden card-hover">
+              <div class="w-full h-44 bg-bg-raised flex items-center justify-center p-6">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={160}
+                  height={160}
+                  loading="lazy"
+                  class="opacity-85 object-contain max-h-full"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.shortTitle}</h3>
+                <p class="text-text-secondary text-sm leading-relaxed">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                  >
+                    {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row: 2 cards, centred */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto lg:max-w-[66.667%]">
+          {bottomRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg overflow-hidden card-hover">
+              <div class="w-full h-44 bg-bg-raised flex items-center justify-center p-6">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={160}
+                  height={160}
+                  loading="lazy"
+                  class="opacity-85 object-contain max-h-full"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.shortTitle}</h3>
+                <p class="text-text-secondary text-sm leading-relaxed">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                  >
+                    {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 2: Large Left Column
+        Two-column card: image left, text right
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 2</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Large Left Column</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Two-column layout within each card: image on the left (~40% width, ~140px), title and text stacked
+            on the right. The image is prominent and creates a strong visual anchor.
+          </p>
+        </div>
+
+        {/* Top row: 3 cards */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {topRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-5 card-hover">
+              <div class="flex gap-5">
+                <div class="shrink-0 w-[140px] h-[140px] bg-bg-raised rounded-lg flex items-center justify-center p-3">
+                  <Image
+                    src={card.image}
+                    alt=""
+                    width={120}
+                    height={120}
+                    loading="lazy"
+                    class="opacity-85 object-contain"
+                  />
+                </div>
+                <div class="flex flex-col justify-center min-w-0">
+                  <h3 class="text-base font-semibold text-text-primary mb-2">{card.shortTitle}</h3>
+                  <p class="text-text-secondary text-sm leading-relaxed line-clamp-4">{card.text}</p>
+                  {card.link && (
+                    <a
+                      href={card.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-block mt-2 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                    >
+                      {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row: 2 cards, centred */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto lg:max-w-[66.667%]">
+          {bottomRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-5 card-hover">
+              <div class="flex gap-5">
+                <div class="shrink-0 w-[140px] h-[140px] bg-bg-raised rounded-lg flex items-center justify-center p-3">
+                  <Image
+                    src={card.image}
+                    alt=""
+                    width={120}
+                    height={120}
+                    loading="lazy"
+                    class="opacity-85 object-contain"
+                  />
+                </div>
+                <div class="flex flex-col justify-center min-w-0">
+                  <h3 class="text-base font-semibold text-text-primary mb-2">{card.shortTitle}</h3>
+                  <p class="text-text-secondary text-sm leading-relaxed line-clamp-4">{card.text}</p>
+                  {card.link && (
+                    <a
+                      href={card.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-block mt-2 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                    >
+                      {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 3: Centred Showcase
+        Image centred, title centred, text centred
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 3</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Centred Showcase</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Image centred at ~140px, title centred below it, text centred below that.
+            Gallery/portfolio feel — lets the icons shine as the focal point.
+          </p>
+        </div>
+
+        {/* Top row: 3 cards */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {topRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 text-center card-hover">
+              <div class="flex justify-center mb-5">
+                <div class="w-36 h-36 bg-bg-raised rounded-xl flex items-center justify-center p-4">
+                  <Image
+                    src={card.image}
+                    alt=""
+                    width={128}
+                    height={128}
+                    loading="lazy"
+                    class="opacity-85 object-contain"
+                  />
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary mb-3">{card.shortTitle}</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">{card.text}</p>
+              {card.link && (
+                <a
+                  href={card.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                >
+                  {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row: 2 cards, centred */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto lg:max-w-[66.667%]">
+          {bottomRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 text-center card-hover">
+              <div class="flex justify-center mb-5">
+                <div class="w-36 h-36 bg-bg-raised rounded-xl flex items-center justify-center p-4">
+                  <Image
+                    src={card.image}
+                    alt=""
+                    width={128}
+                    height={128}
+                    loading="lazy"
+                    class="opacity-85 object-contain"
+                  />
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary mb-3">{card.shortTitle}</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">{card.text}</p>
+              {card.link && (
+                <a
+                  href={card.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                >
+                  {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 4: Background Watermark
+        Image as large low-opacity background element
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 4</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Background Watermark</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Image used as a large, low-opacity background element (~200px, positioned bottom-right),
+            with title and text overlaid on the left. Atmospheric, moody feel.
+          </p>
+        </div>
+
+        {/* Top row: 3 cards */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {topRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover">
+              {/* Watermark image — positioned bottom-right, low opacity */}
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.07] pointer-events-none">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={200}
+                  height={200}
+                  loading="lazy"
+                  class="object-contain w-full h-full"
+                />
+              </div>
+              {/* Content — sits above the watermark */}
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+                <p class="text-text-secondary text-sm leading-relaxed pr-8">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                  >
+                    {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row: 2 cards, centred */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto lg:max-w-[66.667%]">
+          {bottomRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover">
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.07] pointer-events-none">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={200}
+                  height={200}
+                  loading="lazy"
+                  class="object-contain w-full h-full"
+                />
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+                <p class="text-text-secondary text-sm leading-relaxed pr-8">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                  >
+                    {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 5: Icon Header Bar
+        Full-width tinted header strip with centred icon
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 5</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Icon Header Bar</h2>
+          <p class="text-text-secondary max-w-2xl">
+            A full-width header strip at the top of each card with a subtle violet-tinted background,
+            image centred within it at ~110px. Title and text below with normal card padding.
+          </p>
+        </div>
+
+        {/* Top row: 3 cards */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {topRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg overflow-hidden card-hover">
+              {/* Tinted header bar */}
+              <div class="w-full py-6 flex items-center justify-center"
+                   style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={110}
+                  height={110}
+                  loading="lazy"
+                  class="opacity-90 object-contain"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.shortTitle}</h3>
+                <p class="text-text-secondary text-sm leading-relaxed">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                  >
+                    {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row: 2 cards, centred */}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto lg:max-w-[66.667%]">
+          {bottomRow.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg overflow-hidden card-hover">
+              <div class="w-full py-6 flex items-center justify-center"
+                   style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={110}
+                  height={110}
+                  loading="lazy"
+                  class="opacity-90 object-contain"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.shortTitle}</h3>
+                <p class="text-text-secondary text-sm leading-relaxed">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+                  >
+                    {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

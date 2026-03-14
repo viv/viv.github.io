@@ -1,55 +1,86 @@
 ---
-import { Image } from 'astro:assets';
+import {Image} from 'astro:assets';
 import architectureImg from '../assets/expertise/architecture.png';
-import secureImg from '../assets/expertise/secure_by_design.png';
-import aiImg from '../assets/expertise/ai_engineering.png';
+import secureImg from '../assets/expertise/secure_by_design_2.png';
+import aiImg from '../assets/expertise/ai_engineering_2.png';
 import mentoringImg from '../assets/expertise/mentoring.png';
+import architectureImgLight from '../assets/expertise/architecture-light.png';
+import secureImgLight from '../assets/expertise/secure_by_design_2-light.png';
+import aiImgLight from '../assets/expertise/ai_engineering-light.png';
+import mentoringImgLight from '../assets/expertise/mentoring-light.png';
 
 const items = [
-  {
-    title: 'Building systems that last',
-    image: architectureImg,
-    text: "I've spent 25+ years building software across government, finance, cyber security, and identity verification. I favour pragmatic architecture, clear boundaries, and ruthless simplicity where it matters — with the discipline to maintain backward compatibility when the easy option would be to break everything.",
-  },
-  {
-    title: 'Secure by design',
-    image: secureImg,
-    text: "I've spent years working with government, CISOs, and governance boards. Security isn't something I bolt on. It's how I think about trust boundaries, identity, data flow, and the human decisions around all of it.",
-  },
-  {
-    title: 'AI-augmented engineering',
-    image: aiImg,
-    text: "AI is a core part of how I work day to day, managed with the same XP and engineering discipline I'd apply to any team. I've also led formal government-commissioned research evaluating AI security tools. I understand where AI adds genuine value, where its non-deterministic nature demands careful judgement, and how to get the best from it consistently.",
-  },
-  {
-    title: 'Growing engineers',
-    image: mentoringImg,
-    text: "I mentor apprentices, host work experience students, and run 1:1s, 360-degree feedback, and CPD programmes. The best investment I can make as a senior engineer is in the people around me.",
-  },
+    {
+        title: 'AI-native engineering',
+        image: aiImg,
+        imageLight: aiImgLight,
+        text: "AI is a core part of how I work, managed with the same <a href='https://en.wikipedia.org/wiki/Extreme_programming' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>XP</a> and engineering discipline I've applied for years. I have embraced the increased speed at which AI allows us to produce code and love how engineering discipline allows me to maintain control over what I ship. My experience managing engineering teams translates directly to orchestrating agent teams, aligning goals, coordinating tasks, and fostering effective collaboration.",
+        link: {href: '/notes/ai-engineering-q1-2026', label: 'More about my AI approach'},
+    },
+    {
+        title: 'Building systems that last and evolve',
+        image: architectureImg,
+        imageLight: architectureImgLight,
+        text: "I've spent 25+ years building software across government, finance, cyber security, and identity verification. I favour pragmatic emergent architecture, clear boundaries, and ruthless simplicity where it matters. I understand trade-offs and defer decisions until the last responsible moment. I strive to build systems that teams can understand, evolve, and own, not ones that depend on me being in the room.",
+    },
+    {
+        title: 'Secure by design',
+        image: secureImg,
+        imageLight: secureImgLight,
+        text: "I've spent decades working with organisations that have the most demanding security requirements — government, finance, national cyber security. I don't see security as something to be dictated from the top or bolted on at the end. It's a design discipline (asset identification, <a href='https://owasp.org/www-community/Threat_Modeling' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>threat modelling</a>, trust boundaries, identity, data flow, <a href='https://csrc.nist.gov/pubs/sp/800/207/final' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>Zero Trust</a> principles) built into the architecture from the start.",
+    },
+    {
+        title: 'Growing teams & people',
+        image: mentoringImg,
+        imageLight: mentoringImgLight,
+        text: "The best engineering teams are built on trust, patience, no blame, and a shared commitment to excellence. I lead by example, invest in people, and create environments where confidence grows and ideas are sharpened through challenge. Former colleagues regularly refer people to me for career advice, from A-level students to professionals changing direction entirely.",
+    },
 ];
 ---
 
-<section id="expertise" class="py-24 sm:py-32">
-  <div class="max-w-4xl mx-auto px-6">
-    <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-16">What I Do</h2>
+<section id="expertise" aria-label="Expertise" class="pt-14 pb-10 sm:pt-20 sm:pb-16">
+    <div class="max-w-4xl mx-auto px-6">
+        <h2 id="expertise-heading" class="text-4xl sm:text-5xl font-bold text-text-primary mb-16">What I Do</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {items.map((item) => (
-        <div
-          data-animate="fade-up"
-          class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8"
-        >
-          <Image
-            src={item.image}
-            alt=""
-            width={64}
-            height={64}
-            class="rounded-lg mb-4 opacity-80"
-          />
-          <h3 class="text-lg font-semibold text-text-primary mb-3">{item.title}</h3>
-          <p class="text-text-secondary leading-relaxed">{item.text}</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {items.map((item, index) => (
+                    <div
+                            data-animate={index >= 2 ? "fade-up" : undefined}
+                            data-expertise-intro={index < 2 ? "" : undefined}
+                            class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover"
+                    >
+                        <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                            <Image
+                                    src={item.image}
+                                    alt=""
+                                    width={200}
+                                    height={200}
+                                    loading="lazy"
+                                    class="object-contain w-full h-full dark-only"
+                            />
+                            <Image
+                                    src={item.imageLight}
+                                    alt=""
+                                    width={200}
+                                    height={200}
+                                    loading="lazy"
+                                    class="object-contain w-full h-full light-only"
+                            />
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-semibold text-text-primary mb-3">{item.title}</h3>
+                            <p class="text-text-secondary leading-relaxed md:pr-8" set:html={item.text} />
+                            {item.link && (
+                                    <a
+                                            href={item.link.href}
+                                            class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                                    >
+                                        {item.link.label} &rarr;
+                                    </a>
+                            )}
+                        </div>
+                    </div>
+            ))}
         </div>
-      ))}
     </div>
-  </div>
 </section>

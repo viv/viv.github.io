@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+
+<section id="notes" aria-label="Field Notes" class="pt-14 pb-10 sm:pt-20 sm:pb-16">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 data-animate="fade-up" class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">Field Notes</h2>
+    <p data-animate="fade-up" class="text-text-secondary leading-relaxed mb-12">
+      My engineering notebook. Discoveries, observations, and failures that made me smile.
+      Writing on things I've learned, problems I've solved, and ideas worth remembering.
+    </p>
+
+    <ul class="space-y-6">
+      {notes.map((note) => (
+        <li data-animate="fade-up">
+          <div class="group bg-bg-surface border border-border-subtle rounded-lg p-6 card-hover relative">
+            <a
+              href={`/notes/${note.id}`}
+              class="block"
+            >
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-4">
+                <time
+                  datetime={note.data.date.toISOString().slice(0, 10)}
+                  class="text-sm text-text-tertiary font-mono shrink-0"
+                >
+                  {note.data.date.toISOString().slice(0, 10)}
+                </time>
+                <h3 class="text-lg font-semibold text-text-primary group-hover:text-accent transition-colors mt-1 sm:mt-0">
+                  {note.data.title}
+                </h3>
+              </div>
+              {note.data.description && (
+                <p class="text-text-secondary text-sm mt-2">{note.data.description}</p>
+              )}
+            </a>
+            {note.data.tags && note.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 mt-3">
+                {note.data.tags.map((tag: string) => (
+                  <a
+                    href={`/notes/tags/${tag}`}
+                    class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5 hover:border-accent/40 transition-colors relative z-10"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div data-animate="fade-up" class="mt-8">
+      <a
+        href="/notes"
+        class="inline-flex items-center gap-2 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+      >
+        All notes &rarr;
+      </a>
+    </div>
+  </div>
+</section>

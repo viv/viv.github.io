@@ -1,0 +1,381 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import architectureImg from '../../assets/expertise/architecture.png';
+import secureImg from '../../assets/expertise/secure_by_design_2.png';
+import aiImg from '../../assets/expertise/ai_engineering_2.png';
+import mentoringImg from '../../assets/expertise/mentoring.png';
+import architectureImgLight from '../../assets/expertise/architecture-light.png';
+import secureImgLight from '../../assets/expertise/secure_by_design_2-light.png';
+import aiImgLight from '../../assets/expertise/ai_engineering-light.png';
+import mentoringImgLight from '../../assets/expertise/mentoring-light.png';
+
+const cards = [
+  {
+    title: 'Building systems that last',
+    shortTitle: 'Architecture',
+    image: architectureImg,
+    imageLight: architectureImgLight,
+    text: "I've spent 25+ years building software across government, finance, cyber security, and identity verification. I favour pragmatic architecture, clear boundaries, and ruthless simplicity where it matters.",
+    link: null,
+  },
+  {
+    title: 'Secure by design',
+    shortTitle: 'Security',
+    image: secureImg,
+    imageLight: secureImgLight,
+    text: "I've spent years working with government, CISOs, and governance boards. Security isn't something I bolt on. It's how I think about trust boundaries, identity, data flow, and the human decisions around all of it.",
+    link: null,
+  },
+  {
+    title: 'AI-augmented engineering',
+    shortTitle: 'AI Engineering',
+    image: aiImg,
+    imageLight: aiImgLight,
+    text: "AI is a core part of how I work day to day, managed with the same XP and engineering discipline I'd apply to any team. I understand where AI adds genuine value and how to get the best from it consistently.",
+    link: { href: '/notes/ai-engineering-q1-2026', label: 'More about my AI approach' },
+  },
+  {
+    title: 'Growing engineers',
+    shortTitle: 'Mentoring',
+    image: mentoringImg,
+    imageLight: mentoringImgLight,
+    text: "I mentor apprentices, host work experience students, and run 1:1s, 360-degree feedback, and CPD programmes. The best investment I can make as a senior engineer is in the people around me.",
+    link: null,
+  },
+];
+---
+
+<BaseLayout title="What I Do — Layout Variations">
+  <main id="main-content" class="py-16">
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 1: Current — Small Icon (reference)
+        64px icon top-left, title and text below
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 1 — Current</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Small Icon</h2>
+          <p class="text-text-secondary max-w-2xl">
+            The current implementation. Small 64px icon at the top of each card, title below,
+            then body text. Compact and text-forward — the images are decorative but small.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 card-hover">
+              <Image
+                src={card.image}
+                alt=""
+                width={64}
+                height={64}
+                loading="lazy"
+                class="rounded-lg mb-4 opacity-80 dark-only"
+              />
+              <Image
+                src={card.imageLight}
+                alt=""
+                width={64}
+                height={64}
+                loading="lazy"
+                class="rounded-lg mb-4 opacity-80 light-only"
+              />
+              <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+              <p class="text-text-secondary leading-relaxed">{card.text}</p>
+              {card.link && (
+                <a
+                  href={card.link.href}
+                  class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                >
+                  {card.link.label} &rarr;
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 2: Hero Image Top
+        Full-width image header at the top of each card
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 2</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Hero Image Top</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Image takes the full card width as a header area (~160px tall) with a subtle raised background.
+            Title and body text sit below. More visual weight than the current small icons.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg overflow-hidden card-hover">
+              <div class="w-full h-40 bg-bg-raised flex items-center justify-center p-6">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={120}
+                  height={120}
+                  loading="lazy"
+                  class="opacity-85 object-contain max-h-full dark-only"
+                />
+                <Image
+                  src={card.imageLight}
+                  alt=""
+                  width={120}
+                  height={120}
+                  loading="lazy"
+                  class="opacity-85 object-contain max-h-full light-only"
+                />
+              </div>
+              <div class="p-6 sm:p-8">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+                <p class="text-text-secondary leading-relaxed">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                  >
+                    {card.link.label} &rarr;
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 3: Centred Showcase
+        Larger centred image with centred text below
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 3</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Centred Showcase</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Image centred at ~120px in a rounded container, title and text centred below.
+            Gallery feel — the illustrations become a focal point rather than a decoration.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 text-center card-hover">
+              <div class="flex justify-center mb-5">
+                <div class="w-32 h-32 bg-bg-raised rounded-xl flex items-center justify-center p-4">
+                  <Image
+                    src={card.image}
+                    alt=""
+                    width={100}
+                    height={100}
+                    loading="lazy"
+                    class="opacity-85 object-contain dark-only"
+                  />
+                  <Image
+                    src={card.imageLight}
+                    alt=""
+                    width={100}
+                    height={100}
+                    loading="lazy"
+                    class="opacity-85 object-contain light-only"
+                  />
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+              <p class="text-text-secondary leading-relaxed">{card.text}</p>
+              {card.link && (
+                <a
+                  href={card.link.href}
+                  class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                >
+                  {card.link.label} &rarr;
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 4: Background Watermark
+        Large low-opacity image as background texture
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 4</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Background Watermark</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Image used as a large (~200px), low-opacity background element positioned bottom-right.
+            Text sits on the left at full opacity. Atmospheric feel without competing with the content.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover">
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={200}
+                  height={200}
+                  loading="lazy"
+                  class="object-contain w-full h-full dark-only"
+                />
+                <Image
+                  src={card.imageLight}
+                  alt=""
+                  width={200}
+                  height={200}
+                  loading="lazy"
+                  class="object-contain w-full h-full light-only"
+                />
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+                <p class="text-text-secondary leading-relaxed pr-8">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                  >
+                    {card.link.label} &rarr;
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 5: Side Column
+        Image on the left, text on the right
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24 border-b border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 5</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Side Column</h2>
+          <p class="text-text-secondary max-w-2xl">
+            Two-column layout within each card — image on the left (~100px) in a rounded container,
+            title and text stacked on the right. The image acts as a strong visual anchor.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-5 sm:p-6 card-hover">
+              <div class="flex gap-5">
+                <div class="shrink-0 w-[100px] h-[100px] bg-bg-raised rounded-lg flex items-center justify-center p-3">
+                  <Image
+                    src={card.image}
+                    alt=""
+                    width={80}
+                    height={80}
+                    loading="lazy"
+                    class="opacity-85 object-contain dark-only"
+                  />
+                  <Image
+                    src={card.imageLight}
+                    alt=""
+                    width={80}
+                    height={80}
+                    loading="lazy"
+                    class="opacity-85 object-contain light-only"
+                  />
+                </div>
+                <div class="flex flex-col justify-center min-w-0">
+                  <h3 class="text-base font-semibold text-text-primary mb-2">{card.title}</h3>
+                  <p class="text-text-secondary text-sm leading-relaxed line-clamp-4">{card.text}</p>
+                  {card.link && (
+                    <a
+                      href={card.link.href}
+                      class="inline-block mt-2 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                    >
+                      {card.link.label} &rarr;
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+    {/* ════════════════════════════════════════════════
+        VARIATION 6: Icon Header Bar
+        Tinted header strip with centred icon
+        ════════════════════════════════════════════════ */}
+    <section class="py-16 sm:py-24">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-12">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Variation 6</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Icon Header Bar</h2>
+          <p class="text-text-secondary max-w-2xl">
+            A full-width header strip with a subtle accent-tinted gradient, image centred within it.
+            Title and text below with normal card padding. Polished, branded feel.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <div class="bg-bg-surface border border-border-subtle rounded-lg overflow-hidden card-hover">
+              <div class="w-full py-5 flex items-center justify-center"
+                   style="background: linear-gradient(135deg, rgba(141, 127, 210, 0.10) 0%, rgba(174, 164, 223, 0.05) 100%);">
+                <Image
+                  src={card.image}
+                  alt=""
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  class="opacity-90 object-contain dark-only"
+                />
+                <Image
+                  src={card.imageLight}
+                  alt=""
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  class="opacity-90 object-contain light-only"
+                />
+              </div>
+              <div class="p-6 sm:p-8">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+                <p class="text-text-secondary leading-relaxed">{card.text}</p>
+                {card.link && (
+                  <a
+                    href={card.link.href}
+                    class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover"
+                  >
+                    {card.link.label} &rarr;
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

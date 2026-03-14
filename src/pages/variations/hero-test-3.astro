@@ -1,0 +1,82 @@
+---
+// HERO TEST 3: Integrated hero — name + about combined in one section
+// The hero IS the About section. Name large on the left, intro text on the right.
+// No wasted space.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import { Image } from 'astro:assets';
+import avatar from '../../assets/headshot/avatar.png';
+import Timeline from '../../components/Timeline.astro';
+import Expertise from '../../components/Expertise.astro';
+import WorkInTheOpen from '../../components/WorkInTheOpen.astro';
+import BeyondTheCode from '../../components/BeyondTheCode.astro';
+import Contact from '../../components/Contact.astro';
+---
+
+<BaseLayout title="Viv — Software Engineer">
+  <Navigation />
+  <main id="main-content">
+    {/* Combined hero + about */}
+    <section id="about" aria-label="About" class="min-h-[80vh] flex items-center pt-16 pb-24">
+      <div class="max-w-5xl mx-auto px-6 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
+          {/* Left: name + avatar */}
+          <div class="text-center lg:text-left">
+            <Image
+              src={avatar}
+              alt="Viv — portrait photo"
+              width={160}
+              height={160}
+              class="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-border-subtle mx-auto lg:mx-0 mb-8"
+            />
+            <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-text-primary">
+              Viv.
+            </h1>
+            <p class="mt-3 text-lg text-text-secondary">
+              Software engineer.<br />Building things that matter.
+            </p>
+          </div>
+
+          {/* Right: about text */}
+          <div class="space-y-6">
+            <p data-animate="fade-up" class="text-lg text-text-primary leading-relaxed">
+              I've been writing software since the late 90s. In that time I've learned that tools change constantly but the principles of good engineering don't.
+            </p>
+            <p data-animate="fade-up" class="text-lg text-text-primary leading-relaxed">
+              I'm a Chartered Engineer and a member of the BCS, and I studied Computer Science at Cardiff University. I live in South Wales and I've worked remotely for most of my career, long before it was fashionable. Most of my career has been spent building systems where the stakes are high — national cyber security infrastructure, government services, child safeguarding platforms, identity verification at scale.
+            </p>
+            <p data-animate="fade-up" class="text-lg text-text-primary leading-relaxed">
+              These days I'm deeply focused on how AI is reshaping the craft of software engineering. Not replacing what experienced engineers do, but amplifying it in ways I find genuinely exciting. After more than 25 years, this is the most significant shift I've seen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Expertise />
+    <WorkInTheOpen />
+    <BeyondTheCode />
+  </main>
+  <Contact />
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) {
+    gsap.utils.toArray('[data-animate="fade-up"]').forEach((el) => {
+      gsap.from(el as Element, {
+        scrollTrigger: { trigger: el as Element, start: 'top 85%', toggleActions: 'play none none none' },
+        y: 30, opacity: 0, duration: 0.8, ease: 'power2.out',
+      });
+    });
+    gsap.utils.toArray('[data-animate="timeline-entry"]').forEach((el) => {
+      gsap.from(el as Element, {
+        scrollTrigger: { trigger: el as Element, start: 'top 80%', toggleActions: 'play none none none' },
+        y: 50, opacity: 0, duration: 1, ease: 'power3.out',
+      });
+    });
+  }
+</script>

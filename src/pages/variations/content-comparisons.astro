@@ -1,0 +1,281 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import aiImg from '../../assets/expertise/ai_engineering_2.png';
+import aiImgLight from '../../assets/expertise/ai_engineering-light.png';
+import aiTimelineImg from '../../assets/timeline/ai_human_collab_3.png';
+import aiTimelineImgLight from '../../assets/timeline/ai_human_collab_3-light.png';
+import architectureImg from '../../assets/expertise/architecture.png';
+import architectureImgLight from '../../assets/expertise/architecture-light.png';
+
+/**
+ * Content Comparisons — side-by-side current vs proposed text.
+ *
+ * Pattern: each comparison is a section with a description header,
+ * then a two-column grid: left = Current, right = Proposed.
+ * Add new comparison sections below as needed.
+ */
+---
+
+<BaseLayout title="Content Comparisons">
+  <main id="main-content" class="py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">Content Comparisons</h1>
+      <p class="text-text-secondary mb-16 max-w-3xl">
+        Side-by-side comparison of current vs proposed content changes.
+        Left column is what's live now; right column is the proposed replacement.
+      </p>
+
+      {/* ════════════════════════════════════════════════════════════
+          COMPARISON 1: Expertise Card — AI-augmented engineering
+          ════════════════════════════════════════════════════════════ */}
+      <section class="mb-24">
+        <div class="mb-8">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Comparison 1</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Expertise Card — AI-augmented engineering</h2>
+          <p class="text-text-secondary max-w-3xl">
+            The proposed version shifts from XP discipline and deployment concerns to the
+            argument about why experienced engineers matter more in an AI world — spec quality
+            and the loss of human interaction that used to catch ambiguity.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Current */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Current</p>
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px]">
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                <Image src={aiImg} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full dark-only" />
+                <Image src={aiImgLight} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full light-only" />
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">AI-augmented engineering</h3>
+                <p class="text-text-secondary leading-relaxed md:pr-8">AI is a core part of how I work. Managed with the same XP and engineering discipline I've applied for years. My bias for action means taking the smallest responsible step that generates real feedback, then iterating. Feature flags, monitoring, rollbacks, and error budgets make it safe to be wrong and quick to recover. I invest in making frequent, low‑risk deployments boring, so I can learn quickly without compromising reliability.</p>
+                <a href="/notes/ai-engineering-q1-2026" class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover">
+                  More about my AI approach &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Proposed */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Proposed</p>
+            <div class="bg-bg-surface border-2 border-accent/30 rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px]">
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                <Image src={aiImg} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full dark-only" />
+                <Image src={aiImgLight} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full light-only" />
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">AI-augmented engineering</h3>
+                <p class="text-text-secondary leading-relaxed md:pr-8">AI is a core part of how I work — managed with the same engineering discipline I've applied for over 25 years. When a human team builds software, ambiguity in a spec gets caught. Someone pushes back in a code review. A hallway conversation surfaces an assumption nobody wrote down. AI doesn't do that. It takes the spec at face value and runs. That makes the spec the product — and defining it well requires the kind of deep system understanding that only comes from experience.</p>
+                <a href="/notes/ai-engineering-q1-2026" class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors link-hover">
+                  More about my AI approach &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ════════════════════════════════════════════════════════════
+          COMPARISON 2: Timeline Entry — AI-Enhanced Engineering
+          ════════════════════════════════════════════════════════════ */}
+      <section class="mb-24">
+        <div class="mb-8">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Comparison 2</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Timeline Entry — AI-Enhanced Engineering</h2>
+          <p class="text-text-secondary max-w-3xl">
+            The proposed version reworks paragraph four to weave in the human-interaction
+            angle — what's lost when hallway conversations and standup pushback disappear
+            from the development process.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Current */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Current</p>
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8">
+              <div class="flex items-start gap-6">
+                <div class="flex-1">
+                  <span class="text-sm text-text-secondary">2024 – present</span>
+                  <h3 class="mt-1 text-lg font-semibold text-text-primary">AI-Enhanced Engineering — The Current Chapter</h3>
+                  <p class="mt-1 text-xl text-accent-light italic">
+                    &ldquo;After 25 years, the craft is changing. That's exciting, not threatening.&rdquo;
+                  </p>
+                </div>
+                <div class="hidden sm:block shrink-0 -mt-8">
+                  <Image src={aiTimelineImg} alt="" width={176} height={176} loading="lazy" class="w-32 h-32 sm:w-40 sm:h-40 rounded-lg object-cover opacity-80 dark-only" />
+                  <Image src={aiTimelineImgLight} alt="" width={176} height={176} loading="lazy" class="w-32 h-32 sm:w-40 sm:h-40 rounded-lg object-cover opacity-80 light-only" />
+                </div>
+              </div>
+              <div class="mt-4 text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0">
+                <p>Led a comprehensive research programme for a UK government department evaluating AI-powered security testing tools for air-gapped environments. Analysed 60+ solutions, developed a structured evaluation framework, and authored a 50+ page technical report. Senior stakeholders called it "a magnificent piece of work" and "exactly what I wanted to get out of it."</p>
+                <p>But the research is only part of it. AI has become fundamental to how I engineer software daily. Right now, Claude Code is the primary tool, but this is a fast-moving domain and, like any good engineer, the decisions I'm making today are designed to allow change later.</p>
+                <p>The real insight: 25 years of learning how to manage teams (scoping work clearly, breaking problems down, TDD, pairing, code review, iterating in small increments) turns out to be exactly what you need to be effective with AI agents. I'm applying the tried and trusted methods of XP and software engineering to a new kind of collaborator.</p>
+                <p>Beyond the daily practice, there's deeper thinking to be done. AI dramatically reduces the cost of producing code, but that doesn't automatically mean better outcomes. The bottleneck shifts: if code is cheap, then the quality, security, and review of that code becomes the constraint. Theory of constraints applies here just as it does anywhere else. The benefits are real, but so are the trade-offs, and experienced engineers are the ones best placed to navigate them.</p>
+                <p>These are the very early days. Keeping a close eye on which principles will endure.</p>
+              </div>
+              <p class="mt-4 text-sm font-mono text-text-tertiary italic">Claude Code, LLMs, SAST tooling</p>
+            </div>
+          </div>
+
+          {/* Proposed */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Proposed</p>
+            <div class="bg-bg-surface border-2 border-accent/30 rounded-lg p-6 sm:p-8">
+              <div class="flex items-start gap-6">
+                <div class="flex-1">
+                  <span class="text-sm text-text-secondary">2024 – present</span>
+                  <h3 class="mt-1 text-lg font-semibold text-text-primary">AI-Enhanced Engineering — The Current Chapter</h3>
+                  <p class="mt-1 text-xl text-accent-light italic">
+                    &ldquo;After 25 years, the craft is changing. That's exciting, not threatening.&rdquo;
+                  </p>
+                </div>
+                <div class="hidden sm:block shrink-0 -mt-8">
+                  <Image src={aiTimelineImg} alt="" width={176} height={176} loading="lazy" class="w-32 h-32 sm:w-40 sm:h-40 rounded-lg object-cover opacity-80 dark-only" />
+                  <Image src={aiTimelineImgLight} alt="" width={176} height={176} loading="lazy" class="w-32 h-32 sm:w-40 sm:h-40 rounded-lg object-cover opacity-80 light-only" />
+                </div>
+              </div>
+              <div class="mt-4 text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0">
+                <p>Led a comprehensive research programme for a UK government department evaluating AI-powered security testing tools for air-gapped environments. Analysed 60+ solutions, developed a structured evaluation framework, and authored a 50+ page technical report. Senior stakeholders called it "a magnificent piece of work" and "exactly what I wanted to get out of it."</p>
+                <p>But the research is only part of it. AI has become fundamental to how I engineer software daily. Right now, Claude Code is the primary tool, but this is a fast-moving domain and, like any good engineer, the decisions I'm making today are designed to allow change later.</p>
+                <p>The real insight: 25 years of learning how to manage teams (scoping work clearly, breaking problems down, TDD, pairing, code review, iterating in small increments) turns out to be exactly what you need to be effective with AI agents. I'm applying the tried and trusted methods of XP and software engineering to a new kind of collaborator.</p>
+                <p>Beyond the daily practice, there's a deeper shift happening. AI dramatically reduces the cost of producing code, but it also removes something subtle: the human interactions that used to compensate for imperfect specs. Questions in code reviews, pushback in standups, instinct that something feels off. When those disappear, the spec has to be right — because the machine will build exactly what you asked for, confidently and efficiently. The bottleneck moves from implementation speed to how well you define the problem. That's where 25 years of experience pays off.</p>
+                <p>These are the very early days. Keeping a close eye on which principles will endure.</p>
+              </div>
+              <p class="mt-4 text-sm font-mono text-text-tertiary italic">Claude Code, LLMs, SAST tooling</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════
+          COMPARISON 3: Expertise Card — Building systems that last
+          ════════════════════════════════════════════════════════════ */}
+      <section class="mb-24">
+        <div class="mb-8">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Comparison 3</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Expertise Card — Building systems that last and evolve</h2>
+          <p class="text-text-secondary max-w-3xl">
+            The proposed version adds the generalist argument — when AI handles
+            implementation, breadth of understanding across systems, users, and business
+            constraints matters more than deep expertise in a single technology.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Current */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Current</p>
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px]">
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                <Image src={architectureImg} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full dark-only" />
+                <Image src={architectureImgLight} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full light-only" />
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">Building systems that last and evolve</h3>
+                <p class="text-text-secondary leading-relaxed md:pr-8">I've spent 25+ years building software across government, finance, cyber security, and identity verification. I favour pragmatic architecture, clear boundaries, and ruthless simplicity where it matters. I understand trade-offs and design systems that defer decisions that don't need to be made yet. I strive to build systems that teams can understand, evolve, and own, not ones that depend on me being in the room.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Proposed */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Proposed</p>
+            <div class="bg-bg-surface border-2 border-accent/30 rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px]">
+              <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                <Image src={architectureImg} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full dark-only" />
+                <Image src={architectureImgLight} alt="" width={200} height={200} loading="lazy" class="object-contain w-full h-full light-only" />
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-semibold text-text-primary mb-3">Building systems that last and evolve</h3>
+                <p class="text-text-secondary leading-relaxed md:pr-8">I've spent 25+ years building software across government, finance, cyber security, and identity verification. That breadth matters more now than ever. When AI handles the implementation, the human's value is in understanding the problem space broadly enough to direct it correctly. A specialist who knows everything about one technology but can't reason about the product implications of an architectural decision is far less valuable than an engineer who understands the systems, the users, and the business constraints. I favour pragmatic architecture, clear boundaries, and ruthless simplicity — and I design systems that teams can understand, evolve, and own.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ════════════════════════════════════════════════════════════
+          COMPARISON 4: AI Engineering Note — The Spec Is the Product
+          ════════════════════════════════════════════════════════════ */}
+      <section class="mb-24">
+        <div class="mb-8">
+          <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Comparison 4</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">AI Engineering Note — The Spec Is the Product</h2>
+          <p class="text-text-secondary max-w-3xl">
+            The proposed version adds a paragraph about the generalist shift between the
+            Dark Factory reference and the personal closing. The Kubernetes example makes the
+            abstract argument concrete.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Current */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Current</p>
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8">
+              <h3 class="text-lg font-semibold text-text-primary mb-4">The Spec Is the Product</h3>
+              <div class="text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0">
+                <p>When a human team builds software, ambiguity in a spec gets caught naturally. Someone asks a question in a code review. A developer pushes back in a standup. A hallway conversation surfaces an assumption nobody had written down. Those interactions quietly do enormous work — they compensate for what the spec didn't say.</p>
+                <p>AI doesn't do that. It takes the spec at face value and runs. No pushback, no clarifying questions, no instinct that something feels off. If the spec is wrong, the output is confidently, efficiently wrong.</p>
+                <p>This is the shift that matters most. The bottleneck is no longer how fast you can build — it's how well you can define what to build. And defining what to build is a function of something that hasn't changed: how deeply you understand the system, the customer, and the problem.</p>
+                <p>Dan Shapiro calls the fully autonomous end of this spectrum the "Dark Factory" — where AI systems handle implementation end-to-end and human engineers manage the goals and the system without routinely looking at the code. Whether or not we're there yet, the direction is clear. Spec quality is becoming the primary constraint, and spec quality is a direct function of engineering experience.</p>
+                <p>I've spent over twenty-five years building that understanding — across domains, stacks, and organisations. The conversations that used to happen in hallways and standups? I've had thousands of them. That instinct for when something feels off, for what the spec didn't say? It doesn't come from a model. It comes from years of getting it wrong, learning why, and building the judgement to get it right.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Proposed */}
+          <div>
+            <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Proposed</p>
+            <div class="bg-bg-surface border-2 border-accent/30 rounded-lg p-6 sm:p-8">
+              <h3 class="text-lg font-semibold text-text-primary mb-4">The Spec Is the Product</h3>
+              <div class="text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0">
+                <p>When a human team builds software, ambiguity in a spec gets caught naturally. Someone asks a question in a code review. A developer pushes back in a standup. A hallway conversation surfaces an assumption nobody had written down. Those interactions quietly do enormous work — they compensate for what the spec didn't say.</p>
+                <p>AI doesn't do that. It takes the spec at face value and runs. No pushback, no clarifying questions, no instinct that something feels off. If the spec is wrong, the output is confidently, efficiently wrong.</p>
+                <p>This is the shift that matters most. The bottleneck is no longer how fast you can build — it's how well you can define what to build. And defining what to build is a function of something that hasn't changed: how deeply you understand the system, the customer, and the problem.</p>
+                <p>Dan Shapiro calls the fully autonomous end of this spectrum the "Dark Factory" — where AI systems handle implementation end-to-end and human engineers manage the goals and the system without routinely looking at the code. Whether or not we're there yet, the direction is clear. Spec quality is becoming the primary constraint, and spec quality is a direct function of engineering experience.</p>
+                <p class="border-l-2 border-accent/30 pl-4">This shift favours generalists over specialists. The industry is moving towards engineers who can think across domains — people who understand the systems, the users, and the business constraints broadly enough to write specs that actually capture what matters. A specialist who knows everything about Kubernetes but can't reason about the product implications of an architectural decision is far less valuable in this world than a generalist who can direct implementation across the full stack, even if they can't hand-configure a pod.</p>
+                <p>I've spent over twenty-five years building that understanding — across domains, stacks, and organisations. The conversations that used to happen in hallways and standups? I've had thousands of them. That instinct for when something feels off, for what the spec didn't say? It doesn't come from a model. It comes from years of getting it wrong, learning why, and building the judgement to get it right.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ════════════════════════════════════════════════════════════
+          Add more comparisons below using the same pattern:
+
+          <section class="mb-24">
+            <div class="mb-8">
+              <p class="text-accent-functional font-mono text-sm tracking-wider uppercase mb-2">Comparison N</p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Title</h2>
+              <p class="text-text-secondary max-w-3xl">Description of what changed and why.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Current</p>
+                <div class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8">
+                  ...current content...
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-mono text-text-tertiary mb-3 uppercase tracking-wider">Proposed</p>
+                <div class="bg-bg-surface border-2 border-accent/30 rounded-lg p-6 sm:p-8">
+                  ...proposed content...
+                </div>
+              </div>
+            </div>
+          </section>
+          ════════════════════════════════════════════════════════════ */}
+
+    </div>
+  </main>
+</BaseLayout>

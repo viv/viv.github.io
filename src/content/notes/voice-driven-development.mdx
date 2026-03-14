@@ -1,0 +1,40 @@
+---
+title: "Voice-Driven Development: Speaking to Machines"
+date: 2026-03-10
+tags: [ai, workflow, tooling]
+description: "Why I use AI-powered voice dictation to communicate with AI agents, and what the future of human-machine interaction might look like."
+---
+
+## The Bottleneck Is the Keyboard
+
+Typing good prompts is slow. Not the physical act of typing (most engineers can type fast enough) but the cognitive overhead of composing structured, context-rich instructions while simultaneously thinking through the problem.
+
+Speaking is different. When I talk through a problem, I naturally give more context, explain my reasoning, and surface assumptions I wouldn't bother typing out. The output comes out richer because the medium doesn't punish verbosity the way a keyboard does.
+
+I've been using [Superwhisper](https://superwhisper.com), an AI-powered voice-to-text tool for macOS, as a regular part of my workflow for almost a year now. Not just for AI prompts, but for email, documentation, notes, and general writing. But the biggest impact has been on how I interact with AI agents.
+
+## Why AI-Powered Dictation, Not Just Dictation
+
+Standard voice-to-text transcribes exactly what you say. That's the problem. When I speak naturally, I correct myself mid-sentence. I meander while I think. I rubber-duck, talking through an approach only to realise halfway through that it won't work, then pivoting. A raw transcript of that is a mess.
+
+Superwhisper processes dictation through an LLM before outputting text. It cleans up the natural speech patterns (the false starts, the corrections, the thinking-out-loud) and outputs a clean version that captures what I meant, not what I literally said. It handles file names and technical terms with correct formatting: `camelCase`, `SCREAMING_SNAKE_CASE`, `kebab-case`. When I rattle off a list of things conversationally, it structures them as an actual list. When I change my mind partway through a sentence, it takes the final version, not the journey.
+
+The result is that I can talk to my computer the way I'd talk to a colleague, naturally, with all the messiness that implies. What comes out the other end is a well-structured prompt, email, or document.
+
+## Better Prompts, Not Just Faster Ones
+
+The bigger benefit isn't the speed gain, though that's real, it's that the prompts are better. When I type, I unconsciously economise. I might leave out context that feels obvious to me but isn't obvious to the agent. I skip the reasoning behind a decision because explaining it feels like too much effort. When I speak, that friction disappears. I naturally say things like "the reason I want it this way is..." or "the constraint here is that...". That kind of context makes the agent's output significantly more useful.
+
+This matters because, as I've [written elsewhere](/notes/ai-engineering-q1-2026), the spec is key to the quality of the product. The better your instructions, the better the output. Voice dictation removes a barrier between what I'm thinking and what the agent receives.
+
+## The Private Office Advantage
+
+There's an obvious practical constraint, you need to be able to talk to your computer. Working from a private home office, this isn't a problem. I don't know how well this would work in a shared office space. Headsets and noise-cancelling can help, but there's a social awkwardness to dictating prompts while colleagues are trying to concentrate three feet away. For now, this is an advantage of remote and private working environments.
+
+## Where This Is Going
+
+Voice dictation feels like an interim step in a longer arc of human-machine interaction. The fundamental problem is bandwidth. Getting what's in my head into the machine with as little loss and friction as possible. A keyboard is a narrow, lossy channel. Voice is wider. But it's still indirect. I'm encoding thoughts into speech, which gets decoded back into text, which gets interpreted by an agent.
+
+The obvious question is: what comes next? Interfaces that can infer intent more directly? Input mechanisms we haven't imagined yet? The history of computing is a history of narrowing the gap between thought and action, from punch cards to command lines to GUIs to touch to voice. Each step removed a layer of translation.
+
+What's already clear is that AI agents aren't just the next step on that trajectory. They represent a fundamentally different kind of interaction. Every previous shift, from punch cards to GUIs to voice, changed how we *input instructions*. The relationship stayed the same: you tell the machine what to do, and it does it. With agents, you describe intent, and the machine determines how to achieve it. That's not a new input mechanism. It's a new interaction model entirely, one where the machine is a collaborator rather than an executor. We're still in the early stages of understanding what that means for how we work.

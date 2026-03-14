@@ -1,0 +1,128 @@
+---
+import {Image} from 'astro:assets';
+import openfireImg from '../assets/open-source/openfire.png';
+import openfireImgLight from '../assets/open-source/openfire-light.png';
+import dockerImg from '../assets/open-source/docker.png';
+import dockerImgLight from '../assets/open-source/docker-light.png';
+import reviewLoopImg from '../assets/open-source/review-loop.png';
+import reviewLoopImgLight from '../assets/open-source/review-loop-light.png';
+---
+
+<section id="open-source" aria-label="Open source work" class="pt-14 pb-10 sm:pt-20 sm:pb-16">
+    <div class="max-w-4xl mx-auto px-6">
+        <h2 data-animate="fade-up" class="text-4xl sm:text-5xl font-bold text-text-primary mb-6">Work in the Open</h2>
+        <p data-animate="fade-up" class="text-text-secondary leading-relaxed mb-16">
+            Most of my work is behind closed doors, but not all of it. Openfire gives a good glimpse into how I
+            work — the pull requests and discussions show how I collaborate with engineers across time zones and take
+            care with software that many organisations depend on. Review-Loop is something different, a tool I built
+            from scratch, developing and experimenting openly with AI without the constraints of a sensitive codebase.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Openfire */}
+            <div
+                    data-animate="fade-up"
+                    class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover"
+            >
+                <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                    <Image src={openfireImg} alt="" width={200} height={200} loading="lazy"
+                           class="object-contain w-full h-full dark-only"/>
+                    <Image src={openfireImgLight} alt="" width={200} height={200} loading="lazy"
+                           class="object-contain w-full h-full light-only"/>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-lg font-semibold text-text-primary mb-3">Openfire</h3>
+                    <p class="text-text-secondary leading-relaxed mb-4 md:pr-8">
+                        The open source XMPP server used by defence and government organisations across the world. I'm a
+                        long time contributor, my contributions include replacing the core networking framework with
+                        Netty, a systematic cryptographic security programme, introducing Architecture Decision Records,
+                        and performance engineering.
+                    </p>
+                    <a
+                            href="https://github.com/igniterealtime/Openfire"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-block text-sm text-accent-functional hover:text-accent-light transition-colors break-words external-link"
+                    >
+                        igniterealtime/Openfire<span class="sr-only"> (opens in new tab)</span>
+                    </a>
+                </div>
+            </div>
+
+            {/* Openfire Docker Compose */}
+            <div
+                    data-animate="fade-up"
+                    class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover"
+            >
+                <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                    <Image src={dockerImg} alt="" width={200} height={200} loading="lazy"
+                           class="object-contain w-full h-full dark-only"/>
+                    <Image src={dockerImgLight} alt="" width={200} height={200} loading="lazy"
+                           class="object-contain w-full h-full light-only"/>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-lg font-semibold text-text-primary mb-3">Openfire Docker Compose</h3>
+                    <p class="text-text-secondary leading-relaxed mb-4 md:pr-8">
+                        I created this Docker Compose environment for running multiple Openfire servers
+                        with databases during local development and testing. It's since been adopted by
+                        several of the Openfire core developers and testers. I've added clustering support,
+                        OCSP configuration, Java remote debugging, and comprehensive documentation.
+                    </p>
+                    <a
+                            href="https://github.com/surevine/openfire-docker-compose"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-block text-sm text-accent-functional hover:text-accent-light transition-colors break-words external-link"
+                    >
+                        surevine/openfire-docker-compose<span class="sr-only"> (opens in new tab)</span>
+                    </a>
+                </div>
+            </div>
+
+            {/* review-loop */}
+            <div
+                    data-animate="fade-up"
+                    class="md:col-span-2 bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover"
+            >
+                <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+                    <Image src={reviewLoopImg} alt="" width={200} height={200} loading="lazy"
+                           class="object-contain w-full h-full dark-only"/>
+                    <Image src={reviewLoopImgLight} alt="" width={200} height={200} loading="lazy"
+                           class="object-contain w-full h-full light-only"/>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-lg font-semibold text-text-primary mb-3">Review-Loop</h3>
+                    <p class="text-text-secondary leading-relaxed mb-4 md:pr-8">
+                        A tool I built to bridge human reviewers and AI coding agents. Annotate your rendered
+                        site in-browser (select text, highlight elements, write notes) and your agent reads the
+                        feedback directly via MCP, edits the source, and reports back for your approval (or not!).
+                    </p>
+                    <p class="text-text-secondary leading-relaxed mb-4 md:pr-8">
+                        Building review-loop in the open gives me the freedom to fully explore AI-enhanced software
+                        engineering without the constraints of a commercial or sensitive codebase. Experimenting with
+                        the same engineering rigour and practices, but also pushing the boundaries of speed,
+                        tooling, and working practices in ways that other projects don't always allow.
+                    </p>
+                    <a
+                            href="https://github.com/viv/review-loop"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-block text-sm text-accent-functional hover:text-accent-light transition-colors break-words external-link"
+                    >
+                        viv/review-loop<span class="sr-only"> (opens in new tab)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {/* GitHub profile link */}
+        <p data-animate="fade-up" class="mt-10 text-text-secondary text-sm">
+            More at <a
+                href="https://github.com/viv"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent-functional hover:text-accent-light transition-colors external-link"
+        >github.com/viv<span class="sr-only"> (opens in new tab)</span></a>
+        </p>
+    </div>
+</section>

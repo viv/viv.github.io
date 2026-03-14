@@ -1,70 +1,83 @@
 ---
 import { Image } from 'astro:assets';
 import karateImg from '../assets/beyond-code/karate.png';
+import mtbImg from '../assets/beyond-code/mtb_outdoors.png';
+import smartHomeImg from '../assets/beyond-code/smart_home.png';
+import karateImgLight from '../assets/beyond-code/karate-light.png';
+import mtbImgLight from '../assets/beyond-code/mtb_outdoors-light.png';
+import smartHomeImgLight from '../assets/beyond-code/smart_home-light.png';
+
+
+const cards = [
+  {
+    title: 'Wado Ryu Karate',
+    image: karateImg,
+    imageLight: karateImgLight,
+    text: "3rd Dan black belt and instructor in <a href='https://en.wikipedia.org/wiki/Wad%C5%8D-ry%C5%AB' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>Wado Ryu</a>. I originally started accompanying my kids and stuck with it. I'm drawn to the discipline it demands, the satisfaction of teaching, and the rich history of practical application",
+    link: { label: 'ogwrkarate.co.uk', href: 'https://www.ogwrkarate.co.uk' },
+  },
+  {
+    title: 'Mountain Biking',
+    image: mtbImg,
+    imageLight: mtbImgLight,
+    text: "I've been mountain biking for over 30 years, I'm lucky to be surrounded by great countryside,  community, and trails in South Wales. I also enjoy running, rowing, and exploring the nearby mountains and forests on foot.",
+    link: null,
+  },
+  {
+    title: 'Smart Home & IoT',
+    image: smartHomeImg,
+    imageLight: smartHomeImgLight,
+    text: "<a href='https://www.home-assistant.io/' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>Home Assistant</a>, <a href='https://csa-iot.org/all-solutions/matter/' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>Matter</a>, <a href='https://www.threadgroup.org/' target='_blank' rel='noopener noreferrer' class='text-accent-functional hover:text-accent-light transition-colors'>Thread</a>, Apple Home. Engineering curiosity applied to domestic life. Building automations, tinkering with protocols, and trying to make the house smarter without making it fragile.",
+    link: null,
+  },
+];
 ---
 
-<section id="beyond" class="py-24 sm:py-32">
+<section id="beyond" aria-label="Beyond the code" class="pt-14 pb-10 sm:pt-20 sm:pb-16">
   <div class="max-w-4xl mx-auto px-6">
-    <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-16">Beyond the Code</h2>
+    <h2 data-animate="fade-up" class="text-4xl sm:text-5xl font-bold text-text-primary mb-16">Beyond the Code</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {/* Wado Ryu Karate */}
-      <div
-        data-animate="fade-up"
-        class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8"
-      >
-        <Image
-          src={karateImg}
-          alt="Karate"
-          width={64}
-          height={64}
-          class="rounded-lg mb-4 opacity-80"
-        />
-        <h3 class="text-lg font-semibold text-text-primary mb-3">Wado Ryu Karate</h3>
-        <p class="text-text-secondary leading-relaxed">
-          3rd Dan. I teach. This isn't a hobby — it's a parallel discipline of teaching, leadership, and personal development pursued for decades.
-        </p>
-        <a
-          href="https://www.ogwrkarate.co.uk"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors"
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {cards.map((card) => (
+        <div
+          data-animate="fade-up"
+          class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8 relative overflow-hidden min-h-[220px] card-hover"
         >
-          ogwrkarate.co.uk &rarr;
-        </a>
-      </div>
-
-      {/* Guitar & Keyboard */}
-      <div
-        data-animate="fade-up"
-        class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8"
-      >
-        <div class="w-16 h-16 rounded-lg mb-4 bg-accent/10 flex items-center justify-center">
-          <svg class="w-8 h-8 text-accent-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
-          </svg>
+          <div class="absolute -bottom-4 -right-4 w-[200px] h-[200px] opacity-[0.12] pointer-events-none">
+            <Image
+              src={card.image}
+              alt=""
+              width={200}
+              height={200}
+              loading="lazy"
+              class="object-contain w-full h-full dark-only"
+            />
+            <Image
+              src={card.imageLight}
+              alt=""
+              width={200}
+              height={200}
+              loading="lazy"
+              class="object-contain w-full h-full light-only"
+            />
+          </div>
+          <div class="relative z-10">
+            <h3 class="text-lg font-semibold text-text-primary mb-3">{card.title}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed md:pr-4" set:html={card.text} />
+            {card.link && (
+              <a
+                href={card.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block mt-3 text-sm text-accent-functional hover:text-accent-light transition-colors external-link"
+              >
+                {card.link.label}<span class="sr-only"> (opens in new tab)</span>
+              </a>
+            )}
+          </div>
         </div>
-        <h3 class="text-lg font-semibold text-text-primary mb-3">Guitar & Keyboard</h3>
-        <p class="text-text-secondary leading-relaxed">
-          Electric and acoustic guitar since 1995, plus keyboard. A hobby, but 30 years of one.
-        </p>
-      </div>
-
-      {/* Mentoring & Community */}
-      <div
-        data-animate="fade-up"
-        class="bg-bg-surface border border-border-subtle rounded-lg p-6 sm:p-8"
-      >
-        <div class="w-16 h-16 rounded-lg mb-4 bg-accent/10 flex items-center justify-center">
-          <svg class="w-8 h-8 text-accent-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-text-primary mb-3">Mentoring & Community</h3>
-        <p class="text-text-secondary leading-relaxed">
-          Mentored an apprentice who won BCS Software Developer & Tester Apprentice of the Year. Hosted work experience placements. 5k wellness runs. Mental health advocacy in the workplace.
-        </p>
-      </div>
+      ))}
     </div>
+
   </div>
 </section>
