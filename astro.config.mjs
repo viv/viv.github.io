@@ -5,12 +5,10 @@ import mdx from '@astrojs/mdx';
 import rehypeExternalLinks from 'rehype-external-links';
 
 const integrations = [mdx(), sitemap()];
-if (process.env.NODE_ENV !== 'production') {
-  try {
-    const { default: inlineReview } = await import('review-loop');
-    integrations.push(inlineReview());
-  } catch {}
-}
+try {
+  const { default: inlineReview } = await import('review-loop');
+  integrations.push(inlineReview());
+} catch {}
 
 export default defineConfig({
   site: 'https://www.viv.me.uk',
