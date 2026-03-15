@@ -1,0 +1,64 @@
+---
+title: "One-Button Hydration Tracking with Home Assistant, Garmin, and an IKEA Button"
+date: 2026-03-15
+tags: [home-automation, home-assistant, garmin, open-source]
+description: "How I wired an IKEA smart button to log water intake to both Google Calendar and Garmin Connect — and contributed the missing feature upstream."
+---
+
+## The Problem
+
+I like to track my water intake throughout the day. I want to be able to spot patterns and correlations between water intake and general health indicators.
+
+I already had a [Home Assistant](https://www.home-assistant.io/) automation hooked up to an [IKEA Bilresa](https://www.ikea.com/gb/en/p/bilresa-remote-control-smart-white-80569089/) dual smart button (these buttons are brilliant, cheap, solidly made, and support Matter over Thread). Press button one, log a pint of water to [Google Calendar](https://calendar.google.com/). Press button two, log a cup of tea. Simple and it worked well enough, but calendar entries aren't great for visualising trends over time.
+
+## Garmin Connect Has a Hydration Tracker
+
+I noticed that [Garmin Connect](https://connect.garmin.com/) has a built-in hydration feature with proper daily/weekly/monthly views and goal tracking. Much better for spotting patterns than scrolling through calendar events.
+
+I was already using the [Garmin Connect Home Assistant integration](https://github.com/cyberjunky/home-assistant-garmin_connect) to pull fitness data from Garmin into Home Assistant. So the natural question was could I push hydration data back the other way?
+
+## Contributing the Missing Feature
+
+After a bit of exploration, it became clear that the integration didn't support writing hydration data, only reading. So I did what any self-respecting engineer would do, forked the repository, added the `add_hydration` service, and opened a [pull request](https://github.com/cyberjunky/home-assistant-garmin_connect/pull/416).
+
+The change adds an `add_hydration` service action that accepts a value in millilitres and pushes it to Garmin Connect via the [garminconnect Python library](https://github.com/cyberjunky/python-garminconnect).
+
+## The Automation
+
+With the new service in place, I updated my Home Assistant automation. Now a single button press logs to both Google Calendar and Garmin Connect:
+
+```yaml
+alias: Log Pint of Water Intake
+description: Log 1 pint of water to Google Calendar & Garmin when button 1 is pressed
+triggers:
+  - entity_id: event.bilresa_dual_button_button_1_6
+    trigger: state
+conditions:
+  - condition: state
+    entity_id: event.bilresa_dual_button_button_1_6
+    attribute: event_type
+    state: multi_press_1
+actions:
+  - target:
+      entity_id: calendar.water_intake
+    data:
+      summary: Water 1 Pint
+      start_date: "{{ now().strftime('%Y-%m-%d') }}"
+      end_date: "{{ (now() + timedelta(days=1)).strftime('%Y-%m-%d') }}"
+      description: "Logged at: {{ now().strftime('%H:%M:%S') }}"
+    action: calendar.create_event
+  - target:
+      entity_id: sensor.garmin_connect_hydration
+    data:
+      value_in_ml: 568
+    action: garmin_connect.add_hydration
+mode: single
+```
+
+568 ml is one imperial pint. I have a second automation for button two that logs the exact volume of my tea cups, because if you're going to track hydration, you might as well be precise about it.
+
+<div style="text-align: center;">
+  <img src="/images/notes/garmin-hydration.jpg" alt="Garmin Connect hydration tracking screen showing 1,018 ml logged against a daily goal of 3,165 ml" style="max-width: 50%; height: auto; display: inline-block;" />
+</div>
+
+Nothing technically groundbreaking here, but it's the real-world problem solving "shaping the world around me" kind of impact that I love about being a software engineer.
