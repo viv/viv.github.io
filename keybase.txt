@@ -1,0 +1,71 @@
+==================================================================
+https://keybase.io/viv
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.viv.me.uk
+  * I am viv (https://keybase.io/viv) on keybase.
+  * I have a public key with fingerprint EDDD 9B13 737C 5CEC F652  26ED 27FF 98CE D23E 13B3
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "eddd9b13737c5cecf65226ed27ff98ced23e13b3",
+            "host": "keybase.io",
+            "key_id": "27ff98ced23e13b3",
+            "uid": "3f396dcc8d966d03d93e6ae0a0dd9000",
+            "username": "viv"
+        },
+        "revoke": {
+            "sig_ids": [
+                "d3fc8e02a48d660dc92602ebf18a475844a182f2497b70ef200a0de62e5d2a5d0f"
+            ]
+        },
+        "service": {
+            "hostname": "www.viv.me.uk",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1411630582,
+    "expire_in": 157680000,
+    "prev": "75843f24df3c619c445c7dc96e175ed13246a90b830a61b1552276f763ec885b",
+    "seqno": 7,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.0.5
+Comment: https://keybase.io/crypto
+
+yMIhAnicbVJbSBVBGD5ekhSzSBCiCzEZRulpdmd3dveogd1IioKoBzM57s7M6mbu
+nvbcOnqCeigTsjt0L4igrCSfDTUzH8woSikSStEyIuzykAVJNCv11tPM/P/3f9/3
+//M/mpPmy0pxlpNPQ6OPUcpAT3nUt2NZ31QjMByaAIFGUMdmDtOya5gbci07AgKA
+UUo1Q0AKUohMGDGxLIqYUVExTU0l/IKYgAwECkGtE/YqOI2hh5nfcniMP4IW5dH/
+4KMzCWQiDVNCVKphTCGiGmJYZ1CHXBhC6AHDzLX1esbRMSsGDhQCl8WcOua5DVs1
+XCAMApWAIpOoDIq6pFKMISWaiKHIDFNQdUmRVUnSBVU0RUlTDAUyU4SeCMMik6mo
+yxSaoIpzc7GYRWbIvY7+CsfjcT8X99czf7SOewq5TsQhzl6eqo1EQgHPVSQRmoEy
+I/iXJGhYNuXz5AUx5oYtxwYBgSNJxPJYBUkQMIKyKhYCtj9kuSxoeQhZwSpvHXoy
+LMYpPfeIO6cmIljQiCTJROENYiYoMqMCEiWsa9BQEdSxYAgy/yQFmwpGjKiqbACv
+rX22AwIKt6nXcEo+OFuPRF0GDjx8sDvdl5Lly5iV6m2ELytz3r89WTw223fV3Lju
+9/3p/vH1Xyb0ssnieHCkqkC7XHR4VQfILcohnYcHzub0H62+Gp54+mv89Pdo6lRt
+dXPJjy9XKm59+zDmm9xQ/DK36NotqaW5zX88ebljKHFvq7Fq+2jp/MaO3YPmxdGP
+qC/j5yKlIVM4lf8usfbHV2fBpjXtqa+/9qKuz+evi51Le64kzoXE1Z9vPn813jR2
+t2PF6GRP25PknZ1HendkrFzyYrhp/ceRwsH29Irsg8m542Ujm4UUvLB7Op5XsqJ1
++ZseXC0P335b07e/QWo/Ib/fVZnMKk3C/C1d9S0Tblveoes3WvufbRuyurPTzpws
+yL5g23DWsbK8S+XHg3v+AP3JL80=
+=fqZH
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/viv
+
+==================================================================
