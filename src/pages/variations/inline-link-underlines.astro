@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+
+/**
+ * Inline link underline comparison.
+ *
+ * WCAG 1.4.1 (Use of Colour) requires that links in body text are not
+ * distinguished from surrounding text by colour alone. This page shows
+ * the affected components with different underline treatments.
+ */
+
+// Sample text from Expertise.astro (AI-native engineering card)
+const expertiseSample = `AI is a core part of how I work, managed with the same <a href='https://en.wikipedia.org/wiki/Extreme_programming' target='_blank' rel='noopener noreferrer' class='{{linkClass}}'>XP</a> and engineering discipline I've applied for years. I have embraced the increased speed at which AI allows us to produce code and love how engineering discipline allows me to maintain control over what I ship.`;
+
+// Sample text from BeyondTheCode.astro (Smart Home card)
+const beyondSample = `<a href='https://www.home-assistant.io/' target='_blank' rel='noopener noreferrer' class='{{linkClass}}'>Home Assistant</a>, <a href='https://csa-iot.org/all-solutions/matter/' target='_blank' rel='noopener noreferrer' class='{{linkClass}}'>Matter</a>, <a href='https://www.threadgroup.org/' target='_blank' rel='noopener noreferrer' class='{{linkClass}}'>Thread</a>, Apple Home. Engineering curiosity applied to domestic life. Building automations, tinkering with protocols, and trying to make the house smarter without making it fragile.`;
+
+const treatments = [
+  {
+    name: 'Current — colour only',
+    linkClass: 'text-accent-functional hover:text-accent-light transition-colors',
+    issue: 'Fails WCAG 1.4.1 — links indistinguishable for colour-blind users.',
+    pass: false,
+  },
+  {
+    name: 'A — Persistent underline',
+    linkClass: 'text-accent-functional hover:text-accent-light transition-colors underline underline-offset-2',
+    issue: 'Always underlined. Clear distinction. Matches prose-note link style.',
+    pass: true,
+  },
+  {
+    name: 'B — Underline on hover only + decoration-dotted default',
+    linkClass: 'text-accent-functional hover:text-accent-light transition-colors underline decoration-dotted underline-offset-2 hover:decoration-solid',
+    issue: 'Dotted underline at rest, solid on hover. Subtle but still perceivable.',
+    pass: true,
+  },
+  {
+    name: 'C — Underline with reduced opacity',
+    linkClass: 'text-accent-functional hover:text-accent-light transition-colors underline underline-offset-2 decoration-accent/40 hover:decoration-accent',
+    issue: 'Semi-transparent underline at rest, full opacity on hover. Elegant.',
+    pass: true,
+  },
+];
+---
+
+<BaseLayout title="Inline Link Underlines — Variations" description="WCAG 1.4.1 link distinction comparison.">
+  <Navigation />
+  <main id="main-content" class="relative pt-24 pb-16">
+    <div aria-hidden="true" class="reading-glow"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+      <a href="/variations" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; All variations</a>
+
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Inline Link Underlines</h1>
+      <p class="text-text-secondary mb-4">
+        WCAG 1.4.1 (Use of Colour) requires that links in body text are not
+        distinguished from surrounding text by colour alone. The Expertise and Beyond the Code
+        sections have inline links styled with <code class="font-mono text-sm">text-accent-functional</code>
+        but no underline.
+      </p>
+      <p class="text-text-secondary mb-8 text-sm">
+        This page shows the affected text with different underline treatments.
+        Links in <code class="font-mono text-sm">.prose-note</code> (Field Notes articles) already have underlines.
+      </p>
+
+      {treatments.map((t) => (
+        <section class="mb-12">
+          <div class="flex items-center gap-3 mb-4">
+            <h2 class="text-xl font-semibold text-text-primary">{t.name}</h2>
+            {t.pass ? (
+              <span class="text-xs font-mono px-2 py-1 rounded bg-green-500/20 text-green-400 border border-green-500/30">WCAG ✓</span>
+            ) : (
+              <span class="text-xs font-mono px-2 py-1 rounded bg-red-500/20 text-red-400 border border-red-500/30">WCAG ✗</span>
+            )}
+          </div>
+          <p class="text-sm text-text-tertiary mb-4 italic">{t.issue}</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Expertise card mock */}
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+              <h3 class="text-sm font-semibold text-text-tertiary mb-2 uppercase tracking-wider">Expertise card</h3>
+              <p class="text-text-secondary leading-relaxed" set:html={expertiseSample.replaceAll('{{linkClass}}', t.linkClass)} />
+            </div>
+
+            {/* Beyond the Code card mock */}
+            <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+              <h3 class="text-sm font-semibold text-text-tertiary mb-2 uppercase tracking-wider">Beyond the Code card</h3>
+              <p class="text-text-secondary text-sm leading-relaxed" set:html={beyondSample.replaceAll('{{linkClass}}', t.linkClass)} />
+            </div>
+          </div>
+
+          {/* Show the CSS class for copy */}
+          <details class="mt-3">
+            <summary class="text-xs text-text-tertiary cursor-pointer">Tailwind classes</summary>
+            <pre class="mt-2 text-xs p-3 rounded bg-bg-surface border border-border-subtle overflow-x-auto font-mono text-text-secondary">{t.linkClass}</pre>
+          </details>
+        </section>
+      ))}
+
+      {/* Recommendation */}
+      <div class="mt-8 p-6 rounded-lg border border-border-subtle bg-bg-surface">
+        <h2 class="text-xl font-semibold text-text-primary mb-3">Recommendation</h2>
+        <p class="text-text-secondary leading-relaxed mb-3">
+          <strong>Option A (persistent underline)</strong> is the simplest and most accessible.
+          It matches the existing <code class="font-mono text-sm">.prose-note a</code> style,
+          maintaining consistency across the site.
+        </p>
+        <p class="text-text-secondary leading-relaxed">
+          <strong>Option C (reduced opacity underline)</strong> is a good alternative if
+          the persistent underline feels too heavy — the semi-transparent line is visible
+          but doesn't compete with the text.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

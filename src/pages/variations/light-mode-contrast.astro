@@ -1,0 +1,597 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+
+/**
+ * Accent colour contrast comparison — dark mode vs light mode.
+ *
+ * NOTE: The initial accessibility audit incorrectly reported #4633A3 on white
+ * as 2.95:1. The actual WCAG-computed ratio is 9.28:1 (passes AAA).
+ * All ratios on this page are computed using the standard WCAG 2.x
+ * relative luminance formula.
+ *
+ * The real accessibility issue was WCAG 1.4.1 (Use of Colour) — links
+ * distinguished from body text by colour alone. That's fixed by adding
+ * underlines, not by changing the accent colour.
+ *
+ * This page exists for aesthetic comparison and to ensure both modes
+ * maintain comparable contrast quality.
+ */
+
+const darkMode = {
+  bg: '#0c0a14',
+  surface: '#141414',
+  textPrimary: '#f5f5f5',
+  textSecondary: '#c0c0c0',
+  textTertiary: '#a3a3a3',
+  accent: '#8D7FD2',
+  accentLight: '#AEA4DF',
+  accentPale: '#CBC5E7',
+};
+
+const darkCandidates = [
+  {
+    name: 'Current production',
+    accent: '#8D7FD2',
+    accentLight: '#AEA4DF',
+    accentPale: '#CBC5E7',
+    ratioOnBg: '5.70',
+    ratioOnSurface: '5.35',
+    wcagAA: true,
+    wcagAAA: false,
+    note: 'Passes AA (5.70:1) but not AAA (needs 7:1). This is the weakest contrast across both modes.',
+  },
+  {
+    name: 'Option A — Just passes AAA',
+    accent: '#9F92D8',
+    accentLight: '#B5AADE',
+    accentPale: '#CCC6E8',
+    ratioOnBg: '7.09',
+    ratioOnSurface: '6.65',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Closest to current feel. Just crosses the 7:1 AAA threshold. Subtle lightening.',
+  },
+  {
+    name: 'Option B — Comfortable AAA',
+    accent: '#A89CDF',
+    accentLight: '#BEB5E5',
+    accentPale: '#D5D0EC',
+    ratioOnBg: '7.94',
+    ratioOnSurface: '7.44',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Good margin above AAA. Slightly lighter, more pastel. Still clearly violet.',
+  },
+  {
+    name: 'Option C — Warmer violet AAA',
+    accent: '#A590D8',
+    accentLight: '#BAA8E0',
+    accentPale: '#D0C6EA',
+    ratioOnBg: '7.09',
+    ratioOnSurface: '6.65',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Just passes AAA with a warmer, redder violet tone. Different character from current.',
+  },
+  {
+    name: 'Option D — Strong AAA',
+    accent: '#B0A4E3',
+    accentLight: '#C3B9E8',
+    accentPale: '#D8D2EF',
+    ratioOnBg: '8.67',
+    ratioOnSurface: '8.13',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Well above AAA. Noticeably lighter — more lavender. Very readable but may feel washed out.',
+  },
+];
+
+const lightCandidates = [
+  {
+    name: 'Current production',
+    accent: '#4633A3',
+    accentLight: '#3D2E8A',
+    accentPale: '#5742BD',
+    ratioOnWhite: '9.28',
+    ratioOnBg: '8.78',
+    linkVsText: '1.05',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Already passes AAA for text-vs-background. However, accent vs body text (#444) is only 1.05:1 — links need underlines to be distinguishable.',
+  },
+  {
+    name: 'Option A — Slightly deeper',
+    accent: '#3B2494',
+    accentLight: '#30197A',
+    accentPale: '#4D35B0',
+    ratioOnWhite: '11.25',
+    ratioOnBg: '10.64',
+    linkVsText: '1.21',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Deeper shade. Still similar feel. Higher contrast against backgrounds.',
+  },
+  {
+    name: 'Option B — Rich deep violet',
+    accent: '#2E1B6B',
+    accentLight: '#3B2494',
+    accentPale: '#4633A3',
+    ratioOnWhite: '14.14',
+    ratioOnBg: '13.37',
+    linkVsText: '1.52',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Rich, deep purple. Noticeably darker than current. Very high contrast.',
+  },
+  {
+    name: 'Option C — Strong contrast',
+    accent: '#2D0F7F',
+    accentLight: '#3B2494',
+    accentPale: '#4633A3',
+    ratioOnWhite: '13.62',
+    ratioOnBg: '12.88',
+    linkVsText: '1.47',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Darker with slight blue shift. Very high contrast.',
+  },
+  {
+    name: 'Option D — Maximum depth',
+    accent: '#251060',
+    accentLight: '#2E1B6B',
+    accentPale: '#3B2494',
+    ratioOnWhite: '15.89',
+    ratioOnBg: '15.03',
+    linkVsText: '1.71',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Very dark purple, almost navy. Maximum contrast. Matches the depth of dark mode\'s primary text.',
+  },
+  {
+    name: 'Option E — Warm violet',
+    accent: '#5B2D8E',
+    accentLight: '#4A1F7A',
+    accentPale: '#6E3FA5',
+    ratioOnWhite: '7.93',
+    ratioOnBg: '7.50',
+    linkVsText: '1.18',
+    wcagAA: true,
+    wcagAAA: true,
+    note: 'Warmer/redder violet. Less blue than current. Different character but also passes AAA.',
+  },
+];
+---
+
+<BaseLayout title="Accent Colour Contrast — Variations" description="WCAG contrast comparison for accent colours in both dark and light modes.">
+  <Navigation />
+  <main id="main-content" class="relative pt-24 pb-16">
+    <div aria-hidden="true" class="reading-glow"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6">
+      <a href="/variations" class="text-sm text-accent-functional hover:text-accent-light transition-colors mb-8 inline-block">&larr; All variations</a>
+
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Accent Colour Contrast Comparison</h1>
+
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-4 mb-8">
+        <p class="text-sm text-text-secondary leading-relaxed">
+          <strong class="text-text-primary">Correction:</strong> The initial audit incorrectly reported the current light mode accent
+          (<code class="font-mono text-xs">#4633A3</code>) as failing WCAG AA with a 2.95:1 ratio.
+          The actual computed ratio is <strong>9.28:1</strong> — it passes both AA and AAA.
+          All ratios on this page use the standard WCAG 2.x relative luminance formula.
+        </p>
+        <p class="text-sm text-text-secondary leading-relaxed mt-2">
+          The genuine issue was <strong>WCAG 1.4.1 (Use of Colour)</strong> — inline links were only
+          distinguishable from body text by colour. This is fixed by adding underlines, not by
+          changing the accent colour. This page is for <strong>aesthetic comparison</strong>.
+        </p>
+      </div>
+
+      {/* ══════════════════════════════════════
+          Dark Mode Reference
+          ══════════════════════════════════════ */}
+      <section class="mb-16">
+        <h2 class="text-2xl font-semibold text-text-primary mb-6">Dark Mode — Current Production</h2>
+        <div class="contrast-card rounded-lg border-2 border-green-600 p-6 sm:p-8" style={`background: ${darkMode.bg}; --card-accent: ${darkMode.accent}; --card-accent-light: ${darkMode.accentLight};`}>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold" style={`color: ${darkMode.textPrimary};`}>Dark Mode Accent Palette</h3>
+            <div class="flex gap-2">
+              <span class="text-xs font-mono px-2 py-1 rounded bg-green-500/20 text-green-400 border border-green-500/30">AA ✓</span>
+              <span class="text-xs font-mono px-2 py-1 rounded bg-red-500/20 text-red-400 border border-red-500/30">AAA ✗</span>
+            </div>
+          </div>
+
+          {/* Swatches */}
+          <div class="flex gap-3 mb-4">
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-12 h-12 rounded-lg border border-white/20" style={`background: ${darkMode.accent};`} />
+              <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>{darkMode.accent}</span>
+              <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>accent</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-12 h-12 rounded-lg border border-white/20" style={`background: ${darkMode.accentLight};`} />
+              <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>{darkMode.accentLight}</span>
+              <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>light</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-12 h-12 rounded-lg border border-white/20" style={`background: ${darkMode.accentPale};`} />
+              <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>{darkMode.accentPale}</span>
+              <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>pale</span>
+            </div>
+          </div>
+
+          {/* Contrast ratios */}
+          <div class="grid grid-cols-3 gap-2 mb-4 text-sm">
+            <div class="px-3 py-2 rounded" style={`background: ${darkMode.surface};`}>
+              <span class="font-mono text-xs" style={`color: ${darkMode.textTertiary};`}>accent on bg:</span>
+              <span class="font-mono font-semibold ml-1 text-green-400">5.70:1</span>
+            </div>
+            <div class="px-3 py-2 rounded" style={`background: ${darkMode.surface};`}>
+              <span class="font-mono text-xs" style={`color: ${darkMode.textTertiary};`}>accent-light:</span>
+              <span class="font-mono font-semibold ml-1 text-green-400">8.58:1</span>
+            </div>
+            <div class="px-3 py-2 rounded" style={`background: ${darkMode.surface};`}>
+              <span class="font-mono text-xs" style={`color: ${darkMode.textTertiary};`}>accent-pale:</span>
+              <span class="font-mono font-semibold ml-1 text-green-400">11.86:1</span>
+            </div>
+          </div>
+
+          {/* Sample text */}
+          <div class="space-y-3 mb-4">
+            <p style={`color: ${darkMode.textSecondary};`}>
+              This is secondary text with an <a href="#" class="sample-link">inline accent link</a> and
+              a <span style={`color: ${darkMode.accentLight};`}>hover colour preview</span>.
+            </p>
+            <p style={`color: ${darkMode.textPrimary};`}>
+              Primary text with <span style={`color: ${darkMode.accent};`}>accent emphasis</span> for reference.
+            </p>
+          </div>
+
+          {/* Buttons */}
+          <div class="flex gap-3 mb-4">
+            <a href="#" class="sample-btn-primary inline-flex items-center gap-2 px-4 py-2 text-white text-sm font-medium rounded-lg" style={`background: ${darkMode.accent};`}>
+              Primary button
+            </a>
+            <a href="#" class="sample-btn-outline inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border" style={`color: ${darkMode.accent}; border-color: ${darkMode.accent};`}>
+              Outline button
+            </a>
+          </div>
+
+          {/* Surface card */}
+          <div class="rounded-lg p-4" style={`background: ${darkMode.surface};`}>
+            <p class="text-sm" style={`color: ${darkMode.accent};`}>Accent text on surface (#141414) — 5.35:1</p>
+            <p class="text-sm mt-1" style={`color: ${darkMode.textSecondary};`}>
+              Nav: <a href="#" class="sample-nav">Expertise</a> |
+              <a href="#" class="sample-nav">Experience</a> |
+              <a href="#" class="sample-nav">Contact</a>
+            </p>
+          </div>
+
+          <p class="text-xs italic mt-3" style={`color: ${darkMode.textTertiary};`}>
+            Accent passes AA (5.70:1) but not AAA (7:1). Accent-light and accent-pale both pass AAA. White-on-accent button text: 3.44:1 — just below AA for small text, passes for large text.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          Dark Mode AAA Candidates
+          ══════════════════════════════════════ */}
+      <section class="mb-16">
+        <h2 class="text-2xl font-semibold text-text-primary mb-6">Dark Mode — AAA Accent Options</h2>
+        <p class="text-text-secondary mb-6 text-sm">
+          The current dark mode accent (#8D7FD2) passes AA (5.70:1) but not AAA (7:1).
+          These options achieve AAA by lightening the accent — the trade-off is a more
+          pastel, less saturated violet.
+        </p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {darkCandidates.map((c) => (
+            <div
+              class="contrast-card rounded-lg border-2 p-6 sm:p-8"
+              style={`background: ${darkMode.bg}; border-color: ${c.wcagAAA ? '#16a34a' : '#eab308'}; --card-accent: ${c.accent}; --card-accent-light: ${c.accentLight};`}
+            >
+              {/* Header */}
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold" style={`color: ${darkMode.textPrimary};`}>{c.name}</h3>
+                <div class="flex gap-2">
+                  <span class="text-xs font-mono px-2 py-1 rounded bg-green-500/20 text-green-400 border border-green-500/30">AA ✓</span>
+                  {c.wcagAAA ? (
+                    <span class="text-xs font-mono px-2 py-1 rounded bg-green-500/20 text-green-400 border border-green-500/30">AAA ✓</span>
+                  ) : (
+                    <span class="text-xs font-mono px-2 py-1 rounded bg-red-500/20 text-red-400 border border-red-500/30">AAA ✗</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Swatches */}
+              <div class="flex gap-3 mb-4">
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-12 h-12 rounded-lg border border-white/20" style={`background: ${c.accent};`} />
+                  <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>{c.accent}</span>
+                  <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>accent</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-12 h-12 rounded-lg border border-white/20" style={`background: ${c.accentLight};`} />
+                  <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>{c.accentLight}</span>
+                  <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>light</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-12 h-12 rounded-lg border border-white/20" style={`background: ${c.accentPale};`} />
+                  <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>{c.accentPale}</span>
+                  <span class="text-[10px] font-mono" style={`color: ${darkMode.textTertiary};`}>pale</span>
+                </div>
+              </div>
+
+              {/* Contrast ratios */}
+              <div class="grid grid-cols-2 gap-2 mb-4 text-sm">
+                <div class="px-3 py-2 rounded" style={`background: ${darkMode.surface};`}>
+                  <span class="font-mono text-xs" style={`color: ${darkMode.textTertiary};`}>on bg:</span>
+                  <span class="font-mono font-semibold ml-1" style={`color: ${c.wcagAAA ? '#4ade80' : '#facc15'};`}>{c.ratioOnBg}:1</span>
+                </div>
+                <div class="px-3 py-2 rounded" style={`background: ${darkMode.surface};`}>
+                  <span class="font-mono text-xs" style={`color: ${darkMode.textTertiary};`}>on surface:</span>
+                  <span class="font-mono font-semibold ml-1" style={`color: ${c.wcagAAA ? '#4ade80' : '#facc15'};`}>{c.ratioOnSurface}:1</span>
+                </div>
+              </div>
+
+              {/* Sample text */}
+              <div class="space-y-3 mb-4">
+                <p style={`color: ${darkMode.textSecondary};`}>
+                  This is secondary text with an <a href="#" class="sample-link">inline accent link</a> and
+                  a <span style={`color: ${c.accentLight};`}>hover colour preview</span>.
+                </p>
+                <p style={`color: ${darkMode.textPrimary};`}>
+                  Primary text with <span style={`color: ${c.accent};`}>accent emphasis</span> for reference.
+                </p>
+              </div>
+
+              {/* Buttons */}
+              <div class="flex gap-3 mb-4">
+                <a href="#" class="sample-btn-primary inline-flex items-center gap-2 px-4 py-2 text-white text-sm font-medium rounded-lg" style={`background: ${c.accent};`}>
+                  Primary button
+                </a>
+                <a href="#" class="sample-btn-outline inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border" style={`color: ${c.accent}; border-color: ${c.accent};`}>
+                  Outline button
+                </a>
+              </div>
+
+              {/* Surface card */}
+              <div class="rounded-lg p-4 mb-3" style={`background: ${darkMode.surface};`}>
+                <p class="text-sm" style={`color: ${c.accent};`}>Accent text on surface — {c.ratioOnSurface}:1</p>
+                <p class="text-sm mt-1" style={`color: ${darkMode.textSecondary};`}>
+                  Nav: <a href="#" class="sample-nav">Expertise</a> |
+                  <a href="#" class="sample-nav">Experience</a> |
+                  <a href="#" class="sample-nav">Contact</a>
+                </p>
+              </div>
+
+              <p class="text-xs italic" style={`color: ${darkMode.textTertiary};`}>{c.note}</p>
+
+              <details class="mt-3">
+                <summary class="text-xs cursor-pointer" style={`color: ${darkMode.textTertiary};`}>CSS values</summary>
+                <pre class="mt-2 text-xs p-3 rounded overflow-x-auto" style={`background: ${darkMode.surface}; color: ${darkMode.textSecondary};`}>
+{`--color-accent: ${c.accent};
+--color-accent-functional: ${c.accent};
+--color-accent-light: ${c.accentLight};
+--color-accent-pale: ${c.accentPale};`}</pre>
+              </details>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          Light Mode Candidates
+          ══════════════════════════════════════ */}
+      <section>
+        <h2 class="text-2xl font-semibold text-text-primary mb-6">Light Mode — Accent Options (all pass AAA)</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {lightCandidates.map((c) => (
+            <div
+              class="contrast-card rounded-lg border-2 p-6 sm:p-8"
+              style={`background: #ffffff; border-color: #2563eb; --card-accent: ${c.accent}; --card-accent-light: ${c.accentLight};`}
+            >
+              {/* Header */}
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold" style="color: #1a1a1a;">{c.name}</h3>
+                <span class="text-xs font-mono px-2 py-1 rounded bg-green-100 text-green-800">AA ✓ AAA ✓</span>
+              </div>
+
+              {/* Swatches */}
+              <div class="flex gap-3 mb-4">
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-12 h-12 rounded-lg border border-gray-200" style={`background: ${c.accent};`} />
+                  <span class="text-[10px] font-mono" style="color: #666;">{c.accent}</span>
+                  <span class="text-[10px] font-mono" style="color: #999;">accent</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-12 h-12 rounded-lg border border-gray-200" style={`background: ${c.accentLight};`} />
+                  <span class="text-[10px] font-mono" style="color: #666;">{c.accentLight}</span>
+                  <span class="text-[10px] font-mono" style="color: #999;">light</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-12 h-12 rounded-lg border border-gray-200" style={`background: ${c.accentPale};`} />
+                  <span class="text-[10px] font-mono" style="color: #666;">{c.accentPale}</span>
+                  <span class="text-[10px] font-mono" style="color: #999;">pale</span>
+                </div>
+              </div>
+
+              {/* Contrast ratios */}
+              <div class="grid grid-cols-2 gap-2 mb-4 text-sm">
+                <div class="px-3 py-2 rounded" style="background: #f0f0f0;">
+                  <span class="font-mono text-xs" style="color: #666;">on #fff:</span>
+                  <span class="font-mono font-semibold ml-1 text-green-700">{c.ratioOnWhite}:1</span>
+                </div>
+                <div class="px-3 py-2 rounded" style="background: #f0f0f0;">
+                  <span class="font-mono text-xs" style="color: #666;">on #f9f8fc:</span>
+                  <span class="font-mono font-semibold ml-1 text-green-700">{c.ratioOnBg}:1</span>
+                </div>
+              </div>
+
+              {/* Sample text */}
+              <div class="space-y-3 mb-4">
+                <p style="color: #444;">
+                  This is secondary text with an <a href="#" class="sample-link">inline accent link</a> and
+                  a <span style={`color: ${c.accentLight};`}>hover colour preview</span>.
+                </p>
+                <p style="color: #1a1a1a;">
+                  Primary text with <span style={`color: ${c.accent};`}>accent emphasis</span> for reference.
+                </p>
+              </div>
+
+              {/* Buttons */}
+              <div class="flex gap-3 mb-4">
+                <a href="#" class="sample-btn-primary inline-flex items-center gap-2 px-4 py-2 text-white text-sm font-medium rounded-lg" style={`background: ${c.accent};`}>
+                  Primary button
+                </a>
+                <a href="#" class="sample-btn-outline inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border" style={`color: ${c.accent}; border-color: ${c.accent};`}>
+                  Outline button
+                </a>
+              </div>
+
+              {/* Surface card */}
+              <div class="rounded-lg p-4 mb-4" style="background: #f9f8fc;">
+                <p class="text-sm" style={`color: ${c.accent};`}>Accent text on bg (#f9f8fc) — {c.ratioOnBg}:1</p>
+                <p class="text-sm mt-1" style="color: #444;">
+                  Nav: <a href="#" class="sample-nav">Expertise</a> |
+                  <a href="#" class="sample-nav">Experience</a> |
+                  <a href="#" class="sample-nav">Contact</a>
+                </p>
+              </div>
+
+              <p class="text-xs italic" style="color: #999;">{c.note}</p>
+
+              <details class="mt-3">
+                <summary class="text-xs cursor-pointer" style="color: #666;">CSS values</summary>
+                <pre class="mt-2 text-xs p-3 rounded overflow-x-auto" style="background: #f5f5f5; color: #333;">
+{`--color-accent: ${c.accent};
+--color-accent-functional: ${c.accent};
+--color-accent-light: ${c.accentLight};
+--color-accent-pale: ${c.accentPale};`}</pre>
+              </details>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          Side-by-side comparison table
+          ══════════════════════════════════════ */}
+      <section class="mt-16">
+        <h2 class="text-2xl font-semibold text-text-primary mb-6">Side-by-Side: Dark vs Light Contrast</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border-emphasis">
+                <th class="text-left py-3 px-4 text-text-primary font-semibold">Metric</th>
+                <th class="text-center py-3 px-4 text-text-primary font-semibold">Dark Mode</th>
+                <th class="text-center py-3 px-4 text-text-primary font-semibold">Light (current)</th>
+                <th class="text-center py-3 px-4 text-text-primary font-semibold">Light (Option D)</th>
+              </tr>
+            </thead>
+            <tbody class="text-text-secondary">
+              <tr class="border-b border-border-subtle">
+                <td class="py-3 px-4 font-mono text-xs">Accent on background</td>
+                <td class="py-3 px-4 text-center font-mono">5.70:1</td>
+                <td class="py-3 px-4 text-center font-mono">8.78:1</td>
+                <td class="py-3 px-4 text-center font-mono">15.03:1</td>
+              </tr>
+              <tr class="border-b border-border-subtle">
+                <td class="py-3 px-4 font-mono text-xs">Accent on surface</td>
+                <td class="py-3 px-4 text-center font-mono">5.35:1</td>
+                <td class="py-3 px-4 text-center font-mono">9.28:1</td>
+                <td class="py-3 px-4 text-center font-mono">15.89:1</td>
+              </tr>
+              <tr class="border-b border-border-subtle">
+                <td class="py-3 px-4 font-mono text-xs">Accent-light on bg</td>
+                <td class="py-3 px-4 text-center font-mono">8.58:1</td>
+                <td class="py-3 px-4 text-center font-mono">10.15:1</td>
+                <td class="py-3 px-4 text-center font-mono">13.37:1</td>
+              </tr>
+              <tr class="border-b border-border-subtle">
+                <td class="py-3 px-4 font-mono text-xs">White on accent (button)</td>
+                <td class="py-3 px-4 text-center font-mono text-yellow-400">3.44:1</td>
+                <td class="py-3 px-4 text-center font-mono">9.28:1</td>
+                <td class="py-3 px-4 text-center font-mono">15.89:1</td>
+              </tr>
+              <tr class="border-b border-border-subtle">
+                <td class="py-3 px-4 font-mono text-xs">WCAG AA (4.5:1)</td>
+                <td class="py-3 px-4 text-center text-green-400">Pass</td>
+                <td class="py-3 px-4 text-center text-green-400">Pass</td>
+                <td class="py-3 px-4 text-center text-green-400">Pass</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono text-xs">WCAG AAA (7:1)</td>
+                <td class="py-3 px-4 text-center text-yellow-400">Fail (5.70)</td>
+                <td class="py-3 px-4 text-center text-green-400">Pass (8.78)</td>
+                <td class="py-3 px-4 text-center text-green-400">Pass (15.03)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm text-text-tertiary mt-4 italic">
+          Dark mode accent (5.70:1) passes AA but not AAA. Both light mode options exceed AAA.
+          The dark mode button text (white on #8D7FD2 = 3.44:1) is below AA for small text
+          but passes for large text (3:1 threshold).
+        </p>
+      </section>
+
+      {/* Recommendation */}
+      <div class="mt-12 p-6 rounded-lg border border-border-subtle bg-bg-surface">
+        <h2 class="text-xl font-semibold text-text-primary mb-3">Summary</h2>
+        <p class="text-text-secondary leading-relaxed mb-3">
+          <strong>Light mode</strong> already passes AAA with the current accent — no change needed.
+        </p>
+        <p class="text-text-secondary leading-relaxed mb-3">
+          <strong>Dark mode</strong> is the only gap for AAA. The trade-off is that achieving 7:1 requires
+          lightening the accent, which makes it more pastel. <strong>Option A
+          (<code class="font-mono text-sm">#9F92D8</code>)</strong> is the closest to the current feel —
+          a subtle lightening that just crosses the AAA threshold at 7.09:1.
+          <strong>Option B (<code class="font-mono text-sm">#A89CDF</code>)</strong> provides more margin
+          at 7.94:1 but is noticeably lighter.
+        </p>
+        <p class="text-text-secondary leading-relaxed">
+          The current dark mode accent (5.70:1) comfortably passes AA, which is the standard expectation.
+          AAA is aspirational — whether the visual trade-off of a lighter accent is worth the gain
+          is a design judgement.
+        </p>
+      </div>
+    </div>
+  </main>
+<style>
+  /* Accent links use CSS custom properties set on their parent card
+     so that hover states work (inline styles can't target :hover) */
+  .contrast-card a.sample-link {
+    color: var(--card-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+  .contrast-card a.sample-link:hover {
+    color: var(--card-accent-light);
+  }
+
+  /* Nav sample links (no underline, just colour) */
+  .contrast-card a.sample-nav {
+    color: var(--card-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+  .contrast-card a.sample-nav:hover {
+    color: var(--card-accent-light);
+  }
+
+  /* Button hover */
+  .contrast-card a.sample-btn-primary {
+    transition: opacity 0.15s ease;
+  }
+  .contrast-card a.sample-btn-primary:hover {
+    opacity: 0.85;
+  }
+  .contrast-card a.sample-btn-outline {
+    transition: background-color 0.15s ease;
+  }
+  .contrast-card a.sample-btn-outline:hover {
+    background-color: color-mix(in srgb, var(--card-accent) 10%, transparent);
+  }
+</style>
+</BaseLayout>
