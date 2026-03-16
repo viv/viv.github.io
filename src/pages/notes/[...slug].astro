@@ -27,7 +27,7 @@ const pageTitle = `${note.data.title} — Viv`;
 const pageDesc = note.data.description || `Field note: ${note.data.title}`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc}>
+<BaseLayout title={pageTitle} description={pageDesc} datePublished={dateStr} tags={note.data.tags}>
   <Navigation />
 
   <main id="main-content" class="relative pt-24 pb-32">
@@ -43,7 +43,7 @@ const pageDesc = note.data.description || `Field note: ${note.data.title}`;
             {note.data.tags.map((tag: string) => (
               <a
                 href={`/notes/tags/${tag}`}
-                class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-2 py-0.5 hover:border-accent/40 transition-colors"
+                class="text-xs font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded px-3 py-1.5 hover:border-accent/40 transition-colors inline-flex items-center min-h-[44px]"
               >
                 {tag}
               </a>

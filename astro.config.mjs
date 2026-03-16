@@ -4,7 +4,9 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import rehypeExternalLinks from 'rehype-external-links';
 
-const integrations = [mdx(), sitemap()];
+const integrations = [mdx(), sitemap({
+  filter: (page) => !page.includes('/variations/'),
+})];
 try {
   const { default: inlineReview } = await import('review-loop');
   integrations.push(inlineReview());
