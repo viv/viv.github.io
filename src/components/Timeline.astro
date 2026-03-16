@@ -94,7 +94,7 @@ for (const [path, mod] of Object.entries(imageModules)) {
                     </div>
                   )}
                 </div>
-                <div class="mt-4 text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&_a]:text-accent-functional [&_a:hover]:text-accent-light [&_a]:transition-colors">
+                <div class="mt-4 text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&_a]:text-accent-functional [&_a:hover]:text-accent-light [&_a]:transition-colors [&_a]:underline [&_a]:underline-offset-2">
                   <Content />
                 </div>
                 {entry.data.techFootnote && entry.data.techFootnote !== 'None' && (
@@ -172,7 +172,7 @@ for (const [path, mod] of Object.entries(imageModules)) {
                     </div>
                   )}
                 </div>
-                <div class="mt-4 text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&_a]:text-accent-functional [&_a:hover]:text-accent-light [&_a]:transition-colors">
+                <div class="mt-4 text-text-primary leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&_a]:text-accent-functional [&_a:hover]:text-accent-light [&_a]:transition-colors [&_a]:underline [&_a]:underline-offset-2">
                   <Content />
                 </div>
                 {entry.data.techFootnote && entry.data.techFootnote !== 'None' && (
@@ -196,12 +196,28 @@ for (const [path, mod] of Object.entries(imageModules)) {
   const btnText = document.getElementById('timeline-expand-text')!;
   let expanded = false;
 
+  // Create live region for announcing timeline state changes
+  const timelineAnnouncer = document.createElement('div');
+  timelineAnnouncer.setAttribute('aria-live', 'polite');
+  timelineAnnouncer.setAttribute('aria-atomic', 'true');
+  timelineAnnouncer.className = 'sr-only';
+  btn.parentElement!.appendChild(timelineAnnouncer);
+
   btn.addEventListener('click', () => {
     expanded = !expanded;
     expanded_section.classList.toggle('hidden');
     chevron.style.transform = expanded ? 'rotate(180deg)' : '';
     btn.setAttribute('aria-expanded', String(expanded));
     btnText.textContent = expanded ? 'Hide Full Timeline' : 'See Full Timeline';
+
+    // Announce the change to screen readers
+    const entryCount = expanded_section.querySelectorAll('article').length;
+    timelineAnnouncer.textContent = '';
+    requestAnimationFrame(() => {
+      timelineAnnouncer.textContent = expanded
+        ? `${entryCount} additional timeline entries now visible`
+        : 'Timeline collapsed, showing main entries only';
+    });
 
     // Move focus to the first newly revealed entry for keyboard users
     if (expanded) {

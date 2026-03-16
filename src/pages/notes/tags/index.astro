@@ -32,7 +32,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
         {sortedTags.map(([tag, count]) => (
           <a
             href={`/notes/tags/${tag}`}
-            class="inline-flex items-center gap-2 text-sm font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded-lg px-3 py-2 hover:border-accent/40 transition-colors"
+            class="inline-flex items-center gap-2 text-sm font-mono text-accent-functional bg-bg-surface border border-border-subtle rounded-lg px-3 py-2 min-h-[44px] hover:border-accent/40 transition-colors"
           >
             {tag}
             <span class="text-xs text-text-tertiary">({count})</span>

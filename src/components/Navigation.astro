@@ -29,7 +29,7 @@ const navLinks = [
           <li>
             <a
               href={link.href}
-              class="nav-link text-sm text-text-secondary hover:text-text-primary transition-colors link-hover whitespace-nowrap"
+              class="nav-link text-sm text-text-secondary hover:text-text-primary transition-colors link-hover whitespace-nowrap focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg/80 rounded-sm"
               {...(sectionId ? { 'data-section': sectionId } : {})}
             >
               {link.label}
@@ -83,11 +83,21 @@ const navLinks = [
   </ul>
 </div>
 
+{/* Live region for screen reader announcements */}
+<div id="nav-announcer" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
 <script>
   const nav = document.getElementById('main-nav')!;
   const toggle = document.getElementById('nav-toggle')!;
   const overlay = document.getElementById('nav-overlay')!;
+  const announcer = document.getElementById('nav-announcer')!;
   let open = false;
+
+  function announce(message: string) {
+    announcer.textContent = '';
+    // Brief delay ensures screen readers register the change
+    requestAnimationFrame(() => { announcer.textContent = message; });
+  }
 
   function setOverlay(show: boolean) {
     open = show;
@@ -97,6 +107,7 @@ const navLinks = [
       overlay.classList.remove('opacity-0', 'pointer-events-none');
       overlay.classList.add('opacity-100', 'pointer-events-auto');
       toggle.classList.add('burger-open');
+      announce('Navigation menu opened');
       // Focus the first link in the overlay for keyboard users
       const firstLink = overlay.querySelector('a');
       if (firstLink) firstLink.focus();
@@ -104,6 +115,7 @@ const navLinks = [
       overlay.classList.add('opacity-0', 'pointer-events-none');
       overlay.classList.remove('opacity-100', 'pointer-events-auto');
       toggle.classList.remove('burger-open');
+      announce('Navigation menu closed');
       // Return focus to the toggle button
       toggle.focus();
     }
@@ -164,6 +176,8 @@ const navLinks = [
 
   if (sections.length > 0) {
     const visibleSections = new Set<string>();
+    let lastAnnouncedSection = '';
+    let scrollSpyTimeout: ReturnType<typeof setTimeout>;
 
     function isAtBottom() {
       return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
@@ -198,6 +212,16 @@ const navLinks = [
       if (activeId) {
         const activeLink = nav.querySelector(`a[data-section="${activeId}"]`);
         if (activeLink) activeLink.classList.add('nav-active');
+
+        // Announce section change (debounced to avoid rapid-fire announcements)
+        if (activeId !== lastAnnouncedSection) {
+          lastAnnouncedSection = activeId;
+          clearTimeout(scrollSpyTimeout);
+          scrollSpyTimeout = setTimeout(() => {
+            const label = activeLink?.textContent?.trim();
+            if (label) announce(`Now viewing: ${label}`);
+          }, 1000);
+        }
       }
     }
 

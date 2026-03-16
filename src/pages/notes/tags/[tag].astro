@@ -67,7 +67,7 @@ const { tag, notes } = Astro.props;
                   <a
                     href={`/notes/tags/${t}`}
                     class:list={[
-                      'text-xs font-mono rounded px-2 py-0.5 transition-colors',
+                      'text-xs font-mono rounded px-3 py-1.5 transition-colors inline-flex items-center min-h-[44px]',
                       t === tag
                         ? 'text-text-primary bg-accent/20 border border-accent/40'
                         : 'text-accent-functional bg-bg-surface border border-border-subtle hover:border-accent/40',
