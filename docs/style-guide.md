@@ -22,7 +22,7 @@ Write as Viv speaks. Down-to-earth, direct, and conversational. The reader shoul
 
 ## Don't
 
-- **No em dashes** — use commas, full stops, or restructure the sentence instead
+- **No em dashes** — use commas, full stops, parentheses, or restructure the sentence instead. For parenthetical asides (the kind of clause you'd naturally speak in a lower voice), prefer parentheses over em dashes.
 - **No staccato drama** — avoid punchy one-word sentence fragments like "Not theoretical. Practical." or "Simple. Effective. Done." That's copywriting, not conversation.
 - **No label-colon-explanation pattern** — avoid the "The approach is practical: the same engineering discipline I'd apply to any team" construction. It reads like a pitch deck or a keynote slide. Just say what you mean in a normal sentence.
 - **No antithetical phrasing** — avoid the “it’s not that; it’s this” formula
@@ -82,6 +82,12 @@ When writing for a section, consider both lengths.
 
 **Better:**
 > I'm drawn to the discipline it demands, the satisfaction of teaching, and the rich history of practical application.
+
+**Em dashes for parenthetical asides (Claude-ism):**
+> This evaluates whether that feature can be improved — through upstream contribution — to provide meaningful value.
+
+**Better (use parentheses):**
+> This evaluates whether that feature can be improved (through upstream contribution) to provide meaningful value.
 
 **CV-style fragments:**
 > 5k wellness runs. Mental health advocacy in the workplace.
