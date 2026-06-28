@@ -1,0 +1,189 @@
+---
+/**
+ * Diagram A — the determinism / useful-ambiguity split.
+ * For the note "Determinism and Useful Ambiguity" (bundling-scripts-with-skills).
+ * Skill on the left (the orchestrator), Scripts on the right (the worker it calls).
+ * Pure HTML + inline SVG, theme-aware via design tokens, responsive (stacks on mobile).
+ */
+---
+
+<figure class="dsplit" role="group" aria-label="The split between the skill's judgement and deterministic scripts">
+  <div class="dsplit__grid">
+    <section class="dsplit__card dsplit__card--skill">
+      <p class="dsplit__tag">useful ambiguity</p>
+      <h3 class="dsplit__title">The skill</h3>
+      <ul class="dsplit__list">
+        <li>Judgement calls</li>
+        <li>Talks to you</li>
+        <li>Asks consent before anything irreversible</li>
+        <li>Adapts when the situation differs</li>
+      </ul>
+    </section>
+
+    <div class="dsplit__handoff" aria-hidden="true">
+      <span class="dsplit__flow">
+        <span class="dsplit__flow-label">calls</span>
+        <svg class="dsplit__arrow dsplit__arrow--to-right" viewBox="0 0 120 24" role="presentation">
+          <line x1="3" y1="12" x2="92" y2="12" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+          <polygon points="90,2 90,22 118,12" fill="currentColor" />
+        </svg>
+      </span>
+      <span class="dsplit__flow">
+        <span class="dsplit__flow-label">returns JSON</span>
+        <svg class="dsplit__arrow dsplit__arrow--to-left" viewBox="0 0 120 24" role="presentation">
+          <polygon points="30,2 30,22 2,12" fill="currentColor" />
+          <line x1="28" y1="12" x2="117" y2="12" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        </svg>
+      </span>
+    </div>
+
+    <section class="dsplit__card dsplit__card--scripts">
+      <p class="dsplit__tag">deterministic</p>
+      <h3 class="dsplit__title">Scripts</h3>
+      <ul class="dsplit__list">
+        <li>Pure and non-interactive</li>
+        <li>JSON in, JSON out</li>
+        <li>Unit-tested</li>
+        <li>Same result every run</li>
+        <li>Run by a human <em>or</em> an agent</li>
+      </ul>
+    </section>
+  </div>
+  <figcaption class="dsplit__caption">Scripts do the work; the skill does the judgement and the talking.</figcaption>
+</figure>
+
+<style>
+  .dsplit {
+    margin: 2rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .dsplit__grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .dsplit__card {
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.75rem;
+    background-color: var(--color-bg-surface);
+    padding: 1.25rem 1.35rem;
+  }
+
+  .dsplit__card--skill {
+    border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border-subtle));
+  }
+
+  .dsplit__tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-functional);
+    margin: 0 0 0.35rem;
+  }
+
+  .dsplit__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 0.85rem;
+    line-height: 1.2;
+  }
+
+  .dsplit__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dsplit__list li {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .dsplit__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+  }
+
+  .dsplit__list em {
+    font-style: italic;
+  }
+
+  /* Handoff column: two clearly-arrowheaded SVG arrows, each labelled */
+  .dsplit__handoff {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0 1.25rem;
+    min-width: 8rem;
+  }
+
+  .dsplit__flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .dsplit__flow-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .dsplit__arrow {
+    color: var(--color-accent);
+    width: 100%;
+    max-width: 5.5rem;
+    height: auto;
+    display: block;
+  }
+
+  .dsplit__caption {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Mobile: stack the cards; the two arrows turn vertical
+     (calls rotates to point down at Scripts, returns up at the skill) */
+  @media (max-width: 640px) {
+    .dsplit__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .dsplit__handoff {
+      flex-direction: row;
+      min-width: 0;
+      padding: 1.1rem 0;
+      gap: 3.5rem;
+    }
+
+    .dsplit__arrow {
+      width: 3rem;
+      transform: rotate(90deg);
+    }
+  }
+</style>

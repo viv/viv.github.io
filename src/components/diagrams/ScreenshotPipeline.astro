@@ -1,0 +1,174 @@
+---
+/**
+ * Diagram C — the screenshot-crop pipeline.
+ * For the note "Determinism and Useful Ambiguity" (bundling-scripts-with-skills).
+ * Shows the steps and which are deterministic scripts vs your decisions.
+ * Pure HTML + CSS, theme-aware, responsive (row -> column on mobile).
+ */
+const steps = [
+  { label: 'Capture all screens', who: 'you', keys: '⌘⇧3' },
+  { label: 'Group by monitor', who: 'script', note: 'from metadata' },
+  { label: 'Label the screens', who: 'script', note: 'left / right / below' },
+  { label: 'Which holds the slide?', who: 'you', note: 'your call' },
+  { label: 'Crop the slide', who: 'script', note: '' },
+  { label: 'Confirm the rejects', who: 'you', note: 'consent gate' },
+  { label: 'Move to Trash', who: 'script', note: 'recoverable' },
+];
+---
+
+<figure class="pipe" role="group" aria-label="The screenshot-crop pipeline, showing script steps and human decisions">
+  <div class="pipe__legend" aria-hidden="true">
+    <span class="pipe__key"><span class="pipe__badge pipe__badge--script">script</span> deterministic</span>
+    <span class="pipe__key"><span class="pipe__badge pipe__badge--you">you</span> your call</span>
+  </div>
+
+  <ol class="pipe__row">
+    {steps.map((s, i) => (
+      <li class:list={["pipe__step", s.who === 'script' ? 'pipe__step--script' : 'pipe__step--you']}>
+        <span class:list={["pipe__badge", s.who === 'script' ? 'pipe__badge--script' : 'pipe__badge--you']}>{s.who}</span>
+        <span class="pipe__label">{s.label}</span>
+        {s.keys && <span class="pipe__keys">{s.keys}</span>}
+        {s.note && <span class="pipe__note">{s.note}</span>}
+        {i < steps.length - 1 && <span class="pipe__arrow" aria-hidden="true">&rarr;</span>}
+      </li>
+    ))}
+  </ol>
+
+  <figcaption class="pipe__caption">The deterministic steps are scripts; the judgement and the consent stay with you.</figcaption>
+</figure>
+
+<style>
+  .pipe {
+    margin: 2rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .pipe__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .pipe__key {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .pipe__row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem 1.5rem;
+  }
+
+  .pipe__step {
+    position: relative;
+    flex: 1 1 8.5rem;
+    min-width: 8rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.65rem;
+    background-color: var(--color-bg-surface);
+    padding: 0.85rem 0.9rem 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .pipe__step--script {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border-subtle));
+  }
+
+  .pipe__badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.12rem 0.45rem;
+    border-radius: 0.3rem;
+    line-height: 1.4;
+  }
+
+  .pipe__badge--script {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .pipe__badge--you {
+    background-color: transparent;
+    color: var(--color-accent-functional);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
+
+  .pipe__label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+  }
+
+  .pipe__note {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Keyboard shortcut as plain glyphs in the site font, matching the post's inline ⌘⇧3 */
+  .pipe__keys {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+
+  .pipe__arrow {
+    position: absolute;
+    right: -1.5rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 1.5rem;
+    text-align: center;
+    color: var(--color-accent-functional);
+    font-size: 1.05rem;
+  }
+
+  .pipe__caption {
+    margin-top: 1.1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Mobile: stack the steps, arrows point down */
+  @media (max-width: 680px) {
+    .pipe__row {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .pipe__step {
+      flex: 1 1 auto;
+    }
+
+    .pipe__arrow {
+      right: auto;
+      left: 1.1rem;
+      top: auto;
+      bottom: -1.5rem;
+      transform: none;
+      width: auto;
+      font-size: 0;
+    }
+
+    .pipe__arrow::before {
+      content: "\2193";
+      font-size: 1.05rem;
+    }
+  }
+</style>

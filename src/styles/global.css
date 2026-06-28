@@ -388,6 +388,15 @@ html[data-theme="light"] .reading-glow {
   font-style: italic;
 }
 
+/* Key takeaway line — a one-sentence maxim, set larger than body text */
+.prose-note p.key-line {
+  font-size: 1.375rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 1.75rem 0;
+}
+
 .prose-note hr {
   border: none;
   border-top: 1px solid var(--color-border-subtle);

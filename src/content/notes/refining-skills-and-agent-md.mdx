@@ -1,0 +1,69 @@
+---
+title: "Tending the Context"
+date: 2026-07-13
+tags: [ai, workflow, claude-code, skills, agentic-software-engineering]
+description: "Skills, scripts and AGENT.md files are never right first time; they improve through use. The loop I run to refine them, and why pruning matters as much as adding."
+---
+
+import SeriesNav from '../../components/SeriesNav.astro';
+
+I never sat down and designed my coding agent's instructions up front. After a few months on one project, they had grown into a `CLAUDE.md` of preferences, a handful of skills and a few rules, each added the day I noticed the agent needed it. None of it was right the first time, and none of it was meant to be.
+
+These are living documents. My global `CLAUDE.md` is the clearest example, grown bullet by bullet over months as I noticed things an agent kept getting wrong, and the writing style guide I keep for this site has gained a rule almost every time I caught prose drifting into a tired pattern. Writing the first version of any of them is the easy part. Keeping it good, as the system changes and as I learn what the agent does and does not need, is a practice of its own, and it is as much about taking things out as putting them in.
+
+## The loop
+
+When an artefact misbehaves or falls short, what I do next depends on how much else is going on. If the session is quiet, I fix it on the spot. If it is busy, I note the problem and raise it at an opportune moment, often as a batch of things that did not go well. And sometimes I hand the job to the agent itself, asking it to assess the skill it has just used and suggest changes to it.
+
+The trigger is sometimes reactive, when something has just gone wrong, and sometimes proactive, when I have thought of a way the artefact could be sharper. Mostly it comes down to whether I am content with how the agent performed.
+
+The proactive side is limited by my own imagination. I only think to improve the things I happen to notice. So an impromptu check, asking the agent to look over a skill it has just used and propose improvements, often surfaces things I would never have gone looking for. The artefact gets better partly by asking the thing that uses it to critique it.
+
+The largest version of that I have run was to point an agent at my whole Claude Code configuration and have it audit itself. It found every config file across the hierarchy, read each one, checked them against a published [catalogue of augmented-coding patterns](https://lexler.github.io/augmented-coding-patterns/), and came back with what I was doing well, where the gaps were, and a set of proposed fixes. The pass took about half an hour, most of it the agent reading and cross-referencing while I reviewed what it suggested. Some of what it surfaced was guidance I would never have gone looking for, like treating an agent's struggle to understand some code as a signal about the code's quality rather than a shortcoming of the model.
+
+## Building the loop in
+
+Better still is to build that loop into the artefact, so it does not depend on me remembering. In [How I Drive Agentic Software Engineering](/notes/driving-agentic-swe) I mentioned an expert-user agent with a line in its `AGENT.md` telling every future session to watch for newly-discovered behaviour and fold it back into the agent. That is a deliberate pattern, and it works. The instruction file asks its own readers to keep it current.
+
+## Curating, not just growing
+
+There is a counterweight that is easy to overlook. Removing instructions that no longer apply matters as much as adding new ones. An `AGENT.md` that only ever grows turns into a problem of its own. It costs context budget on every run, it over-steers the agent in directions I never intended, and it dilutes itself, because every bullet I add makes each existing one a little quieter, until the important instructions are lost in the noise.
+
+Part of the answer is structural. My configuration is layered. Global preferences sit at the top, project notes below them, and repository specifics below that, so any session loads only the layers relevant to where I am working. Finer than that, some rules carry a glob of file paths in their frontmatter and load only when I open a matching file. The Java conventions come in for Java files, and the security checklist appears only when I touch crypto code. Guidance that loads only when it applies does not crowd the context the rest of the time.
+
+So I treat these files as something to curate.
+
+<p class="key-line">Pruning matters as much as adding.</p>
+
+Every time an agent adds something to one of my instruction files, I have it re-read the whole file and flag anything that now overlaps or contradicts, so the consolidation happens at the moment of writing rather than in a periodic sweep I may never get round to.
+
+The additions are often provisional, made on the strength of something I have just watched a model do. A recent one in my `CLAUDE.md` is a steer I am calling "Accuracy Over Archaeology": when a new finding supersedes something in a working draft, rewrite the superseded text in place rather than leaving a trail of corrections, so a fresh reader cannot tell the conclusions ever wandered. I added it after noticing how often models leave phrases like "this is not X, it is Y" or "previously we thought" lying around, which are artefacts of drafting rather than information. I review it regularly, and I am still watching whether it holds up. The instruction is a hypothesis rather than a commandment.
+
+## Spotting what to cut
+
+Adding is the easy half, because something has just gone wrong and the fix is obvious. Noticing that an instruction has outlived its usefulness is much harder, because nothing visibly breaks when a stale rule lingers. It sits there, quietly costing context and diluting its neighbours.
+
+My methods here are unglamorous. A periodic re-read, a feel for whether the agent is behaving the way I want, and the occasional experiment where I remove a clause and run a representative task to see what changes (a commit in a fresh session, say, with one of my commit rules taken out, to see whether it still does the right thing). Over-steering is easier to catch than staleness, because when an agent is being pushed too rigidly in some direction I can usually trace it back to a line in the `AGENT.md` and trim it.
+
+I am wary of automating this away. Skill descriptions and `AGENT.md` files underpin almost everything I do with an agent, so they earn a regular, deliberate read.
+
+## What helps, and what I want to try
+
+Deciding what to cut is much easier when I know the provenance of each instruction, when it was added and why. Git gives me that for free. If the instruction files live in a repository, `git blame` tells me when each line arrived and why, because my commit messages always explain the reasoning. That works naturally for the `CLAUDE.md` files inside a project. For the global one in my home directory, the same trick needs the config itself kept under version control, which is worth doing for backup and history regardless.
+
+I am also starting to end sessions by asking the agent which instructions it relied on and which never came up. Collected across enough sessions, the lines that never apply become candidates for removal, which turns that invisible staleness into something I can see. And when I am unsure whether a rule still belongs, I ask the agent to make the strongest case it can for deleting it, then keep only what survives the argument.
+
+There is a pleasing recursion in all of this. The thing that keeps my skills and instruction files healthy is itself a skill, or a line in an `AGENT.md`, refined the same way as everything else.
+
+{/* ---------------------------------------------------------------------------
+     SERIES TEASER, safe to delete this entire block (down to the end marker)
+     if the "How I Use Claude Code" series doesn't continue.
+--------------------------------------------------------------------------- */}
+
+## What comes next
+
+All of these artefacts share the same life. They are written once, then shaped by use into something better, and trimmed so they stay that way. There is one I have not covered, the architecture decision record. Skills and instruction files capture how the agent should work; an ADR captures why we made a particular choice, and that reasoning is worth keeping as deliberately as the system itself. It is where this series goes next.
+
+{/* --------------------------------- END SERIES TEASER --------------------------------- */}
+
+<SeriesNav current="refining-skills-and-agent-md" />

@@ -1,0 +1,214 @@
+---
+/**
+ * Diagram B — the four-pillar cycle.
+ * For the note "How I Drive Agentic Software Engineering" (driving-agentic-swe).
+ * Goal -> levers -> check -> encode learning, with the fourth feeding back round.
+ * Pure HTML + CSS, theme-aware, responsive (row on desktop, column on mobile).
+ */
+const pillars = [
+  { n: 1, title: 'A goal', desc: 'what "done" looks like' },
+  { n: 2, title: 'Levers', desc: 'the tools it can pull' },
+  { n: 3, title: 'A way to check', desc: 'verify against the goal' },
+  { n: 4, title: 'Encode learning', desc: 'capture it for next time' },
+];
+---
+
+<figure class="cycle" role="group" aria-label="The four-pillar cycle of driving an agent">
+  <ol class="cycle__row">
+    {pillars.map((p, i) => (
+      <li class:list={["cycle__node", { "cycle__node--feedback": p.n === 4 }]}>
+        <span class="cycle__num">{p.n}</span>
+        <span class="cycle__title">{p.title}</span>
+        <span class="cycle__desc">{p.desc}</span>
+        {i < pillars.length - 1 && <span class="cycle__arrow" aria-hidden="true">&rarr;</span>}
+      </li>
+    ))}
+  </ol>
+
+  <div class="cycle__loop" aria-hidden="true">
+    <span class="cycle__loop-label">the fourth feeds the next goal, and every session after</span>
+  </div>
+
+  <figcaption class="cycle__caption">The first three set a task up; the fourth feeds back into the next one.</figcaption>
+</figure>
+
+<style>
+  .cycle {
+    margin: 2rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .cycle__row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .cycle__node {
+    position: relative;
+    flex: 1;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.75rem;
+    background-color: var(--color-bg-surface);
+    padding: 1.1rem 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    margin-right: 1.6rem;
+  }
+
+  .cycle__node:last-child {
+    margin-right: 0;
+  }
+
+  .cycle__node--feedback {
+    border-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-border-subtle));
+  }
+
+  .cycle__num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-bg);
+    background-color: var(--color-accent);
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cycle__title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  .cycle__desc {
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    line-height: 1.35;
+  }
+
+  .cycle__arrow {
+    position: absolute;
+    right: -1.6rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 1.6rem;
+    text-align: center;
+    color: var(--color-accent-functional);
+    font-size: 1.1rem;
+  }
+
+  /* The loop-back lane: a bracket from the last node back to the first */
+  .cycle__loop {
+    position: relative;
+    height: 2.4rem;
+    margin: 0.55rem 0.75rem 0;
+    border: 1.5px dashed color-mix(in srgb, var(--color-accent) 55%, transparent);
+    border-top: none;
+    border-radius: 0 0 0.75rem 0.75rem;
+  }
+
+  /* up-arrow at the left, pointing back into the first node */
+  .cycle__loop::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 7px solid color-mix(in srgb, var(--color-accent) 70%, transparent);
+    transform: translate(-3px, -6px);
+  }
+
+  .cycle__loop-label {
+    position: absolute;
+    left: 50%;
+    bottom: -0.35rem;
+    transform: translate(-50%, 50%);
+    background-color: var(--color-bg);
+    padding: 0 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+    max-width: 92%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cycle__caption {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Mobile: stack nodes, arrows point down, loop becomes a labelled return node */
+  @media (max-width: 680px) {
+    .cycle__row {
+      flex-direction: column;
+    }
+
+    .cycle__node {
+      margin-right: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .cycle__arrow {
+      right: auto;
+      left: 1.35rem;
+      top: auto;
+      bottom: -1.5rem;
+      transform: none;
+      width: auto;
+      height: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .cycle__arrow::before {
+      content: "\2193"; /* down arrow */
+    }
+
+    .cycle__arrow {
+      font-size: 0;
+    }
+
+    .cycle__arrow::before {
+      font-size: 1.1rem;
+    }
+
+    .cycle__loop {
+      height: auto;
+      border: 1.5px dashed color-mix(in srgb, var(--color-accent) 55%, transparent);
+      border-radius: 0.6rem;
+      padding: 0.7rem 0.9rem;
+      margin: 0;
+      text-align: center;
+    }
+
+    .cycle__loop::before {
+      display: none;
+    }
+
+    .cycle__loop-label {
+      position: static;
+      transform: none;
+      background: none;
+      padding: 0;
+      white-space: normal;
+      max-width: none;
+      display: block;
+    }
+  }
+</style>

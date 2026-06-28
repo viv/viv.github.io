@@ -1,0 +1,79 @@
+---
+title: "How I Drive Agentic Software Engineering"
+date: 2026-05-29
+tags: [ai, workflow, agentic-workflows, claude-code, agentic-software-engineering]
+description: "The framework I use to set an agent up for success: give it a goal to reach, levers to pull, a way to check its own work, and a way to encode what it learned."
+---
+
+import FourPillarCycle from '../../components/diagrams/FourPillarCycle.astro';
+import SeriesNav from '../../components/SeriesNav.astro';
+
+Most of the value in working with a coding agent is decided before it writes a line. If I get a poor result, the cause is almost always that I set the task up badly. So I've ended up with a simple checklist that I run over any prompt or engineering plan before I hand it over, a practical aid to make sure I've given the agent everything it needs. There are four things:
+
+1. A **goal** to reach.
+2. **Levers** to pull.
+3. A **way to check** its own work.
+4. A **way to encode** what it learned.
+
+It helps to think of these as a cycle rather than four boxes to tick once. The first three set a task up; the fourth feeds back into the next one, and into every session after that. I'll take each in turn.
+
+<FourPillarCycle />
+
+## A goal
+
+The agent needs to know what "done" looks like. That's the specification, the acceptance criteria, the requirements. It doesn't need to be heavy, but it does need to capture what I actually care about.
+
+The goal is worth co-developing rather than assuming. On a recent task, asking an agent to build a persistent, version-controlled "expert user" agent for one of our products, I opened with a line I use a lot: *the scope below is my intent, not a frozen spec; pin it down with me before writing anything.* The agent ran a short brainstorming pass with me and we hardened the goal together before a single file was touched. A spec the agent helped shape is one it understands, and one I've had to think harder about.
+
+## Levers
+
+An agent can only do what its tools let it do. The levers are the things it can actually pull: the files it can read, the commands it can run, the MCP servers and skills it has to hand, a connected browser, the test suite. Half of setting up a good task is making sure the right levers are present and the wrong ones aren't.
+
+The levers also include the *sources of truth* the agent should reach for. For that same expert-user agent, an important part of the brief was telling it where to look: the end-to-end test suite that encodes the real user journeys, the specifications and architecture decision records, and the backend code itself for anything I was fuzzy on. The levers told it where authority lived.
+
+There's a principle behind that worth pulling out. The strongest line in that brief was a simple one: *don't let the agent be the source of truth.* Verify the terminology by reading the code, never paraphrase it from memory. What the agent produces should be a *map* to where authoritative, maintained detail lives, plus a stable conceptual model, and anything it hand-copies will quietly rot the moment the real system moves on.
+
+## A way to check
+
+A goal the agent can verify against is a goal it can iterate towards without me babysitting every cycle. So I try to give it a concrete check with a clear pass or fail: a test, a build, a lint, a screenshot, an end-to-end run.
+
+The best checks are automated, because then the agent can run them itself and keep going until they come back green. Hand it the test suite and the command to run it, and "make this pass" becomes a goal it can pursue without me in the loop. The check can be visual, too. A screenshot-cropping skill of mine runs a deterministic script to detect the crop, produces a preview image, and the agent reads that preview before a human confirms it and the box is applied across the batch.
+
+Not every check can be automated. Where there's no gate to run, the fallback is the anchoring from earlier: compare the output against the source of truth rather than trusting the model's account of it.
+
+Give an agent a clear goal and a way to check against it, and you've enabled **safe autonomy within clear bounds**. It can grind towards green on its own.
+
+There's a caveat worth holding onto, though. The "bounds" are doing a lot of work in that sentence, and they have to be real.
+
+> Anything you put *into* the context (the prompt, your Markdown files, your skills, your `AGENT.md`) is guidance, not a guardrail. The model can ignore it. A real guardrail (the kind that stops something dangerous) has to live *outside* the model: a git hook, a CI check, a permission boundary, a sandbox.
+
+So I keep two things separate in my head. The verification loop (tests, screenshots, anchoring to source) is about *correctness*, and it's what lets the agent run. The hard guardrails are about *safety*, and they're enforced externally. Autonomy becomes safe to grant only when the dangerous things are fenced off by something the model can't talk its way around. On top of that I keep a deliberate human checkpoint for the moments that warrant one: where the output is critical, or at the end of a run when the agent thinks it has something good, I'll have it stop and ask me.
+
+## A way to encode learning
+
+The fourth lever is one a lot of people don't implement, forget about, or only do from time to time. It's also the one that compounds. By the end of a session I usually understand the problem better than I did at the start, and that understanding evaporates unless I capture it. So I treat every session as producing a *durable artefact* that makes the next one better, on top of whatever it delivered: a new skill, a sharpened `AGENT.md`, an ADR recording why we chose what we chose.
+
+I'm deliberate about *where* that learning lives. Agent memory is convenient, but it's hard to share with a team and it ties what I've learned to one particular harness (e.g. Claude Code). I'd rather keep a translation layer between the tool I'm using today and the way I work: plain Markdown in the repository, a known `docs/` structure, lightweight guidance in `AGENT.md` about what goes where. That's the expert-user agent again: I required it to be persistent and version-controlled, committed to the workspace, so the knowledge lived in the repository rather than locked inside a chat history.
+
+None of this is tool asceticism. I chase new harness features eagerly and use the best ones I can find (Claude Code's [dynamic workflows](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code) are a current favourite). The discipline is keeping anything I rely on for the long term from being *trapped* in the tool. Use the sharpest tools available; keep the durable artefacts portable.
+
+## Where this is going
+
+All of the above is how I drive it *today*, and I do mean drive. Henrik Kniberg framed this neatly in his recent [Agentic Engineering in Practice](https://www.abundly.ai/events/2026-06-17/webinar-agentic-engineering-in-practice) webinar: coding by hand is the horse and cart, using a tool like Claude Code or Cursor is the sports car, and the next step up is the spaceship, an agent embedded in the team as a colleague rather than something a single human drives.
+
+That's the direction I find exciting. The framework here is what good driving looks like, but I don't think I'll be the one holding the wheel forever. The road ahead looks less like one person driving one fast car and more like a fleet of largely-autonomous vehicles working as part of the team. Flying ones, if we're lucky.
+
+{/* ---------------------------------------------------------------------------
+     SERIES TEASER, safe to delete this entire block (down to the end marker)
+     if the "How I Use Claude Code" series doesn't continue.
+--------------------------------------------------------------------------- */}
+
+## What comes next
+
+This is the first in a short series of notes on how I use Claude Code day to day. That fourth lever, encoding learning, is really the subject of everything that follows: the next few notes go deep on the artefacts a session leaves behind, from building skills and bundling deterministic scripts alongside them to refining all of it through trial and error and capturing decisions as ADRs.
+
+In the meantime, two companion pieces on the principles underneath all this: [Autonomous AI Development](/notes/autonomous-ai-development) and [Core Engineering Principles for AI-Augmented Workflows](/notes/engineering-practices-ai-agents).
+
+{/* --------------------------------- END SERIES TEASER --------------------------------- */}
+
+<SeriesNav current="driving-agentic-swe" />

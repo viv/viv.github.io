@@ -1,0 +1,71 @@
+---
+title: "Determinism and Useful Ambiguity"
+date: 2026-07-06
+tags: [ai, workflow, claude-code, skills, agentic-software-engineering]
+description: "Some of an agent's work should be a deterministic script, and some should be left to its judgement. How that line emerged while I built a screenshot-cropping skill, and why a guard that actually guards has to live outside the agent."
+---
+
+import ScreenshotPipeline from '../../components/diagrams/ScreenshotPipeline.astro';
+import DeterminismSplit from '../../components/diagrams/DeterminismSplit.astro';
+import SeriesNav from '../../components/SeriesNav.astro';
+
+I take a lot of screenshots of slides. Sitting in a webinar or an online talk on Zoom, Teams or Google Meet, the quickest way to get a diagram into my notes is to grab the screen. When I press ⌘⇧3 (Command-Shift-3, the macOS full-screen screenshot shortcut), it captures every monitor at once, so one slide becomes three or four images: the one I want, plus whatever happened to be on my other screens. To make any of it useful I then do two dull things every time. I delete the captures of the screens I did not care about, and I crop the slide down to just the content.
+
+## Doing it by hand, then with an agent
+
+For years I did this manually. I would find the right coordinates by eye and feed them to ImageMagick's `convert` command, then script the same crop across the batch. It worked, but the coordinates changed whenever my window layout did, and the deletions were always mine to do.
+
+When I started working with Claude Code, the first thing I handed it was that chore. I would have it run the `convert` commands itself, iterate with me in the session towards a crop that looked right, and then apply it to the whole batch. That was better, though I was still deleting the unwanted screens by hand, and every session re-derived the same logic from cold. By the third or fourth time round, that had earned a proper skill.
+
+## Which screenshot is the slide?
+
+The part I expected to be hardest was working out which of the captured screens holds the slide. What helps is that macOS records where each capture came from. It attaches Spotlight metadata to every screen capture, and I only need two of those fields: `kMDItemImageIsScreenshot` marks a file as a screen capture, and `kMDItemScreenCaptureGlobalRect` records the rectangle of the display it came from, in the global coordinate space that spans all my monitors. Because each physical monitor sits at a different origin in that space, the rectangle says which screen a shot came from, even when two monitors share a resolution. A multi-monitor capture splits back into per-monitor groups deterministically, with no guessing from filenames and no inference from what moved on screen. The script can then label the screens by where they sit (left, centre, right, or the one below), so the agent can ask me which one held the slide rather than trying to guess.
+
+A second step groups the shots into sessions. The captures from one talk cluster together in time, so everything after the most recent long gap (fifteen minutes by default) is treated as the current session, and the number of distinct display rectangles in it is the number of monitors.
+
+The crop itself is mostly a border trim, which estimates the background colour from the corners and then crops to the bounding box of the pixels that differ from it. That is exactly right for a slide sitting in a letterbox of solid colour. When the automatic box is slightly off, I correct it in words, "crop more off the top", or "that is the address bar", or "sidebar", and those phrases are a small, documented grammar.
+
+<ScreenshotPipeline />
+
+## The line that emerged
+
+The division between script and skill emerged over three rounds of use.
+
+The first time, I put a little batch logic into a script and left the prompting in the skill. The second time, I faced an explicit choice. The monitor-detection logic could live in a script that emits JSON, or the agent could run `mdls` and `stat` ad hoc in prose each time. I chose the script, because prose logic cannot be tested and drifts between runs. By the third time, watching the skill run, I could see that all the friction was coming from the ad-hoc bits of shell and Python I had left inline in the skill's `SKILL.md`.
+
+<p class="key-line">Anything improvised at runtime is a latent bug.</p>
+
+The rule is simple. Scripts do the work; the skill does the judgement and the talking. The dividing line is determinism and testability. If a step has a correct answer that can be computed and checked with a unit test, it belongs in a script: pure, non-interactive, JSON in and JSON out, with the loop living elsewhere. If a step is a judgement call, a conversation with me, or an irreversible action that needs my consent, it stays in the skill. A useful indicator is whether I would otherwise be generating fresh shell or Python in the agent at runtime. If I would, that logic should have been a script. Every inline snippet is an untested code path written under pressure.
+
+<DeterminismSplit />
+
+In the screenshot skill the scripts compute the crop, group the monitors, encode and rename the output, and move rejects to the Trash. They never prompt and never decide whether to act. Around forty unit tests guard that logic. The skill asks me which of the labelled screens holds the slide, shows me the previews to eyeball, pauses before doing anything irreversible, and passes my hint words through to the script. Skill prose cannot be unit-tested, so I keep as little of it there as I can.
+
+The hint grammar is that split in miniature. I say something vague and human, "crop more off the top"; the skill hands those words to the script; the script turns them into exact pixels. Ambiguity goes in and precise geometry comes out.
+
+## The same tool, run by a human
+
+There is a second payoff to putting the work in a script, which is that a person can run it too. On a work project the same shape recurs as a small command-line tool that talks to an internal platform's API. The skill teaches an agent when to reach for it and how to chain the calls together, but the tool itself is plain bash, so a developer can run it straight from the terminal with no agent involved at all. The inputs and the results are the same, whether a human or an agent is driving.
+
+That is also why I default to bash or `sh` for these tools. They run anywhere, with nothing to install. I reach for Python only when the work needs it, as the screenshot scripts do, because the image geometry wants real libraries behind it.
+
+## Guards that actually guard
+
+One kind of step, the irreversible one, deserves particular care. The screenshot skill never deletes anything without asking, and the move-to-Trash option defaults to no. That consent gate lives in the skill, which is the right home for a decision about whether to act at all.
+
+A gate in a skill is not a guarantee, though. It works because the agent chooses to honour it. On a work project I have an environment guard that refuses actions against staging and production unless I have approved them for the session. It is useful and it stops accidents, but it is a script the agent is asked to route through rather than a wall it cannot climb. An agent that ignored the guarded path could act anyway.
+
+A guard that actually guards lives somewhere the agent cannot reach. The plainest example is a git pre-commit hook. Mine refuses the commit if the linter fails, and adding the test suite to it means a broken change simply cannot be committed, by me or by an agent. Stronger again are the controls enforced by something other than my laptop: a CI pipeline that blocks a merge until it is green, branch protection that will not accept a push to `main` at all, or credentials scoped so the session has no permission to touch production in the first place. That is the difference from the environment guard. None of these depends on anyone, human or agent, choosing to honour it.
+
+{/* ---------------------------------------------------------------------------
+     SERIES TEASER, safe to delete this entire block (down to the end marker)
+     if the "How I Use Claude Code" series doesn't continue.
+--------------------------------------------------------------------------- */}
+
+## What comes next
+
+This skill found its shape by being used, breaking, and getting fixed. That process, refining a skill, a script, or an `AGENT.md` through trial and error until it stops springing surprises, is the subject of [Tending the Context](/notes/refining-skills-and-agent-md).
+
+{/* --------------------------------- END SERIES TEASER --------------------------------- */}
+
+<SeriesNav current="bundling-scripts-with-skills" />

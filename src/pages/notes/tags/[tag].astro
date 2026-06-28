@@ -2,23 +2,34 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navigation from '../../../components/Navigation.astro';
 import { getCollection } from 'astro:content';
+import { getPublishedNotes } from '../../../lib/notes';
 
 export async function getStaticPaths() {
-  const notes = await getCollection('notes');
-  const tagMap = new Map<string, typeof notes>();
+  // Build a page for every tag that exists on any note, so tag links from
+  // unlisted (future-dated) posts still resolve...
+  const allNotes = await getCollection('notes');
+  const allTags = new Set<string>();
+  for (const note of allNotes) {
+    for (const tag of note.data.tags ?? []) allTags.add(tag);
+  }
 
-  for (const note of notes) {
+  // ...but only list published notes on each page.
+  const published = await getPublishedNotes();
+  const publishedByTag = new Map<string, typeof published>();
+  for (const note of published) {
     for (const tag of note.data.tags ?? []) {
-      if (!tagMap.has(tag)) tagMap.set(tag, []);
-      tagMap.get(tag)!.push(note);
+      if (!publishedByTag.has(tag)) publishedByTag.set(tag, []);
+      publishedByTag.get(tag)!.push(note);
     }
   }
 
-  return [...tagMap.entries()].map(([tag, notes]) => ({
+  return [...allTags].map((tag) => ({
     params: { tag },
     props: {
       tag,
-      notes: notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+      notes: (publishedByTag.get(tag) ?? []).sort(
+        (a, b) => b.data.date.getTime() - a.data.date.getTime()
+      ),
     },
   }));
 }

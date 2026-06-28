@@ -1,0 +1,71 @@
+---
+// Series navigation footer for the "How I Use Claude Code" notes.
+// Auto-derives the list from the series tag, so new posts appear here
+// automatically once they carry the tag. Pass the current note's id so it
+// renders as a "you are here" marker rather than a link.
+import {getPublishedNotes} from '../lib/notes';
+
+interface Props {
+    current: string;
+}
+
+const {current} = Astro.props;
+
+const SERIES_TAG = 'agentic-software-engineering';
+
+const posts = (await getPublishedNotes())
+    .filter((note) => note.data.tags?.includes(SERIES_TAG))
+    .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+---
+
+{posts.length > 1 && (
+        <nav class="series-nav" aria-label="Posts in this series">
+            <p class="series-nav__intro">Part of a series on how I work with coding agents:</p>
+            <ol class="series-nav__list">
+                {posts.map((post) => (
+                        <li>
+                            {post.id === current ? (
+                                    <span class="series-nav__current">{post.data.title}{' '}<span class="series-nav__here">(you are here)</span></span>
+                            ) : (
+                                    <a href={`/notes/${post.id}`}>{post.data.title}</a>
+                            )}
+                        </li>
+                ))}
+            </ol>
+        </nav>
+)}
+
+<style>
+    .series-nav {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .series-nav__intro {
+        color: var(--color-text-secondary);
+        margin-bottom: 0.75rem;
+    }
+
+    .series-nav__list {
+        margin: 0;
+        padding-left: 1.5rem;
+        list-style: decimal;
+    }
+
+    .series-nav__list li {
+        margin-bottom: 0.4rem;
+        color: var(--color-text-secondary);
+    }
+
+    .series-nav__current {
+        color: var(--color-text-primary);
+        font-weight: 600;
+    }
+
+    .series-nav__here {
+        color: var(--color-text-tertiary);
+        font-weight: 400;
+        font-size: 0.9em;
+    }
+</style>

@@ -3,6 +3,7 @@
 # Triggers:
 #   - Push to main (production deploy)
 #   - Manual dispatch (on-demand rebuild)
+#   - Daily schedule (reveals drip-fed posts on their publish date without a push)
 
 name: Deploy to GitHub Pages
 
@@ -10,6 +11,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # 06:00 UTC daily — surfaces notes whose frontmatter `date` has passed
+    - cron: '0 6 * * *'
 
 # Allow only one concurrent deployment, skip queued runs (only latest matters)
 concurrency:
