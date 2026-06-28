@@ -22,7 +22,7 @@ That authentication skill is only one example. Across the skills I have actually
 - **A procedure I want done the same, safe way every time.** Creating or closing a cloud account the way our company policy requires, with the audit steps and safety confirmations built in. Or a deploy skill that captures the sequencing and the known gotchas for one specific environment.
 - **A consistent lever into a tool or system.** The AWS profile skill is one. A GitLab skill is another: it knows how we authenticate and which of several instances a given project lives on, so the agent reaches it the same accurate way each time.
 - **Output, or a process, that follows the best practice our team currently agrees on.** An engineering-plan skill that enforces our Markdown naming, locations, frontmatter and structure. A code-review skill that encodes a review technique we have found works.
-- **Domain knowledge I will forget** about a system I only visit occasionally. That is the expert-user agent from [How I Drive Agentic Software Engineering](/notes/driving-agentic-swe).
+- **Domain knowledge I will forget** about a system I only visit occasionally. That is the expert-user agent from [How I Drive Agentic Software Engineering](/notes/how-i-drive-agentic-software-engineering).
 - **A repeated chore worth automating.** The personal ones live here: summarising a month of daily notes into a review, or porting my hydration data into Garmin through the website when its API access disappeared ([a saga I have written about before](/notes/garmin-open-ecosystem)).
 
 What ties them together is the rule of three. Each one started as something I did by hand often enough that doing it by hand again felt foolish.
@@ -47,7 +47,7 @@ Not every skill earns its place. The ones that do tend to share a few traits.
 
 The first comes straight from the Unix philosophy: **do one thing well.** A skill should be a small, focused tool, narrow enough that it triggers at the right moment and composes cleanly with others. One that tries to do everything fires at the wrong times and becomes impossible to reason about. Keep it concise.
 
-The second is about where the work lives. **Anything that can be done deterministically belongs in a script**, not in the prose of the skill. A script gives consistent results, and I or a colleague can run it directly without an agent involved at all. What stays in the skill is the part that benefits from an agent's judgement. That line between script and skill is the whole subject of [Determinism and Useful Ambiguity](/notes/bundling-scripts-with-skills), so I will leave it there.
+The second is about where the work lives. **Anything that can be done deterministically belongs in a script**, not in the prose of the skill. A script gives consistent results, and I or a colleague can run it directly without an agent involved at all. What stays in the skill is the part that benefits from an agent's judgement. That line between script and skill is the whole subject of [Determinism and Useful Ambiguity](/notes/determinism-and-useful-ambiguity), so I will leave it there.
 
 The third is knowing when to stop specifying. A skill that is too prescriptive fights the situation the moment it differs from the one its author imagined. The useful thing an agent brings is a kind of productive ambiguity, an idea I picked up from [Don Syme](https://www.microsoft.com/en-us/research/people/dsyme/) at a working group in late 2025: natural language is general precisely because it is not fully pinned down, and that generality lets an agent find solutions nobody scripted for. My code-review skill does not hand the reviewer a fixed checklist of faults to find; it briefs one agent on the intent and turns another loose with completely fresh eyes, so it can surface problems no checklist would have listed. The AWS profile skill scripts the deterministic authentication steps but leaves "which profile does this failing command actually need" to the agent. Pin down the parts that must be exact, and leave the rest open.
 
@@ -58,8 +58,8 @@ The third is knowing when to stop specifying. A skill that is too prescriptive f
 
 ## What comes next
 
-A skill is one of the durable artefacts I described in [How I Drive Agentic Software Engineering](/notes/driving-agentic-swe), the thing a session leaves behind so the next one starts further ahead. The line I drew above, between what should be a deterministic script and what should stay in the skill, is worth a note of its own, [Determinism and Useful Ambiguity](/notes/bundling-scripts-with-skills), on bundling scripts alongside skills so that an agent or a person can run them and get the same result either way.
+A skill is one of the durable artefacts I described in [How I Drive Agentic Software Engineering](/notes/how-i-drive-agentic-software-engineering), the thing a session leaves behind so the next one starts further ahead. The line I drew above, between what should be a deterministic script and what should stay in the skill, is worth a note of its own, [Determinism and Useful Ambiguity](/notes/determinism-and-useful-ambiguity), on bundling scripts alongside skills so that an agent or a person can run them and get the same result either way.
 
 {/* --------------------------------- END SERIES TEASER --------------------------------- */}
 
-<SeriesNav current="skills-as-session-output" />
+<SeriesNav current="skills-as-a-by-product-of-doing-the-work" />
