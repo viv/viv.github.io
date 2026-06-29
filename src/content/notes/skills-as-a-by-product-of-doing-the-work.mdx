@@ -6,6 +6,7 @@ description: "When does a piece of work deserve to become a reusable skill? A ru
 ---
 
 import SeriesNav from '../../components/SeriesNav.astro';
+import CaptureRoutes from '../../components/diagrams/CaptureRoutes.astro';
 
 The first time my AWS CLI credentials expired in the middle of a Claude Code session, I worked out which profile I needed, re-authenticated by hand, and carried on. The first time is just the cost of doing the work. By the third time I caught myself doing the same dance, re-diagnosing the same failure and re-running the same fix, it had crossed from the cost of doing the work into plain waste. That is the moment a piece of work wants to become a skill.
 
@@ -13,7 +14,7 @@ A skill, in Claude Code terms, is a small, reusable instruction set I can hand a
 
 ## A rule of three
 
-It is the same rule I would apply to duplication in a codebase. The first time I solve something cold, that is fine, the same way the first bit of duplication is fine. It is the second and third time, when I catch myself reinventing a wheel I have already built, that the cost has earned a fix. By the third occurrence I reach for a skill. The AWS authentication case is exactly that: every few sessions I was tripping over the same expired credentials and solving it from scratch, so it became one of the first skills I wrote.
+It is the same rule I would apply to duplication in a codebase. The first time I solve something cold, that is fine, the same way the first bit of duplication is fine. It is the second and third time, when I catch myself reinventing a wheel I have already built, that the repetition is worth fixing. By the third occurrence I reach for a skill. The AWS authentication case is exactly that: every few sessions I was tripping over the same expired credentials and solving it from scratch, so it became one of the first skills I wrote.
 
 ## The shapes this takes
 
@@ -34,8 +35,10 @@ When I decide something should become a skill, the session I am in is the best s
 So I capture it there and then, in one of three ways:
 
 1. **Let the current session write the skill.** Quick, but it clutters the session I am actually trying to finish, so it is my least favourite.
-2. **Fork the session.** Claude Code can spin off a forked agent that inherits the full context but does its skill-writing off to one side, leaving the original task undisturbed. This is my current preference: all the context, none of the pollution.
+2. **Fork the session.** Claude Code can spin off a forked agent that inherits the full context but does its skill-writing off to one side, leaving the original task undisturbed. This is my current preference, because it gives me the full context without cluttering the session I am working in.
 3. **Have the session write me a detailed prompt** to carry into a clean session that builds the skill from a blank slate.
+
+<CaptureRoutes />
 
 A skill-writing skill and a brainstorming skill do much of the drafting either way. I steer and edit rather than write from nothing.
 
@@ -43,11 +46,11 @@ The same is true when I am improving a skill that already exists. The AWS skill 
 
 ## What makes one worth keeping
 
-Not every skill earns its place. The ones that do tend to share a few traits.
+Not every skill is worth keeping. The ones that do tend to share a few traits.
 
 The first comes straight from the Unix philosophy: **do one thing well.** A skill should be a small, focused tool, narrow enough that it triggers at the right moment and composes cleanly with others. One that tries to do everything fires at the wrong times and becomes impossible to reason about. Keep it concise.
 
-The second is about where the work lives. **Anything that can be done deterministically belongs in a script**, not in the prose of the skill. A script gives consistent results, and I or a colleague can run it directly without an agent involved at all. What stays in the skill is the part that benefits from an agent's judgement. That line between script and skill is the whole subject of [Determinism and Useful Ambiguity](/notes/determinism-and-useful-ambiguity), so I will leave it there.
+The second is about where the work lives. **Anything that can be done deterministically belongs in a script.** A script gives consistent results, and I or a colleague can run it directly without an agent involved at all. What stays in the skill is the part that benefits from an agent's judgement. That line between script and skill is the whole subject of [Determinism and Useful Ambiguity](/notes/determinism-and-useful-ambiguity), so I will leave it there.
 
 The third is knowing when to stop specifying. A skill that is too prescriptive fights the situation the moment it differs from the one its author imagined. The useful thing an agent brings is a kind of productive ambiguity, an idea I picked up from [Don Syme](https://www.microsoft.com/en-us/research/people/dsyme/) at a working group in late 2025: natural language is general precisely because it is not fully pinned down, and that generality lets an agent find solutions nobody scripted for. My code-review skill does not hand the reviewer a fixed checklist of faults to find; it briefs one agent on the intent and turns another loose with completely fresh eyes, so it can surface problems no checklist would have listed. The AWS profile skill scripts the deterministic authentication steps but leaves "which profile does this failing command actually need" to the agent. Pin down the parts that must be exact, and leave the rest open.
 

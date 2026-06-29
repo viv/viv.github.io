@@ -1,12 +1,13 @@
 ---
 title: "Determinism and Useful Ambiguity"
-date: 2026-07-06
+date: 2026-07-14
 tags: [ai, workflow, claude-code, skills, agentic-software-engineering]
 description: "Some of an agent's work should be a deterministic script, and some should be left to its judgement. How that line emerged while I built a screenshot-cropping skill, and why a guard that actually guards has to live outside the agent."
 ---
 
 import ScreenshotPipeline from '../../components/diagrams/ScreenshotPipeline.astro';
 import DeterminismSplit from '../../components/diagrams/DeterminismSplit.astro';
+import GuardLadder from '../../components/diagrams/GuardLadder.astro';
 import SeriesNav from '../../components/SeriesNav.astro';
 
 I take a lot of screenshots of slides. Sitting in a webinar or an online talk on Zoom, Teams or Google Meet, the quickest way to get a diagram into my notes is to grab the screen. When I press ⌘⇧3 (Command-Shift-3, the macOS full-screen screenshot shortcut), it captures every monitor at once, so one slide becomes three or four images: the one I want, plus whatever happened to be on my other screens. To make any of it useful I then do two dull things every time. I delete the captures of the screens I did not care about, and I crop the slide down to just the content.
@@ -15,7 +16,7 @@ I take a lot of screenshots of slides. Sitting in a webinar or an online talk on
 
 For years I did this manually. I would find the right coordinates by eye and feed them to ImageMagick's `convert` command, then script the same crop across the batch. It worked, but the coordinates changed whenever my window layout did, and the deletions were always mine to do.
 
-When I started working with Claude Code, the first thing I handed it was that chore. I would have it run the `convert` commands itself, iterate with me in the session towards a crop that looked right, and then apply it to the whole batch. That was better, though I was still deleting the unwanted screens by hand, and every session re-derived the same logic from cold. By the third or fourth time round, that had earned a proper skill.
+When I started working with Claude Code, the first thing I handed it was that chore. I would have it run the `convert` commands itself, iterate with me in the session towards a crop that looked right, and then apply it to the whole batch. That was better, though I was still deleting the unwanted screens by hand, and every session re-derived the same logic from cold. By the third or fourth time round, that was worth a proper skill.
 
 ## Which screenshot is the slide?
 
@@ -35,7 +36,7 @@ The first time, I put a little batch logic into a script and left the prompting 
 
 <p class="key-line">Anything improvised at runtime is a latent bug.</p>
 
-The rule is simple. Scripts do the work; the skill does the judgement and the talking. The dividing line is determinism and testability. If a step has a correct answer that can be computed and checked with a unit test, it belongs in a script: pure, non-interactive, JSON in and JSON out, with the loop living elsewhere. If a step is a judgement call, a conversation with me, or an irreversible action that needs my consent, it stays in the skill. A useful indicator is whether I would otherwise be generating fresh shell or Python in the agent at runtime. If I would, that logic should have been a script. Every inline snippet is an untested code path written under pressure.
+The rule is simple. Scripts handle the deterministic work; the skill handles the judgement and the talking. The dividing line is determinism and testability. If a step has a correct answer that can be computed and checked with a unit test, it belongs in a script: pure, non-interactive, JSON in and JSON out, with the loop living elsewhere. If a step is a judgement call, a conversation with me, or an irreversible action that needs my consent, it stays in the skill. A useful indicator is whether I would otherwise be generating fresh shell or Python in the agent at runtime. If I would, that logic should have been a script. Every inline snippet is an untested code path written under pressure.
 
 <DeterminismSplit />
 
@@ -56,6 +57,8 @@ One kind of step, the irreversible one, deserves particular care. The screenshot
 A gate in a skill is not a guarantee, though. It works because the agent chooses to honour it. On a work project I have an environment guard that refuses actions against staging and production unless I have approved them for the session. It is useful and it stops accidents, but it is a script the agent is asked to route through rather than a wall it cannot climb. An agent that ignored the guarded path could act anyway.
 
 A guard that actually guards lives somewhere the agent cannot reach. The plainest example is a git pre-commit hook. Mine refuses the commit if the linter fails, and adding the test suite to it means a broken change simply cannot be committed, by me or by an agent. Stronger again are the controls enforced by something other than my laptop: a CI pipeline that blocks a merge until it is green, branch protection that will not accept a push to `main` at all, or credentials scoped so the session has no permission to touch production in the first place. That is the difference from the environment guard. None of these depends on anyone, human or agent, choosing to honour it.
+
+<GuardLadder />
 
 {/* ---------------------------------------------------------------------------
      SERIES TEASER, safe to delete this entire block (down to the end marker)

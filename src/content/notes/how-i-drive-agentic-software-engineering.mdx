@@ -41,11 +41,11 @@ The best checks are automated, because then the agent can run them itself and ke
 
 Not every check can be automated. Where there's no gate to run, the fallback is the anchoring from earlier: compare the output against the source of truth rather than trusting the model's account of it.
 
-Give an agent a clear goal and a way to check against it, and you've enabled **safe autonomy within clear bounds**. It can grind towards green on its own.
+Once an agent has a clear goal and a way to check against it, it has **safe autonomy within clear bounds**. It can grind towards green on its own.
 
-There's a caveat worth holding onto, though. The "bounds" are doing a lot of work in that sentence, and they have to be real.
+There's a caveat worth holding onto, though. The "bounds" are carrying a lot in that sentence, and they have to be real.
 
-> Anything you put *into* the context (the prompt, your Markdown files, your skills, your `AGENT.md`) is guidance, not a guardrail. The model can ignore it. A real guardrail (the kind that stops something dangerous) has to live *outside* the model: a git hook, a CI check, a permission boundary, a sandbox.
+> Anything I put *into* the context (the prompt, my Markdown files, my skills, my `AGENT.md`) is guidance the model can choose to ignore. A guardrail that actually stops something dangerous has to live *outside* the model, in a git hook, a CI check, a permission boundary, or a sandbox.
 
 So I keep two things separate in my head. The verification loop (tests, screenshots, anchoring to source) is about *correctness*, and it's what lets the agent run. The hard guardrails are about *safety*, and they're enforced externally. Autonomy becomes safe to grant only when the dangerous things are fenced off by something the model can't talk its way around. On top of that I keep a deliberate human checkpoint for the moments that warrant one: where the output is critical, or at the end of a run when the agent thinks it has something good, I'll have it stop and ask me.
 
@@ -55,7 +55,7 @@ The fourth lever is one a lot of people don't implement, forget about, or only d
 
 I'm deliberate about *where* that learning lives. Agent memory is convenient, but it's hard to share with a team and it ties what I've learned to one particular harness (e.g. Claude Code). I'd rather keep a translation layer between the tool I'm using today and the way I work: plain Markdown in the repository, a known `docs/` structure, lightweight guidance in `AGENT.md` about what goes where. That's the expert-user agent again: I required it to be persistent and version-controlled, committed to the workspace, so the knowledge lived in the repository rather than locked inside a chat history.
 
-None of this is tool asceticism. I chase new harness features eagerly and use the best ones I can find (Claude Code's [dynamic workflows](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code) are a current favourite). The discipline is keeping anything I rely on for the long term from being *trapped* in the tool. Use the sharpest tools available; keep the durable artefacts portable.
+None of this is tool asceticism. I chase new harness features eagerly and use the best ones I can find (Claude Code's [dynamic workflows](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code) are a current favourite). The discipline is keeping anything I rely on for the long term from being *trapped* in the tool.
 
 ## Where this is going
 
