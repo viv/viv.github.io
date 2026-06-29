@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import { getCollection, render } from 'astro:content';
+import { getPublishedNotes } from '../../lib/notes';
 
 export async function getStaticPaths() {
   const notes = await getCollection('notes');
@@ -14,8 +15,16 @@ export async function getStaticPaths() {
 const { note } = Astro.props;
 const { Content } = await render(note);
 
-// Get all notes sorted by date for prev/next navigation
-const allNotes = (await getCollection('notes')).sort(
+// Prev/next navigation draws only on published notes, so a future-dated post
+// is never leaked as a neighbour (matching the listing pages and SeriesNav).
+// A future-dated post can still be reached by direct URL (its page is built
+// but unlisted), so add the current note to the set when it is not yet
+// published, keeping its own neighbours sensible without exposing any others.
+const published = await getPublishedNotes();
+const navNotes = published.some((n) => n.id === note.id)
+  ? published
+  : [...published, note];
+const allNotes = navNotes.sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 const currentIndex = allNotes.findIndex((n) => n.id === note.id);

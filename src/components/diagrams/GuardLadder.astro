@@ -1,0 +1,187 @@
+---
+/**
+ * Diagram — the guard porousness ladder.
+ * For the note "Determinism and Useful Ambiguity"
+ * (determinism-and-useful-ambiguity).
+ * Guards arranged by where they live relative to the model, which is what
+ * determines whether the agent can talk its way around them. Porous guidance at
+ * the top (dashed), an impermeable zone at the bottom (solid, accent), with a
+ * clear visual break at the guidance/guardrail line.
+ * Pure HTML + CSS, theme-aware via design tokens, naturally vertical/responsive.
+ */
+const guidance = [
+  { label: 'Consent gate in the skill', note: 'agent may honour it' },
+  { label: 'Environment guard the agent routes through', note: 'agent can bypass' },
+];
+const impermeable = [
+  { label: 'Git pre-commit hook (lint + tests)', note: 'outside the agent' },
+  { label: 'CI gate · branch protection · scoped credentials', note: 'off the laptop' },
+];
+---
+
+<figure class="ladder" role="group" aria-label="Guards arranged from porous guidance the agent can ignore to impermeable controls it cannot reach">
+  <div class="ladder__zone ladder__zone--guidance">
+    <p class="ladder__zone-tag">
+      <span class="ladder__zone-name">guidance</span>
+      <span class="ladder__zone-state">porous — the model can choose to ignore</span>
+    </p>
+    <ul class="ladder__list">
+      {guidance.map((g) => (
+        <li class="ladder__item">
+          <span class="ladder__label">{g.label}</span>
+          <span class="ladder__note">{g.note}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="ladder__divider" aria-hidden="true">
+    <span class="ladder__divider-label">the line a real guard must cross</span>
+  </div>
+
+  <div class="ladder__zone ladder__zone--impermeable">
+    <p class="ladder__zone-tag">
+      <span class="ladder__zone-name">impermeable</span>
+      <span class="ladder__zone-state">solid — nobody can opt out</span>
+    </p>
+    <ul class="ladder__list">
+      {impermeable.map((g) => (
+        <li class="ladder__item">
+          <span class="ladder__label">{g.label}</span>
+          <span class="ladder__note ladder__note--accent">{g.note}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <figcaption class="ladder__caption">A guard that actually guards lives somewhere the agent cannot reach.</figcaption>
+</figure>
+
+<style>
+  .ladder {
+    margin: 2rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .ladder__zone {
+    border-radius: 0.75rem;
+    background-color: var(--color-bg-surface);
+    padding: 1.05rem 1.2rem 1.15rem;
+  }
+
+  /* Porous guidance: dashed border to read as permeable */
+  .ladder__zone--guidance {
+    border: 1px dashed var(--color-border-subtle);
+  }
+
+  /* Impermeable: solid accent-shifted border — the one thing that matters */
+  .ladder__zone--impermeable {
+    border: 1px solid color-mix(in srgb, var(--color-accent) 50%, var(--color-border-subtle));
+  }
+
+  .ladder__zone-tag {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .ladder__zone-name {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .ladder__zone--impermeable .ladder__zone-name {
+    color: var(--color-accent-functional);
+  }
+
+  .ladder__zone-state {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .ladder__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ladder__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+  }
+
+  .ladder__label {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+
+  .ladder__note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+  }
+
+  .ladder__note--accent {
+    color: var(--color-accent-functional);
+  }
+
+  /* The break between guidance and guardrail: a dashed rule with a centred label */
+  .ladder__divider {
+    position: relative;
+    height: 0;
+    border-top: 1.5px dashed color-mix(in srgb, var(--color-accent) 55%, transparent);
+    margin: 1.35rem 0.75rem;
+  }
+
+  .ladder__divider-label {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-bg);
+    padding: 0 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+  }
+
+  .ladder__caption {
+    margin-top: 1.1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  @media (max-width: 640px) {
+    .ladder__item {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .ladder__note {
+      white-space: normal;
+    }
+
+    .ladder__divider-label {
+      white-space: normal;
+      max-width: 80%;
+      text-align: center;
+    }
+  }
+</style>

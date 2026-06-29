@@ -1,0 +1,196 @@
+---
+/**
+ * Diagram — the three capture routes.
+ * For the note "Skills as a By-product of Doing the Work"
+ * (skills-as-a-by-product-of-doing-the-work).
+ * Three ways to turn a hot session into a skill, compared on the two axes the
+ * prose asks the reader to hold: how much context carries over, and whether the
+ * working session gets polluted. The forked route is the preferred one, so it
+ * takes the accent-shifted border (mirroring FourPillarCycle's feedback node).
+ * Pure HTML + CSS, theme-aware via design tokens, responsive (row -> column).
+ */
+const routes = [
+  {
+    tag: 'option 1',
+    title: 'Current session writes the skill',
+    context: 'full',
+    contextGood: true,
+    session: 'polluted',
+    sessionGood: false,
+  },
+  {
+    tag: 'option 2',
+    title: 'Fork the session',
+    preferred: true,
+    context: 'full',
+    contextGood: true,
+    session: 'clean',
+    sessionGood: true,
+  },
+  {
+    tag: 'option 3',
+    title: 'Prompt into a clean session',
+    context: 'none',
+    contextGood: false,
+    session: 'clean',
+    sessionGood: true,
+  },
+];
+---
+
+<figure class="routes" role="group" aria-label="Three ways to capture a skill from a hot session, compared by context carried over and session pollution">
+  <ol class="routes__grid">
+    {routes.map((r) => (
+      <li class:list={["routes__card", { "routes__card--preferred": r.preferred }]}>
+        <p class="routes__tag">
+          {r.tag}
+          {r.preferred && <span class="routes__pref">preferred</span>}
+        </p>
+        <h3 class="routes__title">{r.title}</h3>
+        <dl class="routes__badges">
+          <div class="routes__badge">
+            <dt class="routes__axis">context</dt>
+            <dd class:list={["routes__val", r.contextGood ? "routes__val--good" : "routes__val--weak"]}>{r.context}</dd>
+          </div>
+          <div class="routes__badge">
+            <dt class="routes__axis">session</dt>
+            <dd class:list={["routes__val", r.sessionGood ? "routes__val--good" : "routes__val--weak"]}>{r.session}</dd>
+          </div>
+        </dl>
+      </li>
+    ))}
+  </ol>
+  <figcaption class="routes__caption">Forking keeps all the context and leaves the original task undisturbed.</figcaption>
+</figure>
+
+<style>
+  .routes {
+    margin: 2rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .routes__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    align-items: stretch;
+  }
+
+  .routes__card {
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.75rem;
+    background-color: var(--color-bg-surface);
+    padding: 1.1rem 1.15rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .routes__card--preferred {
+    border-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-border-subtle));
+  }
+
+  .routes__tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .routes__pref {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    background-color: var(--color-accent);
+    padding: 0.12rem 0.45rem;
+    border-radius: 0.3rem;
+    line-height: 1.4;
+  }
+
+  .routes__title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    margin: 0;
+    flex: 1;
+  }
+
+  .routes__badges {
+    margin: 0.15rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .routes__badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .routes__axis {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .routes__val {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.14rem 0.5rem;
+    border-radius: 0.3rem;
+    line-height: 1.4;
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  /* "Good" outcomes (full context, clean session) carry a restrained accent tint;
+     the weaker outcomes stay neutral, so the all-good preferred card reads at a glance. */
+  .routes__val--good {
+    color: var(--color-accent-functional);
+    border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border-subtle));
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
+  .routes__val--weak {
+    color: var(--color-text-tertiary);
+    border-color: var(--color-border-subtle);
+    background-color: transparent;
+  }
+
+  .routes__caption {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Mobile: stack the cards */
+  @media (max-width: 640px) {
+    .routes__grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .routes__title {
+      flex: 0 0 auto;
+    }
+  }
+</style>

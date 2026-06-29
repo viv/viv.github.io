@@ -1,13 +1,14 @@
 ---
 title: "Tending the Context"
-date: 2026-07-13
+date: 2026-07-28
 tags: [ai, workflow, claude-code, skills, agentic-software-engineering]
 description: "Skills, scripts and AGENT.md files are never right first time; they improve through use. The loop I run to refine them, and why pruning matters as much as adding."
 ---
 
 import SeriesNav from '../../components/SeriesNav.astro';
+import ContextStack from '../../components/diagrams/ContextStack.astro';
 
-I never sat down and designed my coding agent's instructions up front. After a few months on one project, they had grown into a `CLAUDE.md` of preferences, a handful of skills and a few rules, each added the day I noticed the agent needed it. None of it was right the first time, and none of it was meant to be.
+I never sat down and designed my coding agent's instructions up front. After a few months on one project, they had grown into a `CLAUDE.md` of preferences, a handful of skills and a few rules, each added the day I noticed the agent needed it. None of it was right the first time, and it was never meant to be.
 
 These are living documents. My global `CLAUDE.md` is the clearest example, grown bullet by bullet over months as I noticed things an agent kept getting wrong, and the writing style guide I keep for this site has gained a rule almost every time I caught prose drifting into a tired pattern. Writing the first version of any of them is the easy part. Keeping it good, as the system changes and as I learn what the agent does and does not need, is a practice of its own, and it is as much about taking things out as putting them in.
 
@@ -19,17 +20,19 @@ The trigger is sometimes reactive, when something has just gone wrong, and somet
 
 The proactive side is limited by my own imagination. I only think to improve the things I happen to notice. So an impromptu check, asking the agent to look over a skill it has just used and propose improvements, often surfaces things I would never have gone looking for. The artefact gets better partly by asking the thing that uses it to critique it.
 
-The largest version of that I have run was to point an agent at my whole Claude Code configuration and have it audit itself. It found every config file across the hierarchy, read each one, checked them against a published [catalogue of augmented-coding patterns](https://lexler.github.io/augmented-coding-patterns/), and came back with what I was doing well, where the gaps were, and a set of proposed fixes. The pass took about half an hour, most of it the agent reading and cross-referencing while I reviewed what it suggested. Some of what it surfaced was guidance I would never have gone looking for, like treating an agent's struggle to understand some code as a signal about the code's quality rather than a shortcoming of the model.
+The largest version of that I have run was to point an agent at my whole Claude Code configuration and have it audit itself. It found every config file across the hierarchy, read each one, checked them against a published [catalogue of augmented-coding patterns](https://lexler.github.io/augmented-coding-patterns/), and came back with what I was doing well, where the gaps were, and a set of proposed fixes. The pass took about half an hour, most of it the agent reading and cross-referencing while I reviewed what it suggested. Some of what it surfaced was guidance I would not have thought to ask for, like treating an agent's struggle to understand some code as a signal about the code's quality rather than a shortcoming of the model.
 
 ## Building the loop in
 
-Better still is to build that loop into the artefact, so it does not depend on me remembering. In [How I Drive Agentic Software Engineering](/notes/how-i-drive-agentic-software-engineering) I mentioned an expert-user agent with a line in its `AGENT.md` telling every future session to watch for newly-discovered behaviour and fold it back into the agent. That is a deliberate pattern, and it works. The instruction file asks its own readers to keep it current.
+Better still is to build that loop into the artefact, so it does not depend on me remembering. The expert-user agent from [How I Drive Agentic Software Engineering](/notes/how-i-drive-agentic-software-engineering) works this way. The persona itself is passive, a body of knowledge that points to authoritative sources, so the loop lives elsewhere, in the workspace `CLAUDE.md` that loads into every session automatically. A line there tells each session to watch for newly-discovered behaviour and fold it back into the persona, so the knowledge stays current without my having to invoke the agent every time something changes. That is a deliberate pattern, and it works.
 
 ## Curating, not just growing
 
 There is a counterweight that is easy to overlook. Removing instructions that no longer apply matters as much as adding new ones. An `AGENT.md` that only ever grows turns into a problem of its own. It costs context budget on every run, it over-steers the agent in directions I never intended, and it dilutes itself, because every bullet I add makes each existing one a little quieter, until the important instructions are lost in the noise.
 
 Part of the answer is structural. My configuration is layered. Global preferences sit at the top, project notes below them, and repository specifics below that, so any session loads only the layers relevant to where I am working. Finer than that, some rules carry a glob of file paths in their frontmatter and load only when I open a matching file. The Java conventions come in for Java files, and the security checklist appears only when I touch crypto code. Guidance that loads only when it applies does not crowd the context the rest of the time.
+
+<ContextStack />
 
 So I treat these files as something to curate.
 
@@ -43,9 +46,9 @@ The additions are often provisional, made on the strength of something I have ju
 
 Adding is the easy half, because something has just gone wrong and the fix is obvious. Noticing that an instruction has outlived its usefulness is much harder, because nothing visibly breaks when a stale rule lingers. It sits there, quietly costing context and diluting its neighbours.
 
-My methods here are unglamorous. A periodic re-read, a feel for whether the agent is behaving the way I want, and the occasional experiment where I remove a clause and run a representative task to see what changes (a commit in a fresh session, say, with one of my commit rules taken out, to see whether it still does the right thing). Over-steering is easier to catch than staleness, because when an agent is being pushed too rigidly in some direction I can usually trace it back to a line in the `AGENT.md` and trim it.
+My methods here are unglamorous. They amount to a periodic re-read, a feel for whether the agent is behaving the way I want, and the occasional experiment where I remove a clause and run a representative task to see what changes (a commit in a fresh session, say, with one of my commit rules taken out, to see whether it still does the right thing). Over-steering is easier to catch than staleness, because when an agent is being pushed too rigidly in some direction I can usually trace it back to a line in the `AGENT.md` and trim it.
 
-I am wary of automating this away. Skill descriptions and `AGENT.md` files underpin almost everything I do with an agent, so they earn a regular, deliberate read.
+I am wary of automating this away. Skill descriptions and `AGENT.md` files underpin almost everything I do with an agent, so they deserve a regular, deliberate read.
 
 ## What helps, and what I want to try
 

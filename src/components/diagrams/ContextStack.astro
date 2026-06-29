@@ -1,0 +1,129 @@
+---
+/**
+ * Diagram — the layered context stack.
+ * For the note "Tending the Context" (tending-the-context).
+ * Global preferences -> project notes -> repository specifics -> path-scoped
+ * rules, where only the layers relevant to the current file load. Widest
+ * (always-loaded) at the top, narrowing to the conditional layer at the bottom.
+ * The path-scoped layer is dashed and accent-marked: dormant until a matching
+ * file opens. Pure HTML + CSS, theme-aware via design tokens, responsive.
+ */
+const layers = [
+  { name: 'Global CLAUDE.md', scope: 'loads everywhere', width: 100 },
+  { name: 'Project notes', scope: 'loads in this project', width: 86 },
+  { name: 'Repository specifics', scope: 'loads in this repo', width: 72 },
+  {
+    name: 'Path-scoped rules',
+    detail: 'Java conventions · crypto checklist',
+    scope: 'loads only for a matching file',
+    width: 58,
+    conditional: true,
+  },
+];
+---
+
+<figure class="cstack" role="group" aria-label="The layered context stack, from always-loaded global preferences down to glob-scoped rules that load only for a matching file">
+  <ol class="cstack__layers">
+    {layers.map((l) => (
+      <li
+        class:list={["cstack__layer", { "cstack__layer--conditional": l.conditional }]}
+        style={`max-width: ${l.width}%`}
+      >
+        <span class="cstack__name">
+          {l.name}
+          {l.detail && <span class="cstack__detail">{l.detail}</span>}
+        </span>
+        <span class:list={["cstack__scope", { "cstack__scope--accent": l.conditional }]}>{l.scope}</span>
+      </li>
+    ))}
+  </ol>
+  <figcaption class="cstack__caption">Each session loads only the layers relevant to where I'm working.</figcaption>
+</figure>
+
+<style>
+  .cstack {
+    margin: 2rem 0;
+    font-family: var(--font-sans);
+  }
+
+  .cstack__layers {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .cstack__layer {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.7rem;
+    background-color: var(--color-bg-surface);
+    padding: 0.85rem 1.1rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+  }
+
+  /* Conditional layer: dashed + accent, reading as dormant until a file matches */
+  .cstack__layer--conditional {
+    border: 1px dashed color-mix(in srgb, var(--color-accent) 55%, var(--color-border-subtle));
+    background-color: color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-surface));
+  }
+
+  .cstack__name {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cstack__detail {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--color-text-tertiary);
+  }
+
+  .cstack__scope {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+  }
+
+  .cstack__scope--accent {
+    color: var(--color-accent-functional);
+  }
+
+  .cstack__caption {
+    margin-top: 1.1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Mobile: drop the narrowing so the boxes stay legible, stack the scope below */
+  @media (max-width: 640px) {
+    .cstack__layer {
+      max-width: 100% !important;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+
+    .cstack__scope {
+      white-space: normal;
+    }
+  }
+</style>
