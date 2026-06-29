@@ -20,7 +20,7 @@ The trigger is sometimes reactive, when something has just gone wrong, and somet
 
 The proactive side is limited by my own imagination. I only think to improve the things I happen to notice. So an impromptu check, asking the agent to look over a skill it has just used and propose improvements, often surfaces things I would never have gone looking for. The artefact gets better partly by asking the thing that uses it to critique it.
 
-The largest version of that I have run was to point an agent at my whole Claude Code configuration and have it audit itself. It found every config file across the hierarchy, read each one, checked them against a published [catalogue of augmented-coding patterns](https://lexler.github.io/augmented-coding-patterns/), and came back with what I was doing well, where the gaps were, and a set of proposed fixes. The pass took about half an hour, most of it the agent reading and cross-referencing while I reviewed what it suggested. Some of what it surfaced was guidance I would never have gone looking for, like treating an agent's struggle to understand some code as a signal about the code's quality rather than a shortcoming of the model.
+The largest version of that I have run was to point an agent at my whole Claude Code configuration and have it audit itself. It found every config file across the hierarchy, read each one, checked them against a published [catalogue of augmented-coding patterns](https://lexler.github.io/augmented-coding-patterns/), and came back with what I was doing well, where the gaps were, and a set of proposed fixes. The pass took about half an hour, most of it the agent reading and cross-referencing while I reviewed what it suggested. Some of what it surfaced was guidance I would not have thought to ask for, like treating an agent's struggle to understand some code as a signal about the code's quality rather than a shortcoming of the model.
 
 ## Building the loop in
 
@@ -46,7 +46,7 @@ The additions are often provisional, made on the strength of something I have ju
 
 Adding is the easy half, because something has just gone wrong and the fix is obvious. Noticing that an instruction has outlived its usefulness is much harder, because nothing visibly breaks when a stale rule lingers. It sits there, quietly costing context and diluting its neighbours.
 
-My methods here are unglamorous. A periodic re-read, a feel for whether the agent is behaving the way I want, and the occasional experiment where I remove a clause and run a representative task to see what changes (a commit in a fresh session, say, with one of my commit rules taken out, to see whether it still does the right thing). Over-steering is easier to catch than staleness, because when an agent is being pushed too rigidly in some direction I can usually trace it back to a line in the `AGENT.md` and trim it.
+My methods here are unglamorous. They amount to a periodic re-read, a feel for whether the agent is behaving the way I want, and the occasional experiment where I remove a clause and run a representative task to see what changes (a commit in a fresh session, say, with one of my commit rules taken out, to see whether it still does the right thing). Over-steering is easier to catch than staleness, because when an agent is being pushed too rigidly in some direction I can usually trace it back to a line in the `AGENT.md` and trim it.
 
 I am wary of automating this away. Skill descriptions and `AGENT.md` files underpin almost everything I do with an agent, so they deserve a regular, deliberate read.
 
