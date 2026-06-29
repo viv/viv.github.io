@@ -9,7 +9,7 @@ Write as Viv speaks. Down-to-earth, direct, and conversational. The reader shoul
 - **Longer, flowing sentences** — your natural voice is clause-rich, with subordinate clauses and parenthetical asides (in round brackets, never em dashes, as you prefer), much as you speak. Let a sentence run when it carries a single idea, rather than chopping it into the short, uniform, punchy beats an LLM defaults to. Vary the length, and keep short sentences for earned emphasis.
 - **Confident but not boastful** — let the work speak for itself
 - **Honest** — hobbies are hobbies. Don't dress them up as something grander than they are.
-- **UK English** — organisation, colour, behaviour, programme
+- **UK English** — organisation, colour, behaviour
 
 ## Do
 
@@ -37,9 +37,9 @@ Write as Viv speaks. Down-to-earth, direct, and conversational. The reader shoul
 - **No confrontational comparisons** — don't put others down to build yourself up (e.g. "why experienced engineers get more from it than novices")
 - **No buzzwords** — avoid "leverage", "synergy", "cutting-edge", "world-class"
 - **No clichés or folksy idiom filler** — avoid "I'm blessed", "passionate about", "journey", and vague idioms like "earns its keep", "does the work", "does the heavy lifting", "the secret sauce". Say what the thing actually does.
-- **No jargon for its own sake** — technical terms are fine when they're the right word, not when they're showing off. Prefer "invest in people" over "invest in 1:1s and CPD programmes".
+- **No jargon for its own sake** — technical terms are fine when they're the right word, not when they're showing off.
 - **No "hallucinates"** when describing AI behaviour — prefer "non-deterministic behaviour" or "unpredictable output". The anthropomorphism is misleading.
-- **No unnecessary hedging** — don't write "try to", "aim to", "seek to" when you can just state it directly
+- **No unnecessary hedging** — don't write "try to", "aim to", "seek to" when you can just state it directly.
 - **No perspective shifts** — don't switch between "I" and "you" mid-paragraph. Keep a consistent point of view.
 - **No "I" repetition** — avoid starting consecutive sentences with "I". Restructure to vary the rhythm.
 
